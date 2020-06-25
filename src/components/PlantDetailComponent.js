@@ -22,7 +22,7 @@ if(plantSelect != null){
     <li key={info.id}>
     {console.log(info.id)}
     <p>{info.comment}</p>
-    <p>-- {info.author}, {info.date}</p>
+    <p>-- {info.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(info.date)))}</p>
   </li>  
      
 );

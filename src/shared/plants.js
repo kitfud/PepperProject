@@ -7,7 +7,14 @@ export const PLANTS =[
         label:'Hot',
         scoville:'20,000',
         description:'heirloom variety which is crunchy and nice on the BBQ',    
-        comments:[]                    },
+        comments:[{
+         id: 0,
+         rating: 5,
+         comment: "totally hot",
+         author: "John",
+         date: "2012-10-16T17:57:28.556094Z"
+         }
+      ]                    },
      {
         id: 1,
         name:'Peach Ghost',

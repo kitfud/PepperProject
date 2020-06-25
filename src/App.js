@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import Garden from './components/GardenComponent';
-import { PLANTS } from './shared/plants';
+import Main from './components/MainComponent';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      garden: PLANTS
-    };
-  }
+
   render(){
-    return (
+  
+      return (
       <div className="App">
-      <Navbar dark variant="dark">
-      <div className ="container">
-        <NavbarBrand href="/" >
-          Kit's Garden
-        </NavbarBrand>
-      </div>
-        </Navbar>
-        <Garden garden={this.state.garden}/>
+        <Main />
       </div>
     );
+    
   }
 
 }
