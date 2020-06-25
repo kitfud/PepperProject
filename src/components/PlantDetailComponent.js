@@ -1,80 +1,73 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardText, CardBody,
     CardTitle } from 'reactstrap';
 
-class PlantDetails extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            plant: props
-    }
-}
-
-
-renderComments(plantSelect){  
-
-
-
-if(plantSelect != null){
-
-    const rencomment = plantSelect.map((info) => 
-      
-    <li key={info.id}>
-    {console.log(info.id)}
-    <p>{info.comment}</p>
-    <p>-- {info.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(info.date)))}</p>
-  </li>  
-     
+    function RenderPlant({plant}){
+        return (   
+       
+       <Card key={plant.id}>
+           <CardImg width="100%" top src={plant.image} alt={plant.name} />
+           <CardTitle>{plant.name}</CardTitle>
+           <CardText>{plant.description}</CardText>   
+       </Card> 
+       
+        )}
+       
+       
+       
+       function RenderComments({comments}){  
+  
+       if(comments != null){
+        const rencomment = comments.map((info) => 
+             
+        <ol key={info.id}>
+        {console.log(info.id)}
+        <p>{info.comment}</p>
+        <p>-- {info.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(info.date)))}</p>
+        </ol>  
+         
 );
-
-
-
-    console.log("about to return JSX")    
-    return rencomment   
-}
-else{
-    return <div></div>;
-}
-
-
-}
-
-
-render(){
-const plant= this.props.plant
-
-if (plant != null)
-return( 
-<div className = "container">
-<div className = "row">
-
-<div  className="col-12 col-md-5 m-1">
-<Card key={plant.id}>
-    <CardImg width="100%" top src={plant.image} alt={plant.name} />
-    <CardTitle>{plant.name}</CardTitle>
-    <CardText>{plant.description}</CardText>   
-</Card> 
-</div> 
-
-<div  className="col-12 col-md-5 m-1">
-<h4>Comments:</h4>
-<ul className="list-unstyled">
-{this.renderComments(plant.comments)}
-</ul>
-</div> 
-
-</div>
-</div>
-
-);
-
-else
-return(
-    <div></div>
-);
-
-}
-
-}
+           console.log("about to return JSX")    
+           return rencomment   
+       }
+       else{
+           return <div></div>;
+       }
+       }
+       
+       
+       const PlantDetails = (props)=>{
+       
+       if (props.plant != null)
+       
+       return( 
+           <div className="container">
+           <div className="row">
+        
+               <div className="col-12">
+                   <h3>{props.plant.name}</h3>
+                   <hr />
+               </div>                
+           </div>
+           <div className="row">
+               <div className="col-12 col-md-5 m-1">
+                   <RenderPlant plant={props.plant} />
+               </div>
+               <div className="col-12 col-md-5 m-1">
+                   <RenderComments comments={props.plant.comments} />
+               </div>
+           </div>
+           </div>
+       
+       );
+       
+       else
+       return(
+           <div></div>
+       );
+       
+       }
+       
+    
 
 export default PlantDetails;
