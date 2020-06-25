@@ -6,15 +6,9 @@ export const PLANTS =[
         category: 'hot',
         label:'Hot',
         scoville:'20,000',
-        description:'heirloom variety which is crunchy and nice on the BBQ',    
-        comments:[{
-         id: 0,
-         rating: 5,
-         comment: "totally hot",
-         author: "John",
-         date: "2012-10-16T17:57:28.556094Z"
-         }
-      ]                    },
+        description:'heirloom variety which is crunchy and nice on the BBQ',
+        featured: true    
+                        },
      {
         id: 1,
         name:'Peach Ghost',
@@ -22,8 +16,9 @@ export const PLANTS =[
         category: 'super hot',
         label:'',
         scoville:'1,000,000',
-        description:'From northeast India and will ripen to a nice peach color!',    
-        comments:[]                        },
+        description:'From northeast India and will ripen to a nice peach color!',
+        featured: false       
+                            },
      {
         id: 2,
         name:'Death Spiral',
@@ -31,8 +26,8 @@ export const PLANTS =[
         category: 'super hot',
         label:'New',
         scoville:'1,300,000',
-        description:'Bred in the UK and changes between 5 colors as it ripens' ,    
-        comments:[]                       },
+        description:'Bred in the UK and changes between 5 colors as it ripens'     
+                      },
      {
         id: 3,
         name:'Carolina Reaper',
@@ -40,8 +35,8 @@ export const PLANTS =[
         category: 'super hot',
         label:'',
         scoville:'1,500,000',
-        description:'Currently the hottest pepper in the world'  ,    
-        comments:[]                      },
+        description:'Currently the hottest pepper in the world'      
+                           },
         {
           id: 3,
           name:'Scotch Bonnet',
@@ -49,8 +44,8 @@ export const PLANTS =[
           category: 'super hot',
           label:'',
           scoville:'80,000',
-          description:'From the Caribbean and the hotness can vary greatly' ,    
-          comments:[]                       },
+          description:'From the Caribbean and the hotness can vary greatly'     
+                              },
           {
               id: 3,
               name:'MA Wartyx',
@@ -58,7 +53,7 @@ export const PLANTS =[
               category: 'super hot',
               label:'',
               scoville:'1,200,000',
-              description:'A superhot with bumpy, warty fruits!'     ,    
-              comments:[]                   }
+              description:'A superhot with bumpy, warty fruits!'         
+                            }
 
 ]
