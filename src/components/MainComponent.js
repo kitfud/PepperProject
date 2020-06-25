@@ -4,6 +4,9 @@ import Garden from './GardenComponent';
 import PlantDetails from './PlantDetailComponent';
 import { PLANTS } from '../shared/plants';
 
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
+
 class Main extends Component {
 
     constructor(props) {
@@ -21,13 +24,10 @@ class Main extends Component {
     render() {
       return (
         <div>
-          <Navbar dark variant="dark">
-            <div className="container">
-              <NavbarBrand href="/">Kit's Garden</NavbarBrand>
-            </div>
-          </Navbar>
+          <Header/>
           <Garden garden={this.state.garden} onClick={(plantId) => this.onDishSelect(plantId)} />
           <PlantDetails plant={this.state.garden.filter((plant) => plant.id === this.state.selectedPlant)[0]} />
+          <Footer/>
         </div>
       );
     }
