@@ -8,16 +8,16 @@ import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 
-import { addComment } from '../redux/ActionCreators';
 import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-
+import { addComment, fetchPlants } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
   
-  addComment: (plantId, rating, author, comment) => dispatch(addComment(plantId, rating, author, comment))
+  addComment: (plantId, rating, author, comment) => dispatch(addComment(plantId, rating, author, comment)),
+  fetchPlants: () => { dispatch(fetchPlants())}
 
 });
 
@@ -32,7 +32,9 @@ const mapStateToProps = state => {
 
 
 class Main extends Component {
-
+  componentDidMount() {
+    this.props.fetchPlants();
+  }
   
     onPlantSelect(plantId) {
       this.setState({ selectedPlant: plantId});
@@ -41,9 +43,11 @@ class Main extends Component {
     render() {
       const PlantWithId = ({match}) => {
         return(
-            <PlantDetails plant={this.props.garden.filter((plant) => plant.id === parseInt(match.params.plantId,10))[0]} 
+            <PlantDetails plant={this.props.garden.plants.filter((plant) => plant.id === parseInt(match.params.plantId,10))[0]} 
               comments={this.props.comments.filter((comment) => comment.plantId === parseInt(match.params.plantId,10))} 
               addComment={this.props.addComment}
+              isLoading={this.props.garden.isLoading}
+              errMess={this.props.garden.errMess}
               />
         );
       };
@@ -51,9 +55,11 @@ class Main extends Component {
         const HomePage = () => {
             return(
                 <Home 
-                plant={this.props.garden.filter((plant) => plant.featured)[0]}
+                plant={this.props.garden.plants.filter((plant) => plant.featured)[0]}
                 promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
                 leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+                plantsLoading={this.props.garden.isLoading}
+                plantsErrMess={this.props.garden.errMess}
                 />
             );
           }

@@ -4,6 +4,8 @@ import { Card, CardImg, CardText, CardBody,
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
 
+import { Loading } from './LoadingComponent';
+
     function RenderPlant({plant}){
         return (   
        
@@ -44,8 +46,26 @@ import CommentForm from './CommentFormComponent';
        
        
        const PlantDetails = (props)=>{
+        if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
        
-       if (props.plant != null)
+       else if (props.plant != null)
        
        return( 
         <div className="container">
