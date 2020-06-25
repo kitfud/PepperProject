@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
+
+import PlantDetails from './PlantDetailComponent';
 
 class Garden extends Component {
     constructor(props) {
@@ -55,11 +56,11 @@ class Garden extends Component {
             <div className="row">
                   {garden} 
             </div>
-             <div className="row">
-                  <div  className="col-12 col-md-5 m-1">
-                    {this.renderPlant(this.state.selectedPlant)}
+           
+                  <div  className="row">
+                  <PlantDetails plant={this.state.selectedPlant}/>
                   </div>
-                </div>
+               
 
           </div>
         );
