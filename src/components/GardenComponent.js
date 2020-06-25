@@ -1,16 +1,20 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay,
+    CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
     function RenderGardenItem ({plant, onClick}) {
         return (
             <Card
                 >
-                <CardImg width="100%" src={plant.image} alt={plant.name} />
+                    <Link to={`/garden/${plant.id}`} >
+                    <CardImg width="100%" src={plant.image} alt={plant.name} />
                 <CardImgOverlay>
                     <CardTitle>{plant.name}</CardTitle>
                 </CardImgOverlay>
+                    </Link>
+             
             </Card>
         );
     }
@@ -27,10 +31,20 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
 
         return (
             <div className="container">
-                <div className="row">
-                    {garden}
-                </div>
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Garden</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>Garden</h3>
+                    <hr />
+                </div>                
             </div>
+            <div className="row">
+                {garden}
+            </div>
+        </div>
         );
     }
 

@@ -2,7 +2,7 @@ export const PLANTS =[
     {
         id: 0,
         name:'Bulgarian Carrot',
-        image: 'assets/images/bulgariancarrot.jpg',
+        image: '/assets/images/bulgariancarrot.jpg',
         category: 'hot',
         label:'Hot',
         scoville:'20,000',
@@ -12,7 +12,7 @@ export const PLANTS =[
      {
         id: 1,
         name:'Peach Ghost',
-        image: 'assets/images/peachghost.jpg',
+        image: '/assets/images/peachghost.jpg',
         category: 'super hot',
         label:'',
         scoville:'1,000,000',
@@ -22,7 +22,7 @@ export const PLANTS =[
      {
         id: 2,
         name:'Death Spiral',
-        image: 'assets/images/deathspiral.jpg',
+        image: '/assets/images/deathspiral.jpg',
         category: 'super hot',
         label:'New',
         scoville:'1,300,000',
@@ -31,25 +31,25 @@ export const PLANTS =[
      {
         id: 3,
         name:'Carolina Reaper',
-        image: 'assets/images/carolinareaper.jpg',
+        image: '/assets/images/carolinareaper.jpg',
         category: 'super hot',
         label:'',
         scoville:'1,500,000',
         description:'Currently the hottest pepper in the world'      
                            },
         {
-          id: 3,
+          id: 4,
           name:'Scotch Bonnet',
-          image: 'assets/images/scotchbonnet.jpg',
+          image: '/assets/images/scotchbonnet.jpg',
           category: 'super hot',
           label:'',
           scoville:'80,000',
           description:'From the Caribbean and the hotness can vary greatly'     
                               },
           {
-              id: 3,
+              id: 5,
               name:'MA Wartyx',
-              image: 'assets/images/mawartyx.jpg',
+              image: '/assets/images/mawartyx.jpg',
               category: 'super hot',
               label:'',
               scoville:'1,200,000',

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Garden from './GardenComponent';
+import PlantDetails from './PlantDetailComponent';
 import { PLANTS } from '../shared/plants';
 
 import Header from './HeaderComponent';
@@ -26,11 +27,17 @@ class Main extends Component {
       };
     }
   
-    onDishSelect(plantId) {
+    onPlantSelect(plantId) {
       this.setState({ selectedPlant: plantId});
     }
   
     render() {
+      const PlantWithId = ({match}) => {
+        return(
+            <PlantDetails plant={this.state.garden.filter((plant) => plant.id === parseInt(match.params.plantId,10))[0]} 
+              comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.plantId,10))} />
+        );
+      };
 
         const HomePage = () => {
             return(
@@ -49,8 +56,10 @@ class Main extends Component {
           <Header/>
           <Switch>
               <Route path='/home' component={HomePage} />
+              <Route path='/garden/:plantId' component={PlantWithId} />
               <Route exact path='/garden' component={() => <Garden garden={this.state.garden} />} />
               <Route exact path='/contactus' component={Contact} />
+             
               <Redirect to="/home" />
           </Switch>
           <Footer/>
