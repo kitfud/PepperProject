@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import Garden from './GardenComponent';
 import PlantDetails from './PlantDetailComponent';
-import { PLANTS } from '../shared/plants';
 
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 
 import Home from './HomeComponent';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import Contact from './ContactComponent';
 
-import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
+
 import About from './AboutComponent';
+
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    garden: state.plants,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
+  }
+}
+
 
 class Main extends Component {
 
-    constructor(props) {
-      super(props);
-      this.state = {
-          garden: PLANTS,
-          comments: COMMENTS,
-          promotions: PROMOTIONS,
-          leaders: LEADERS
-      };
-    }
   
     onPlantSelect(plantId) {
       this.setState({ selectedPlant: plantId});
@@ -34,17 +34,17 @@ class Main extends Component {
     render() {
       const PlantWithId = ({match}) => {
         return(
-            <PlantDetails plant={this.state.garden.filter((plant) => plant.id === parseInt(match.params.plantId,10))[0]} 
-              comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.plantId,10))} />
+            <PlantDetails plant={this.props.garden.filter((plant) => plant.id === parseInt(match.params.plantId,10))[0]} 
+              comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.plantId,10))} />
         );
       };
 
         const HomePage = () => {
             return(
                 <Home 
-                plant={this.state.garden.filter((plant) => plant.featured)[0]}
-                promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
-                leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+                plant={this.props.garden.filter((plant) => plant.featured)[0]}
+                promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
+                leader={this.props.leaders.filter((leader) => leader.featured)[0]}
                 />
             );
           }
@@ -57,9 +57,9 @@ class Main extends Component {
           <Switch>
               <Route path='/home' component={HomePage} />
               <Route path='/garden/:plantId' component={PlantWithId} />
-              <Route exact path='/garden' component={() => <Garden garden={this.state.garden} />} />
+              <Route exact path='/garden' component={() => <Garden garden={this.props.garden} />} />
               <Route exact path='/contactus' component={Contact} />
-              <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
+              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
               <Redirect to="/home" />
           </Switch>
           <Footer/>
@@ -68,4 +68,5 @@ class Main extends Component {
     }
   }
   
-  export default Main;
+
+  export default withRouter(connect(mapStateToProps)(Main));
