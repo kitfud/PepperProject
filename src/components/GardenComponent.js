@@ -6,7 +6,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     function RenderGardenItem ({plant, onClick}) {
         return (
             <Card
-                onClick={() => onClick(plant.id)}>
+                >
                 <CardImg width="100%" src={plant.image} alt={plant.name} />
                 <CardImgOverlay>
                     <CardTitle>{plant.name}</CardTitle>

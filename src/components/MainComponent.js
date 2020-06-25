@@ -7,6 +7,9 @@ import { PLANTS } from '../shared/plants';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 
+import Home from './HomeComponent';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
 class Main extends Component {
 
     constructor(props) {
@@ -22,11 +25,24 @@ class Main extends Component {
     }
   
     render() {
+
+        const HomePage = () => {
+            return(
+                <Home 
+                />
+            );
+          }
+
+
+
       return (
         <div>
           <Header/>
-          <Garden garden={this.state.garden} onClick={(plantId) => this.onDishSelect(plantId)} />
-          <PlantDetails plant={this.state.garden.filter((plant) => plant.id === this.state.selectedPlant)[0]} />
+          <Switch>
+              <Route path='/home' component={HomePage} />
+              <Route exact path='/garden' component={() => <Garden garden={this.state.garden} />} />
+              <Redirect to="/home" />
+          </Switch>
           <Footer/>
         </div>
       );
