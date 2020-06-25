@@ -31,7 +31,7 @@ constructor(props){
 
         handleLogin(values) {
         console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.plantId, values.rating, values.author, values.comment);
         } 
 
 render(){
@@ -68,7 +68,7 @@ render(){
              <Row className="form-group">
                                 <Label htmlFor="firstname" md={12}>Your Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".firstname" id="firstname" name="firstname"
+                                    <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{

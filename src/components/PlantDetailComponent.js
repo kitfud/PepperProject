@@ -17,7 +17,7 @@ import CommentForm from './CommentFormComponent';
        
        
        
-       function RenderComments({comments}){  
+       function RenderComments({comments,addComment, plantId}){  
   
        if(comments != null){
         const rencomment = comments.map((info) => 
@@ -33,7 +33,7 @@ import CommentForm from './CommentFormComponent';
            return(
            <div>
             {rencomment} 
-           <CommentForm/> 
+           <CommentForm plantId={plantId} addComment={addComment}/> 
            </div> 
            )
        }
@@ -65,7 +65,9 @@ import CommentForm from './CommentFormComponent';
                 <RenderPlant plant={props.plant} />
             </div>
             <div className="col-12 col-md-5 m-1">
-                <RenderComments comments={props.comments} />
+                <RenderComments comments={props.comments}
+                addComment={props.addComment}
+                plantId={props.plant.id} />
             </div>
         </div>
         </div>

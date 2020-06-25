@@ -2,7 +2,7 @@ export const COMMENTS =
 [
     {
         id: 0,
-        dishId: 0,
+        plantId: 0,
         rating: 5,
         comment: "Imagine all the eatables, living in conFusion!",
         author: "John Lemon",
@@ -10,7 +10,7 @@ export const COMMENTS =
     },
     {
         id: 1,
-        dishId: 0,
+        plantId: 0,
         rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
@@ -18,7 +18,7 @@ export const COMMENTS =
     },
     {
         id: 2,
-        dishId: 0,
+        plantId: 0,
         rating: 3,
         comment: "Eat it, just eat it!",
         author: "Michael Jaikishan",
@@ -26,7 +26,7 @@ export const COMMENTS =
     },
     {
         id: 3,
-        dishId: 0,
+        plantId: 0,
         rating: 4,
         comment: "Ultimate, Reaching for the stars!",
         author: "Ringo Starry",
@@ -34,7 +34,7 @@ export const COMMENTS =
     },
     {
         id: 4,
-        dishId: 0,
+        plantId: 0,
         rating: 2,
         comment: "It's your birthday, we're gonna party!",
         author: "25 Cent",
@@ -42,7 +42,7 @@ export const COMMENTS =
     },
     {
         id: 5,
-        dishId: 1,
+        plantId: 1,
         rating: 5,
         comment: "Imagine all the eatables, living in conFusion!",
         author: "John Lemon",
@@ -50,7 +50,7 @@ export const COMMENTS =
     },
     {
         id: 6,
-        dishId: 1,
+        plantId: 1,
         rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
@@ -58,7 +58,7 @@ export const COMMENTS =
     },
     {
         id: 7,
-        dishId: 1,
+        plantId: 1,
         rating: 3,
         comment: "Eat it, just eat it!",
         author: "Michael Jaikishan",
@@ -66,7 +66,7 @@ export const COMMENTS =
     },
     {
         id: 8,
-        dishId: 1,
+        plantId: 1,
         rating: 4,
         comment: "Ultimate, Reaching for the stars!",
         author: "Ringo Starry",
@@ -74,7 +74,7 @@ export const COMMENTS =
     },
     {
         id: 9,
-        dishId: 1,
+        plantId: 1,
         rating: 2,
         comment: "It's your birthday, we're gonna party!",
         author: "25 Cent",
@@ -82,7 +82,7 @@ export const COMMENTS =
     },
     {
         id: 10,
-        dishId: 2,
+        plantId: 2,
         rating: 5,
         comment: "Imagine all the eatables, living in conFusion!",
         author: "John Lemon",
@@ -90,7 +90,7 @@ export const COMMENTS =
     },
     {
         id: 11,
-        dishId: 2,
+        plantId: 2,
         rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
@@ -98,7 +98,7 @@ export const COMMENTS =
     },
     {
         id: 12,
-        dishId: 2,
+        plantId: 2,
         rating: 3,
         comment: "Eat it, just eat it!",
         author: "Michael Jaikishan",
@@ -106,7 +106,7 @@ export const COMMENTS =
     },
     {
         id: 13,
-        dishId: 2,
+        plantId: 2,
         rating: 4,
         comment: "Ultimate, Reaching for the stars!",
         author: "Ringo Starry",
@@ -114,7 +114,7 @@ export const COMMENTS =
     },
     {
         id: 14,
-        dishId: 2,
+        plantId: 2,
         rating: 2,
         comment: "It's your birthday, we're gonna party!",
         author: "25 Cent",
@@ -122,7 +122,7 @@ export const COMMENTS =
     },
     {
         id: 15,
-        dishId: 3,
+        plantId: 3,
         rating: 5,
         comment: "Imagine all the eatables, living in conFusion!",
         author: "John Lemon",
@@ -130,7 +130,7 @@ export const COMMENTS =
     },
     {
         id: 16,
-        dishId: 3,
+        plantId: 3,
         rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
@@ -138,7 +138,7 @@ export const COMMENTS =
     },
     {
         id: 17,
-        dishId: 3,
+        plantId: 3,
         rating: 3,
         comment: "Eat it, just eat it!",
         author: "Michael Jaikishan",
@@ -146,7 +146,7 @@ export const COMMENTS =
     },
     {
         id: 18,
-        dishId: 3,
+        plantId: 3,
         rating: 4,
         comment: "Ultimate, Reaching for the stars!",
         author: "Ringo Starry",
@@ -154,7 +154,7 @@ export const COMMENTS =
     },
     {
         id: 19,
-        dishId: 3,
+        plantId: 3,
         rating: 2,
         comment: "It's your birthday, we're gonna party!",
         author: "25 Cent",
