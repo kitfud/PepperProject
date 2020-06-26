@@ -7,7 +7,7 @@ import Footer from './FooterComponent';
 import { actions } from 'react-redux-form';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
-
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
@@ -77,6 +77,8 @@ class Main extends Component {
       return (
         <div>
           <Header/>
+          <TransitionGroup location={this.props.location}>
+          <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
           <Switch>
               <Route path='/home' component={HomePage} />
               <Route path='/garden/:plantId' component={PlantWithId} />
@@ -85,6 +87,8 @@ class Main extends Component {
               <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
               <Redirect to="/home" />
           </Switch>
+          </CSSTransition>
+          </TransitionGroup>
           <Footer/>
         </div>
       );
