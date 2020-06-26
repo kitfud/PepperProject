@@ -4,7 +4,7 @@ import PlantDetails from './PlantDetailComponent';
 
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-
+import { actions } from 'react-redux-form';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 
@@ -17,7 +17,8 @@ import { addComment, fetchPlants } from '../redux/ActionCreators';
 const mapDispatchToProps = dispatch => ({
   
   addComment: (plantId, rating, author, comment) => dispatch(addComment(plantId, rating, author, comment)),
-  fetchPlants: () => { dispatch(fetchPlants())}
+  fetchPlants: () => { dispatch(fetchPlants())},
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 
 });
 
@@ -73,7 +74,7 @@ class Main extends Component {
               <Route path='/home' component={HomePage} />
               <Route path='/garden/:plantId' component={PlantWithId} />
               <Route exact path='/garden' component={() => <Garden garden={this.props.garden} />} />
-              <Route exact path='/contactus' component={Contact} />
+              <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
               <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
               <Redirect to="/home" />
           </Switch>
