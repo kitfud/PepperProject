@@ -20,7 +20,7 @@ import { Loading } from './LoadingComponent';
        
        
        
-       function RenderComments({comments,addComment, plantId}){  
+       function RenderComments({comments,postComment, plantId}){  
   
        if(comments != null){
         const rencomment = comments.map((info) => 
@@ -36,7 +36,7 @@ import { Loading } from './LoadingComponent';
            return(
            <div>
             {rencomment} 
-           <CommentForm plantId={plantId} addComment={addComment}/> 
+           <CommentForm plantId={plantId} postComment={postComment}/> 
            </div> 
            )
        }
@@ -87,7 +87,7 @@ import { Loading } from './LoadingComponent';
             </div>
             <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={props.comments}
-                addComment={props.addComment}
+                postComment={props.postComment}
                 plantId={props.plant.id} />
             </div>
         </div>

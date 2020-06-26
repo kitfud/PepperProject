@@ -39,14 +39,10 @@ export const addPlants = (plants) => ({
     payload: plants
 });
 
-export const addComment = (plantId, rating, author, comment) => ({
+export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
-    payload: {
-        plantId: plantId,
-        rating: rating,
-        author: author,
-        comment: comment
-    }
+    payload: comment
+    
 });
 
 export const fetchComments = () => (dispatch) => {    
@@ -114,3 +110,38 @@ export const addPromos = (promos) => ({
     type: ActionTypes.ADD_PROMOS,
     payload: promos
 });
+
+export const postComment = (plantId, rating, author, comment) => (dispatch) => {
+
+    const newComment = {
+        plantId: plantId,
+        rating: rating,
+        author: author,
+        comment: comment
+    };
+    newComment.date = new Date().toISOString();
+    
+    return fetch(baseUrl + 'comments', {
+        method: "POST",
+        body: JSON.stringify(newComment),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response => dispatch(addComment(response)))
+    .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
+};

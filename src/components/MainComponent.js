@@ -12,11 +12,11 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { addComment, fetchPlants,fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchPlants,fetchComments, fetchPromos } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  postComment: (plantId, rating, author, comment) => dispatch(postComment(plantId, rating, author, comment)),
   fetchPlants: () => { dispatch(fetchPlants())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
@@ -50,7 +50,7 @@ class Main extends Component {
         return(
             <PlantDetails plant={this.props.garden.plants.filter((plant) => plant.id === parseInt(match.params.plantId,10))[0]} 
               comments={this.props.comments.comments.filter((comment) => comment.plantId === parseInt(match.params.plantId,10))} 
-              addComment={this.props.addComment}
+              postComment={this.props.postComment}
               commentsErrMess={this.props.comments.errMess}
               isLoading={this.props.garden.isLoading}
               errMess={this.props.garden.errMess}
