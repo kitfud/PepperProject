@@ -1,13 +1,12 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+    CardTitle, Breadcrumb, BreadcrumbItem, CardImgOverlay,Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
-import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 
-    function RenderPlant({plant}){
+    function RenderPlant({plant,favorite, postFavorite, deleteFavorite}){
         return (   
             <FadeTransform
             in
@@ -15,7 +14,16 @@ import { Loading } from './LoadingComponent';
                 exitTransform: 'scale(0.5) translateY(-50%)'
             }}>
        <Card key={plant.id}>
-           <CardImg width="100%" top src={baseUrl + plant.image} alt={plant.name} />
+           <CardImg width="100%" top src={plant.image} alt={plant.name} />
+           <CardImgOverlay>
+                                <Button outline color="primary" onClick={() => favorite ? deleteFavorite(plant._id) : postFavorite(plant._id)}>
+                                    {favorite ?
+                                        <span className="fa fa-heart"></span>
+                                        : 
+                                        <span className="fa fa-heart-o"></span>
+                                    }
+                                </Button>
+           </CardImgOverlay>
            <CardTitle>{plant.name}</CardTitle>
            <CardText>{plant.description}</CardText>   
        </Card> 
@@ -24,16 +32,25 @@ import { Loading } from './LoadingComponent';
        
        
        
-       function RenderComments({comments,postComment, plantId}){  
+       function RenderComments({comments,postComment, plantId,deleteComment}){  
   
        if(comments != null){
         const rencomment = comments.map((info) => 
         <Fade in>
-        <ol key={info.id}>
-        {console.log(info.id)}
+        <ol key={info._id}>
         <p>{info.comment}</p>
-        <p>-- {info.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(info.date)))}</p>
-        </ol>  
+        <p>{info.rating} stars</p>
+        <p>-- {info.author.firstname} {info.author.lastname} , 
+        {new Intl.DateTimeFormat('en-US', 
+        { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(info.updatedAt.toDate())))}
+         <Button style = {styles} outline color="danger" onClick={() => deleteComment(info)}>
+        <span className="fa fa-times"></span>
+        </Button> 
+        </p>
+        </ol> 
+
+       
+        
         </Fade>  
 );
            console.log("about to return JSX")    
@@ -90,12 +107,13 @@ import { Loading } from './LoadingComponent';
         </div>
         <div className="row">
             <div className="col-12 col-md-5 m-1">
-                <RenderPlant plant={props.plant} />
+                <RenderPlant plant={props.plant} favorite={props.favorite} postFavorite={props.postFavorite} deleteFavorite={props.deleteFavorite}/>
             </div>
             <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={props.comments}
                 postComment={props.postComment}
-                plantId={props.plant.id} />
+                plantId={props.plant._id} 
+                deleteComment = {props.deleteComment}/>
             </div>
         </div>
         </div>
@@ -108,7 +126,9 @@ import { Loading } from './LoadingComponent';
        );
        
        }
-       
-    
+
+const styles = {
+    marginLeft: "20px"
+}
 
 export default PlantDetails;

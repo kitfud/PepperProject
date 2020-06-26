@@ -10,6 +10,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
 
+
 class CommentForm extends Component {
 
 constructor(props){
@@ -31,7 +32,7 @@ constructor(props){
 
         handleLogin(values) {
         console.log('Current State is: ' + JSON.stringify(values));
-        this.props.postComment(this.props.plantId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.plantId, values.rating, values.comment);
         } 
 
 render(){
@@ -51,13 +52,21 @@ render(){
 <Row className="form-group">
 <Label htmlFor="rating" md={12}>Rating</Label>
 <Col md={{size: 3, offset: 0}}>
-<Control.select model=".rating" name="rating" className="form-control">
+<Control.select model=".rating" name="rating" className="form-control" validators={{required}}>
         <option>1</option>
         <option>2</option>
         <option>3</option>
         <option>4</option>
         <option>5</option>
 </Control.select>
+<Errors
+                                        className="text-danger"
+                                        model=".rating"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Rating required',
+                                        }}
+                                     />
 </Col>
 
 </Row>
@@ -90,7 +99,7 @@ render(){
                             <Row className="form-group">
                                 <Label htmlFor="comment" md={12}>Comment</Label>
                                 <Col md={10}>
-                                    <Control.textarea model=".comment" id="comment" name="comment"
+                                    <Control.textarea model=".comment" id="comment"
                                         rows="6"
                                         className="form-control" />
                                 </Col>

@@ -21,7 +21,7 @@ function About(props) {
             <div key={leader.id} className="col-12 mt-5">
             <Media tag="li">
               <Media left middle>
-                  <Media object style={imgStyle} src={baseUrl+leader.image} alt={leader.name} />
+                  <Media object style={imgStyle} src={leader.image} alt={leader.name} />
               </Media>
               <Media body className="ml-5">
                 <Media heading>{leader.name}</Media>
