@@ -3,6 +3,7 @@ import { Card, CardImg, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 import { Loading } from './LoadingComponent';
 
@@ -10,7 +11,7 @@ import { Loading } from './LoadingComponent';
         return (   
        
        <Card key={plant.id}>
-           <CardImg width="100%" top src={plant.image} alt={plant.name} />
+           <CardImg width="100%" top src={baseUrl + plant.image} alt={plant.name} />
            <CardTitle>{plant.name}</CardTitle>
            <CardText>{plant.description}</CardText>   
        </Card> 

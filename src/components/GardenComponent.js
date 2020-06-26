@@ -3,13 +3,14 @@ import { Card, CardImg, CardImgOverlay,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
     function RenderGardenItem ({plant, onClick}) {
         return (
             <Card
                 >
                     <Link to={`/garden/${plant.id}`} >
-                    <CardImg width="100%" src={plant.image} alt={plant.name} />
+                    <CardImg width="100%" src={baseUrl +plant.image} alt={plant.name} />
                 <CardImgOverlay>
                     <CardTitle>{plant.name}</CardTitle>
                 </CardImgOverlay>
