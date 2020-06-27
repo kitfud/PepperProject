@@ -85,7 +85,6 @@ class Contact extends Component {
                     <div className="col-12">
                         <div className="btn-group" role="group">
                             <a role="button" className="btn btn-primary" href="tel:+4132307016"><i className="fa fa-phone"></i> Call</a>
-                            <a role="button" className="btn btn-info"><i className="fa fa-skype"></i> Skype</a>
                             <a role="button" className="btn btn-success" href="mailto:kitfuderich@gmail.com"><i className="fa fa-envelope-o"></i> Email</a>
                         </div>
                     </div>
@@ -94,6 +93,7 @@ class Contact extends Component {
                 <div className="row row-content">
                    <div className="col-12">
                       <h3>Send us your Feedback</h3>
+                      <h4 style = {textStyle}>note: if you'd like some free pepper seeds include a mailing address within your feedback</h4>
                    </div>
                     <div className="col-12 col-md-9">
 
@@ -232,5 +232,7 @@ class Contact extends Component {
     }
     
 }
-
+const textStyle ={
+    color:"green"
+}
 export default Contact;

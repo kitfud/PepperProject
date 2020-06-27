@@ -77,6 +77,7 @@ class Main extends Component {
             favorite={this.props.favorites.favorites.plants.some((plant) => plant === match.params.plantId)}
             postFavorite={this.props.postFavorite}
             deleteFavorite={this.props.deleteFavorite}
+            auth={this.props.auth} 
             />
           :
           <PlantDetails plant={this.props.garden.plants.filter((plant) => plant._id === match.params.plantId)[0]}
@@ -90,6 +91,7 @@ class Main extends Component {
             favorite={false}
             postFavorite={this.props.postFavorite}
             deleteFavorite={this.props.deleteFavorite}
+            auth={this.props.auth} 
             />
 
 
@@ -119,10 +121,15 @@ class Main extends Component {
             <Route {...rest} render={(props) => (
               this.props.auth.isAuthenticated
                 ? <Component {...props} />
-                : <Redirect to={{
+                :
+               
+               
+                    <Redirect to={{
                     pathname: '/home',
-                    state: { from: props.location }
+                    state: { from: props.location}
                   }} />
+              
+                
             )} />
           );
       

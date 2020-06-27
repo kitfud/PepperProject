@@ -21,6 +21,7 @@ constructor(props){
       };
     this.toggleModal = this.toggleModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.checkLogin = this.checkLogin.bind(this);
         }
 
 
@@ -35,10 +36,19 @@ constructor(props){
         this.props.postComment(this.props.plantId, values.rating, values.comment);
         } 
 
+        checkLogin(){
+            if(!this.props.authenticate.isAuthenticated ){
+                alert("login first to submit a comment")
+            }
+            else{
+                this.toggleModal();
+            }   
+         }
+
 render(){
     return(
 <div>
-<Button outline onClick={this.toggleModal} color="primary">Submit Comment</Button>
+<Button outline onClick={this.checkLogin} color="primary">Submit Comment</Button>
 
 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
 <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>

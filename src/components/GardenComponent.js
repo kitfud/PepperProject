@@ -10,10 +10,11 @@ import { Loading } from './LoadingComponent';
             <Card
                 >
                     <Link to={`/garden/${plant._id}`} >
+                    <CardTitle>{plant.name}</CardTitle>   
                     <CardImg width="100%" src={plant.image} alt={plant.name} />
-                <CardImgOverlay>
-                    <CardTitle>{plant.name}</CardTitle>
-                </CardImgOverlay>
+                
+                   
+            
                     </Link>
              
             </Card>
@@ -25,7 +26,7 @@ import { Loading } from './LoadingComponent';
         const garden = props.garden.plants.map((pepper) => {
             return (
                 <div className="col-12 col-md-5 m-1"  key={pepper.id}>
-                    <RenderGardenItem plant={pepper} onClick={props.onClick} />
+                    <RenderGardenItem plant={pepper} onClick={props.onClick} key={pepper.id}/>
                 </div>
             );
         });

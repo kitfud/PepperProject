@@ -93,3 +93,13 @@ address{
   transform: translateX(100%);
   transition: all 300ms ease-out;
 }
+/* Rounded border */
+hr.rounded {
+  border-top: 8px solid #bbb;
+  border-radius: 5px;
+}
+
+.card-title {
+color:darkgreen;
+font-size: 20px;
+}

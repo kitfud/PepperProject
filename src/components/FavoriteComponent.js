@@ -40,17 +40,17 @@ const Favorites = (props) => {
             </div>
         )
     }
-    else if (props.favorites.favorites) {
+    else if (props.favorites.favorites.plants.length !==0) {
+     console.log(props.favorites.favorites)
 
         const favorites = props.favorites.favorites.plants.map((plantId) => {
-
             let plant = props.plants.plants.filter((plant) => plant._id === plantId)[0];
-            return (
-                <div key={plant._id} className="col-12 mt-5">
-                    <RenderGardenItem plant={plant} deleteFavorite={props.deleteFavorite} />
-                </div>
-            );
-        });
+                return (
+                    <div key={plant._id} className="col-12 mt-5">
+                        <RenderGardenItem plant={plant} deleteFavorite={props.deleteFavorite} />
+                    </div>
+                );
+            })
 
         return(
             <div className="container">
@@ -76,11 +76,10 @@ const Favorites = (props) => {
         return(
             <div className="container">
                 <div className="row">
-                    <h4>You have no favorites</h4>
+                    <h4>You have no favorites! Head to the <a href ="/garden">Garden</a> and add some plants you like :)</h4>
                 </div>
             </div>
         )
     }
 }
-
 export default Favorites;

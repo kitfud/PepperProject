@@ -21,7 +21,7 @@ function Footer(props) {
 		              Broadway East<br />
 		              Seattle, WA<br />
 		              USA<br />
-		              <i className="fa fa-phone fa-lg"></i>: +4132307016<br />
+		            
 		              <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:kitfuderich@gmail.com">
                          kitfuderich@gmail.com</a>
                     </address>
