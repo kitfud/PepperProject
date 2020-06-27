@@ -1,8 +1,7 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { baseUrl } from '../shared/baseUrl';
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+import {Fade} from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 
 function About(props) {
@@ -10,8 +9,8 @@ function About(props) {
     const leaders = props.leaders.leaders.map((leader) => {
         
         return (
-            <Fade in>
-            <RenderLeader leader = {leader} key={leader.id}/>
+            <Fade in key={leader._id}>
+            <RenderLeader leader = {leader} />
            </Fade> 
         );
     });
@@ -69,12 +68,12 @@ function About(props) {
                 <div className="col-12 col-md-6">
                     <h2>Our History</h2>
                     <p>Working with a small space and limited resources we are doing what we can to bring the <em>HEAT</em> to our urban patio.</p>
-                    <img src="/assets/images/kitgarden.jpg" class="img-fluid" alt="Responsive"></img>
+                    <img src="/assets/images/kitgarden.jpg" className="img-fluid" alt="Responsive"></img>
                     <p>Our humble garden houses multiple varieties of peppers, basil as well as flower types.</p>  
                 </div>
                 <div className="col-12 col-md-5" style={positionBox}>
                     <Card>
-                        <CardHeader className="bg-primary text-white">Facts At a Glance</CardHeader>
+                        <CardHeader style={header} className=" text-white">Facts At a Glance</CardHeader>
                         <CardBody>
                             <dl className="row p-1">
                                 <dt className="col-6">Started</dt>
@@ -93,7 +92,7 @@ function About(props) {
                     <Card>
                         <CardBody className="bg-faded">
                             <blockquote className="blockquote">
-                                <p className="mb-0">If you believe you can achieve.</p>
+                                <p className="mb-0">"If you believe you can achieve."</p>
                                 <footer className="blockquote-footer">An Old Saying
                                 </footer>
                             </blockquote>
@@ -122,6 +121,10 @@ const imgStyle = {
 
   const positionBox = {
     marginTop: "130px"
+  }
+
+  const header = {
+      background:"green"
   }
 
 export default About;    

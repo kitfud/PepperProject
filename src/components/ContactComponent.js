@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem,
     Button, Row, Col, Label } from 'reactstrap';
-import { Control,Form, Errors, actions } from 'react-redux-form';
+import { Control,Form, Errors} from 'react-redux-form';
 
 
 
@@ -93,7 +93,7 @@ class Contact extends Component {
                 <div className="row row-content">
                    <div className="col-12">
                       <h3>Send us your Feedback</h3>
-                      <h4 style = {textStyle}>note: if you'd like some free pepper seeds include a mailing address within your feedback</h4>
+                      <h4 style = {textStyle}>If you'd like some free pepper seeds include a mailing address within your feedback</h4>
                    </div>
                     <div className="col-12 col-md-9">
 

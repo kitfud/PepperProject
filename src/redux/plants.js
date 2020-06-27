@@ -1,4 +1,3 @@
-import { PLANTS } from '../shared/plants';
 import * as ActionTypes from './ActionTypes';
 
 export const Plants = (state = { isLoading: true,

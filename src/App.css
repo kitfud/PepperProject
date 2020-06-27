@@ -58,8 +58,9 @@
 .jumbotron {
   padding:70px 30px 70px 30px;
   margin:0px auto;
-  background: green ;
-  color:floralwhite;
+ 
+  background-image: url(/assets/images/backgroundPepper.jpg);
+ 
 }
 
 address{
@@ -103,3 +104,4 @@ hr.rounded {
 color:darkgreen;
 font-size: 20px;
 }
+

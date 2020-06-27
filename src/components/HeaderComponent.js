@@ -60,9 +60,11 @@ class Header extends Component {
     return(
         <div>
         <Navbar dark expand="md">
+            
             <div className="container">
                 <NavbarToggler onClick={this.toggleNav} />
-                <NavbarBrand className="mr-auto" href="/"><img src='/assets/images/logo.png' height="30" width="41" alt="Kit's Garden" /></NavbarBrand>
+                <NavbarBrand className="mr-auto" href="/"><img src='/assets/images/pepperpainting.jpg' height="30" width="41" alt="Kit's Garden" /></NavbarBrand>
+            
                 <Collapse isOpen={this.state.isNavOpen} navbar>
                     <Nav navbar>
                     <NavItem>
@@ -72,7 +74,7 @@ class Header extends Component {
                         <NavLink className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink className="nav-link"  to='/garden'><span className="fa fa-list fa-lg"></span>Garden</NavLink>
+                        <NavLink className="nav-link"  to='/garden'><span className="fa fa-envira fa-lg"></span>Garden</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
@@ -126,9 +128,9 @@ class Header extends Component {
                     <ModalBody>
                     <div> General Users login here via Google:</div>    
                     <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
-                    <hr class="rounded"></hr>
+                    <hr className="rounded"></hr>
                      <div>Don't have a Google Account? Sign up for one <a target="_blank" rel="noopener noreferrer" href= "https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Fpc%3Dtopnav-about-n-en&flowName=GlifWebSignIn&flowEntry=SignUp">HERE</a></div>
-                    <hr class="rounded"></hr>
+                    <hr className="rounded"></hr>
                     <div style={divStyle}>If I assigned you a login and password then login here:</div>
                     <Form onSubmit={this.handleLogin}>
                             <FormGroup>
@@ -160,14 +162,16 @@ class Header extends Component {
 }
 
 const styles ={
-    background: "lightgreen",
-    color: "white"
    
+    color: "white",
+    textShadow: "0 0 3px #015e20, 0 0 5px #015e20" 
 }
 
 const buttonStyle={
-    color:"black"
+    color:"black",
+    background:"yellow"
 }
+
 
 const divStyle = {
     marginBottom : "20px" 

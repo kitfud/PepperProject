@@ -1,17 +1,16 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay,
-    CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
 
-    function RenderGardenItem ({plant, onClick}) {
+    function RenderGardenItem ({plant}) {
         return (
             <Card
-                >
+            >
                     <Link to={`/garden/${plant._id}`} >
                     <CardTitle>{plant.name}</CardTitle>   
-                    <CardImg width="100%" src={plant.image} alt={plant.name} />
+                    <CardImg width="100%" src={plant.image} alt={plant.name} key={plant.id}/>
                 
                    
             
@@ -25,8 +24,8 @@ import { Loading } from './LoadingComponent';
 
         const garden = props.garden.plants.map((pepper) => {
             return (
-                <div className="col-12 col-md-5 m-1"  key={pepper.id}>
-                    <RenderGardenItem plant={pepper} onClick={props.onClick} key={pepper.id}/>
+                <div className="col-12 col-md-5 m-1" key={pepper._id} >
+                    <RenderGardenItem plant={pepper} onClick={props.onClick}/>
                 </div>
             );
         });

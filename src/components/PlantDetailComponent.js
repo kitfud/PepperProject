@@ -1,12 +1,11 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem, CardImgOverlay,Button } from 'reactstrap';
+import { Card, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem, CardImgOverlay,Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 
-    function RenderPlant({plant,favorite, postFavorite, deleteFavorite}){
+    function RenderPlant({plant,favorite, postFavorite, deleteFavorite, auth}){
         return (   
             <FadeTransform
             in
@@ -16,7 +15,7 @@ import { Loading } from './LoadingComponent';
        <Card key={plant.id}>
            <CardImg width="100%" top src={plant.image} alt={plant.name} />
            <CardImgOverlay>
-                                <Button outline style={buttonStyle} onClick={() => favorite ? deleteFavorite(plant._id) : postFavorite(plant._id)}>
+                                <Button outline style={buttonStyle} onClick={() =>auth.isAuthenticated ? favorite ? deleteFavorite(plant._id) : postFavorite(plant._id) : alert("login first to use favorite button")}>
                                     {favorite ?
                                         <span className="fa fa-heart"></span>
                                         : 
@@ -105,7 +104,7 @@ import { Loading } from './LoadingComponent';
         </div>
         <div className="row">
             <div className="col-12 col-md-5 m-1">
-                <RenderPlant plant={props.plant} favorite={props.favorite} postFavorite={props.postFavorite} deleteFavorite={props.deleteFavorite}/>
+                <RenderPlant plant={props.plant} favorite={props.favorite} postFavorite={props.postFavorite} deleteFavorite={props.deleteFavorite} auth={props.auth}/>
             </div>
             <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={props.comments}
@@ -130,7 +129,8 @@ const styles = {
     marginLeft: "20px"
 }
 const buttonStyle ={
-    color:"red"
+    color:"red",
+    background: "white"
 }
 
 export default PlantDetails;

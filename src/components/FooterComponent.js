@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 
 function Footer(props) {
     return(
@@ -28,12 +28,11 @@ function Footer(props) {
                 </div>
                 <div className="col-12 col-sm-4 align-self-center">
                     <div className="text-center">
-                        <a className="btn btn-social-icon btn-google" href="http://google.com/+"><i className="fa fa-google-plus"></i></a>
-                        <a className="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i className="fa fa-facebook"></i></a>
-                        <a className="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i className="fa fa-linkedin"></i></a>
-                        <a className="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i className="fa fa-twitter"></i></a>
-                        <a className="btn btn-social-icon btn-google" href="http://youtube.com/"><i className="fa fa-youtube"></i></a>
-                        <a className="btn btn-social-icon" href="mailto:"><i className="fa fa-envelope-o"></i></a>
+                        <a className="btn btn-social-icon btn-facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/kitfuderich"><i className="fa fa-facebook"></i></a>
+                        <a className="btn btn-social-icon btn-linkedin" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/kfuderich/"><i className="fa fa-linkedin"></i></a>
+                        <a className="btn btn-social-icon btn-twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/kitfuderich?lang=en"><i className="fa fa-twitter"></i></a>
+                        <a className="btn btn-social-icon btn-google" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/user/fuderich11/"><i className="fa fa-youtube"></i></a>
+                        <a className="btn btn-social-icon" href="mailto:kitfuderich@gmail.com"><i className="fa fa-envelope-o"></i></a>
                     </div>
                 </div>
             </div>
