@@ -17,9 +17,22 @@ class Header extends Component {
 
         this.state = {
           isNavOpen: false,
-          isModalOpen: false
+          isModalOpen: false,
+          isFocus: false
         };
       }
+
+      onFocus() {
+        this.setState({
+            isFocus: true
+        })
+    }
+
+     onBlur() {
+        this.setState({
+            isFocus: false
+        })
+    }
 
       toggleNav() {
         this.setState({
@@ -89,7 +102,8 @@ class Header extends Component {
                 <Nav className="ml-auto" navbar>
                                 <NavItem>
                                 { !this.props.auth.isAuthenticated ?
-                                        <Button style ={buttonStyle} outline onClick={this.toggleModal}>
+                                        <Button onBlur={() => this.onBlur()}
+                                        onFocus={() => this.onFocus()} background='red' onClick={this.toggleModal}>
                                             <span className="fa fa-sign-in fa-lg"></span> Login
                                             {this.props.auth.isFetching ?
                                                 <span className="fa fa-spinner fa-pulse fa-fw"></span>
@@ -100,7 +114,7 @@ class Header extends Component {
                                         <div>
                                             
                                         <div className="navbar-text mr-3">{this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email}</div>
-                                        <Button style ={buttonStyle} outline onClick={this.handleLogout}>
+                                        <Button outline onClick={this.handleLogout}>
                                             <span className="fa fa-sign-out fa-lg"></span> Logout
                                             {this.props.auth.isFetching ?
                                                 <span className="fa fa-spinner fa-pulse fa-fw"></span>
@@ -167,15 +181,13 @@ const styles ={
     textShadow: "0 0 3px #015e20, 0 0 5px #015e20" 
 }
 
-const buttonStyle={
-    color:"black",
-    background:"yellow"
-}
 
 
 const divStyle = {
     marginBottom : "20px" 
 }
+
+
 
 
 export default Header;
