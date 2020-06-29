@@ -17,22 +17,11 @@ class Header extends Component {
 
         this.state = {
           isNavOpen: false,
-          isModalOpen: false,
-          isFocus: false
+          isModalOpen: false
         };
       }
 
-      onFocus() {
-        this.setState({
-            isFocus: true
-        })
-    }
 
-     onBlur() {
-        this.setState({
-            isFocus: false
-        })
-    }
 
       toggleNav() {
         this.setState({
@@ -102,8 +91,7 @@ class Header extends Component {
                 <Nav className="ml-auto" navbar>
                                 <NavItem>
                                 { !this.props.auth.isAuthenticated ?
-                                        <Button onBlur={() => this.onBlur()}
-                                        onFocus={() => this.onFocus()} background='red' onClick={this.toggleModal}>
+                                        <Button onClick={this.toggleModal}>
                                             <span className="fa fa-sign-in fa-lg"></span> Login
                                             {this.props.auth.isFetching ?
                                                 <span className="fa fa-spinner fa-pulse fa-fw"></span>
@@ -114,7 +102,7 @@ class Header extends Component {
                                         <div>
                                             
                                         <div className="navbar-text mr-3">{this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email}</div>
-                                        <Button outline onClick={this.handleLogout}>
+                                        <Button onClick={this.handleLogout}>
                                             <span className="fa fa-sign-out fa-lg"></span> Logout
                                             {this.props.auth.isFetching ?
                                                 <span className="fa fa-spinner fa-pulse fa-fw"></span>

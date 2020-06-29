@@ -58,7 +58,6 @@
 .jumbotron {
   padding:70px 30px 70px 30px;
   margin:0px auto;
- 
   background-image: url(/assets/images/backgroundPepper.jpg);
  
 }
@@ -105,20 +104,23 @@ color:darkgreen;
 font-size: 20px;
 }
 
-.ml-auto .btn {
-  outline:medium none;
-  outline-style:none;
-}
-.ml-auto .btn:focus {
+nav .btn {
   box-shadow:0 0 0 1px #428bca inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 px 0 0 #357ebd, 0 4px 0 1px rgba(0,0,0,0.4), 0 8px 4px 1px rgba(0,0,0,0.5);
   background-color:#428bca;
-}
-.ml-auto .btn:active {
-  top:9px;
+  color: black
 }
 
-.ml-auto .btn:hover {
+nav .btn:focus {
+  box-shadow:0 0 0 1px #428bca inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 px 0 0 #357ebd, 0 4px 0 1px rgba(0,0,0,0.4), 0 8px 4px 1px rgba(0,0,0,0.5);
+  background-color:#428bca;
+  color:black;
+}
+
+
+nav .btn:hover {
   box-shadow:0 0 0 1px #428bca inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 px 0 0 #357ebd, 0 4px 0 1px rgba(0,0,0,0.4), 0 8px 4px 1px rgba(0,0,0,0.5);
   background-color:yellow;
   color:black;
 }
+
+
