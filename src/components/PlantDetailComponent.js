@@ -7,11 +7,7 @@ import { Loading } from './LoadingComponent';
 
     function RenderPlant({plant,favorite, postFavorite, deleteFavorite, auth}){
         return (   
-            <FadeTransform
-            in
-            transformProps={{
-                exitTransform: 'scale(0.5) translateY(-50%)'
-            }}>
+        
        <Card key={plant.id}>
            <CardImg width="100%" top src={plant.image} alt={plant.name} />
            <CardImgOverlay>
@@ -25,12 +21,16 @@ import { Loading } from './LoadingComponent';
            </CardImgOverlay>
            <CardTitle>{plant.name}</CardTitle>
            <CardText>
+        
         {plant.description} <br></br>
-        <text style = {hot}>Hotness:</text> {plant.scoville} Scoville Units
-           </CardText>  
+        <text style = {hot}>Hotness:</text> {plant.scoville} Scoville Units <br/>
+        <br/>
+
+        Seeds From: {plant.source}
+        </CardText>  
          
        </Card> 
-       </FadeTransform>
+      
         )}
        
        

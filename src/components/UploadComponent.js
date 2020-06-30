@@ -86,14 +86,14 @@ class Upload extends Component {
 
       render(){
         return(
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row col-12">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
                         <BreadcrumbItem active>Upload</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
-                        <h3>Upload a Plant To The Garden</h3>
+                        <h3>Upload To The Garden</h3>
                         <hr />
                     </div>
                 </div>

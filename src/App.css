@@ -137,3 +137,10 @@ a:hover, a:visited, a:link, a:active
   box-shadow: none!important;
 }
 
+.fa-trash-o{
+  color:black;
+}
+.fa-trash-o:hover{
+  color:red;
+}
+
