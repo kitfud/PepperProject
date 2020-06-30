@@ -4,18 +4,15 @@ import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
 
-    function RenderGardenItem ({plant}) {
+    function RenderGardenItem ({plant,deletePlant}) {
         return (
             <Card
             >
                     <Link to={`/garden/${plant._id}`} >
-                    <CardTitle>{plant.name}</CardTitle>   
+                    <CardTitle>{plant.name} </CardTitle>    
                     <CardImg width="100%" src={plant.image} alt={plant.name} key={plant.id}/>
-                
-                   
-            
                     </Link>
-             
+                    <span className="fa fa-trash-o" onClick={() => deletePlant(plant._id)}></span>
             </Card>
         );
     }
@@ -24,8 +21,8 @@ import { Loading } from './LoadingComponent';
 
         const garden = props.garden.plants.map((pepper) => {
             return (
-                <div className="col-12 col-md-4 " key={pepper._id} >
-                    <RenderGardenItem plant={pepper} onClick={props.onClick}/>
+                <div style= {styles} className="col-12 col-md-4 " key={pepper._id} >
+                    <RenderGardenItem plant={pepper} onClick={props.onClick} deletePlant = {props.deletePlant}/>
                 </div>
             );
         });
@@ -71,4 +68,7 @@ import { Loading } from './LoadingComponent';
     }
 
 
+const styles = {
+    marginBottom: "20px"
+}    
 export default Garden;

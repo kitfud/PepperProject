@@ -4,6 +4,7 @@ import PlantDetails from './PlantDetailComponent';
 import Favorites from './FavoriteComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import Upload from './UploadComponent';
 import { actions } from 'react-redux-form';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
@@ -12,13 +13,14 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
+import {deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
   postComment: (plantId, rating, author, comment) => dispatch(postComment(plantId, rating, author, comment)),
   fetchPlants: () => { dispatch(fetchPlants())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
+  resetPlantForm: () => { dispatch(actions.reset('plantform'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),
@@ -31,7 +33,10 @@ const mapDispatchToProps = dispatch => ({
   postFavorite: (plantId) => dispatch(postFavorite(plantId)),
   deleteFavorite: (plantId) => dispatch(deleteFavorite(plantId)),
 
-  deleteComment: (commentId)=>dispatch(deleteComment(commentId))
+  deleteComment: (commentId)=>dispatch(deleteComment(commentId)),
+  
+  deletePlant: (plantId) => dispatch(deletePlant(plantId)),
+  postPlant: (source,image, name, description, scoville, category,submittedBy)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy))
 
 });
 
@@ -56,10 +61,12 @@ class Main extends Component {
     this.props.fetchFavorites();
   }
   
+  /*
     onPlantSelect(plantId) {
       this.setState({ selectedPlant: plantId});
     }
-  
+  */
+
     render() {
       const PlantWithId = ({match}) => {
         return(
@@ -147,9 +154,10 @@ class Main extends Component {
           <Switch>
               <Route path='/home' component={HomePage} />
               <Route path='/garden/:plantId' component={PlantWithId} />
-              <Route exact path='/garden' component={() => <Garden garden={this.props.garden} />} />
+              <Route exact path='/garden' component={() => <Garden garden={this.props.garden} deletePlant ={this.props.deletePlant} />} />
               <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
-              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
+              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders}  />} />
+              <PrivateRoute exact path='/upload' component = {()=><Upload auth={this.props.auth} postPlant = {this.props.postPlant} resetPlantForm={this.props.resetPlantForm}/>} />
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} plants={this.props.garden} deleteFavorite={this.props.deleteFavorite} />} />
               <Redirect to="/home" />
           </Switch>

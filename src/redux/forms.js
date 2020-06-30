@@ -7,3 +7,10 @@ export const InitialFeedback = {
     contactType: 'Tel.',
     message: ''
 };
+
+export const PlantForm = {
+    name:'',
+    description:'',
+    scoville:'',
+    category:''
+}

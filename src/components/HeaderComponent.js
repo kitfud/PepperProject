@@ -54,7 +54,7 @@ class Header extends Component {
 
     checkLogin(){
        if(!this.props.auth.isAuthenticated){
-           alert("login first to access favorites tab")
+           alert("login first to access this tab")
        }   
     }
   
@@ -85,6 +85,9 @@ class Header extends Component {
                                     <NavLink className="nav-link" to="/favorites">
                                         <span className="fa fa-heart fa-lg"></span> My Favorites
                                     </NavLink>
+                    </NavItem>
+                    <NavItem onClick = {this.checkLogin}> 
+                    <NavLink className="nav-link" to='/upload'><span className="fa fa-cloud-upload fa-lg"></span> Upload</NavLink>
                     </NavItem>
                     </Nav>
                 </Collapse>

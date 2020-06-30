@@ -13,6 +13,10 @@ export const Plants = (state = { isLoading: true,
         case ActionTypes.PLANTS_FAILED:
             return {...state, isLoading: false, errMess: action.payload};
 
+            case ActionTypes.ADD_PLANT:
+                var plant = action.payload;
+                return { ...state, comments: state.plants.concat(plant)};
+
         default:
             return state;
     }

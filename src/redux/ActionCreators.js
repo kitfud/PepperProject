@@ -121,6 +121,7 @@ export const postComment = (plantId, rating, comment,author) => (dispatch) => {
                   const _id = doc.id;
                   let comment = {_id, ...data};
                   dispatch(addComment(comment))
+                 
               } else {
                   // doc.data() will be undefined in this case
                   console.log("No such document!");
@@ -130,6 +131,65 @@ export const postComment = (plantId, rating, comment,author) => (dispatch) => {
   .catch(error => { console.log('Post comments ', error.message);
       alert('Your comment could not be posted\nError: '+ error.message); })
 }
+
+export const postPlant = (source,url,name, description, scoville, category, submittedBy) => (dispatch) => {
+
+    /*if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
+    }*/
+  
+    return firestore.collection('plants').add({
+        source:source,
+        image: url,
+        name: name,
+        description: description,
+        scoville: scoville,
+        category:category,
+        createdAt: firebasestore.FieldValue.serverTimestamp(),
+        modifiedAt: firebasestore.FieldValue.serverTimestamp(),
+        submittedBy: submittedBy
+    })
+    .then(docRef => {
+        firestore.collection('plants').doc(docRef.id).get()
+            .then(doc => {
+                if (doc.exists) {
+                  const data = doc.data();
+                  const _id = doc.id;
+                  let plant = {_id, ...data};
+                  dispatch(addPlant(plant))
+               
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            });
+    })
+    .then(docRef=>{
+        return firestore.collection('plants').get()
+        .then(snapshot => {
+            let plants = [];
+            snapshot.forEach(doc => {
+                const data = doc.data()
+                const _id = doc.id
+                plants.push({_id, ...data });
+            });
+            return plants;
+        })
+        .then(plants => dispatch(addPlants(plants)))
+        .catch(error => dispatch(plantsFailed(error.message)));
+    })
+    .catch(error => { console.log('Post comments ', error.message);
+        alert('Your plant could not be posted\nError: '+ error.message); })
+  }
+
+
+
+  export const addPlant = (plant) => ({
+    type: ActionTypes.ADD_PLANT,
+    payload: plant
+});
+
 
 export const deleteComment = (comment) => (dispatch) => {
 
@@ -162,6 +222,48 @@ export const deleteComment = (comment) => (dispatch) => {
     })
     .catch(error => dispatch(commentsFailed(error.message)));
 };
+
+export const deletePlant = (plantId) => (dispatch) => {
+
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        alert("login to delete plants")
+        return;
+    }
+
+    var user = auth.currentUser;
+    console.log(plantId)
+    console.log(user.email)
+    console.log(user.displayName)
+
+    
+    var docRef = firestore.collection("plants").doc(plantId);
+
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data()
+            console.log("Document data:", data.submittedBy);
+
+            if(data.submittedBy === user.displayName || data.submittedBy === user.email){
+                firestore.collection('plants').doc(plantId).delete()  
+                dispatch(fetchPlants());
+            }
+            else{
+                alert("you can only delete your own plants")
+            }
+            
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+
+  
+};
+
+
 
 export const deleteFavorite = (plantId) => (dispatch) => {
 
@@ -215,6 +317,7 @@ export const addFeedback = (feedback) => ({
     .catch(error => dispatch(leadersFailed(error.message)));
   }
   
+
   
   
   export const leadersLoading = () => ({

@@ -45,6 +45,9 @@ const Favorites = (props) => {
 
         const favorites = props.favorites.favorites.plants.map((plantId) => {
             let plant = props.plants.plants.filter((plant) => plant._id === plantId)[0];
+            if(plant === undefined){
+                return null
+            }
                 return (
                     <div key={plant._id} className="col-12 mt-5">
                         <RenderGardenItem plant={plant} deleteFavorite={props.deleteFavorite} />
