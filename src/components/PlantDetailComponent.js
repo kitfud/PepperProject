@@ -24,7 +24,11 @@ import { Loading } from './LoadingComponent';
                                 </Button>
            </CardImgOverlay>
            <CardTitle>{plant.name}</CardTitle>
-           <CardText>{plant.description}</CardText>   
+           <CardText>
+        {plant.description} <br></br>
+        <text style = {hot}>Hotness:</text> {plant.scoville} Scoville Units
+           </CardText>  
+         
        </Card> 
        </FadeTransform>
         )}
@@ -35,20 +39,25 @@ import { Loading } from './LoadingComponent';
   
        if(comments != null){
         const rencomment = comments.map((info) => 
+        <Card style = {cardStyle}>
         <Fade in key={comments._id} >
         <ol >
-        <p>{info.comment}</p>
-        <p>{info.rating} stars</p>
-        <p>-- {info.author.firstname} {info.author.lastname} , 
+        <p style = {textStyle}>{info.comment}</p>
+        <p>-- {info.author.firstname}<span> </span>
         {new Intl.DateTimeFormat('en-US', 
         { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(info.updatedAt.toDate())))}
          
-         <Button style = {styles} outline color="danger" onClick={() => deleteComment(info)}>
-        <span className="fa fa-times"></span>
-        </Button> 
+       
+         <span style={buttonStyle} className="fa fa-trash-o" onClick={() => deleteComment(info)}></span>
+        
+        
+       
+
         </p>
         </ol> 
         </Fade>  
+        </Card>
+      
 );
            console.log("about to return JSX")    
            return(
@@ -125,12 +134,22 @@ import { Loading } from './LoadingComponent';
        
        }
 
-const styles = {
-    marginLeft: "20px"
+const hot = {
+    color:"red"
 }
 const buttonStyle ={
+    marginLeft: "10px",
     color:"red",
     background: "white"
 }
 
+const textStyle = {
+    color: "green"
+}
+
+const cardStyle = {
+    marginBottom: "10px"
+}
+
 export default PlantDetails;
+

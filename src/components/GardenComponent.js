@@ -24,7 +24,7 @@ import { Loading } from './LoadingComponent';
 
         const garden = props.garden.plants.map((pepper) => {
             return (
-                <div className="col-12 col-md-5 m-1" key={pepper._id} >
+                <div className="col-12 col-md-4 " key={pepper._id} >
                     <RenderGardenItem plant={pepper} onClick={props.onClick}/>
                 </div>
             );

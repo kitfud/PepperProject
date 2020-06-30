@@ -40,20 +40,35 @@ function RenderCard({item , isLoading, errMess}) {
 function Home(props) {
     return(
         <div className="container">
+
             <div className="row align-items-start">
                 <div className="col-12 col-md m-1">
+                    <a href = "/garden">
                     <RenderCard item={props.plant}
                    isLoading={props.plantsLoading} errMess={props.plantsErrMess}
                     />
+                    </a>
+                   
                 </div>
+
+
+               
                 <div className="col-12 col-md m-1">
-                    <RenderCard item={props.promotion} isLoading={props.promoLoading} errMess={props.promoErrMess}/>
+                <a href="/contactus">
+                    <RenderCard item={props.promotion} isLoading={props.promoLoading} errMess={props.promoErrMess} />
+                    </a>
                 </div>
+               
+               
+                
                 <div className="col-12 col-md m-1">
+                    <a href = "/aboutus">
                     <RenderCard item={props.leader} 
                     isLoading={props.leaderLoading} 
                     errMess={props.leaderErrMess}
                     />
+                    </a>
+                    
                 </div>
             </div>
         </div>

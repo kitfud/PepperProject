@@ -95,7 +95,7 @@ export const addPromos = (promos) => ({
     payload: promos
 });
 
-export const postComment = (plantId, rating, comment) => (dispatch) => {
+export const postComment = (plantId, rating, comment,author) => (dispatch) => {
 
   if (!auth.currentUser) {
       console.log('No user logged in!');
@@ -105,7 +105,7 @@ export const postComment = (plantId, rating, comment) => (dispatch) => {
   return firestore.collection('comments').add({
       author: {
           '_id': auth.currentUser.uid,
-          'firstname' : auth.currentUser.displayName ? auth.currentUser.displayName : auth.currentUser.email
+          'firstname' : author
       },
       plant: plantId,
       rating: rating,
@@ -148,7 +148,7 @@ export const deleteComment = (comment) => (dispatch) => {
     .then(snapshot => {
         console.log(comment.author.firstname);
     
-            if(user.displayName === comment.author.firstname || user.email=== comment.author.firstname){
+            if(auth.currentUser.uid === comment.author._id || user.email=== comment.author.firstname){
             firestore.collection('comments').doc(comment._id).delete()
             .then(() => {
                 dispatch(fetchComments());

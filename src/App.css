@@ -5,6 +5,7 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+ 
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -123,4 +124,16 @@ nav .btn:hover {
   color:black;
 }
 
+.fa-spinner{
+  color:green;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+  color: black;
+  text-decoration: none!important;
+
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+}
 
