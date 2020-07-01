@@ -17,7 +17,7 @@ import { Loading } from './LoadingComponent';
         );
     }
 
-    class Garden extends Component  {
+class Garden extends Component  {
 
 
   constructor(props) {
@@ -84,7 +84,7 @@ import { Loading } from './LoadingComponent';
             <div className="col-12">
 
                 <h3>Garden</h3>
-                <label htmlFor = "search">Search by plant name:</label>
+                <label htmlFor = "search">Search for a plant by name: &nbsp; </label>
                 <input type ="text" defaultValue={this.state.inputValue} onChange={this.plantsFilterOnChange}/>
                 <hr />
 
@@ -100,8 +100,8 @@ import { Loading } from './LoadingComponent';
  
     }
 
+export default Garden;
 
 const styles = {
     marginBottom: "20px"
 }    
-export default Garden;

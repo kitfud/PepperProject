@@ -1,4 +1,4 @@
-import { Media, Breadcrumb, BreadcrumbItem, Button, Row, Col, Label } from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Button, Row, Col, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import React, { Component } from "react";
@@ -6,7 +6,7 @@ import { storage } from '../firebase/firebase';
 import { Control,Form, Errors} from 'react-redux-form';
 
 const required = (val) => val && val.length;
-
+const minLength = (len) => (val) => val && (val.length >= len);
 
 class Upload extends Component {
 
@@ -17,10 +17,7 @@ class Upload extends Component {
           url: "",
           progress: 0,
 
-          name:"",
-          description:"",
-          scoville:"",
-          category:""
+     
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,14 +65,22 @@ class Upload extends Component {
        
       };
 
-     
+     dataCheck(values){
+      if(values.name.length !==0 && values.description.length !== 0){
+        this.props.postPlant(values.source,this.state.url, values.name, values.description, values.scoville,values.category, this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email);
+        this.props.resetPlantForm();
+        alert("Success! Thank you for adding a plant to the garden!")
+      }
+      else{
+        alert("You need to add a plant name + descrption before submitting") 
+      }
+    
+     }
 
       handleSubmit(values) {
         console.log(values.description)
         if(this.state.url.length !== 0){
-          this.props.postPlant(values.source,this.state.url, values.name, values.description, values.scoville,values.category, this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email);
-          this.props.resetPlantForm();
-          alert("Thank you for adding a plant!")
+            this.dataCheck(values);
         }
         else{
           alert("Upload an Image first! ")
@@ -142,7 +147,7 @@ class Upload extends Component {
                                         model=".name"
                                         show="touched"
                                         messages={{
-                                            required: 'Required'
+                                            required: 'Required',
                                         }}
                                      />
                                  
@@ -226,7 +231,8 @@ class Upload extends Component {
  
 const styles = {
   marginLeft: "210px",
-  marginTop:"20px"
+  marginTop:"20px",
+  color:"green"
 }
 
 const divStyle = {

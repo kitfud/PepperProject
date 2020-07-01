@@ -161,7 +161,7 @@ class Main extends Component {
               <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
               <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders}  />} />
               <PrivateRoute exact path='/upload' component = {()=><Upload auth={this.props.auth} postPlant = {this.props.postPlant} resetPlantForm={this.props.resetPlantForm}/>} />
-              <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} plants={this.props.garden} deleteFavorite={this.props.deleteFavorite} />} />
+              <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} plants={this.props.garden} deleteFavorite={this.props.deleteFavorite} auth ={this.props.auth} />} />
               <Redirect to="/home" />
           </Switch>
           </CSSTransition>
