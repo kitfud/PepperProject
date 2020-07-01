@@ -27,3 +27,5 @@ export const ADD_UPLOAD = 'ADD_UPLOAD';
 export const UPLOAD_LOADING = 'UPLOAD_LOADING';
 export const UPLOAD_FAILED = 'UPLOAD_FAILED';
 export const ADD_PLANT = 'ADD_PLANT';
+
+export const FILTER_PLANT = 'FILTER_PLANT'

@@ -1,6 +1,8 @@
 import * as ActionTypes from './ActionTypes';
 import { auth, firestore, fireauth, firebasestore } from '../firebase/firebase';
 
+
+
 export const fetchPlants = () => (dispatch) => {
 
   dispatch(plantsLoading(true));

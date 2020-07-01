@@ -13,7 +13,7 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
+import { deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => ({
   deleteComment: (commentId)=>dispatch(deleteComment(commentId)),
   
   deletePlant: (plantId) => dispatch(deletePlant(plantId)),
-  postPlant: (source,image, name, description, scoville, category,submittedBy)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy))
+  postPlant: (source,image, name, description, scoville, category,submittedBy)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy)),
 
 });
 
@@ -60,12 +60,15 @@ class Main extends Component {
     this.props.fetchLeaders();
     this.props.fetchFavorites();
   }
-  
+
+ 
+
   /*
     onPlantSelect(plantId) {
       this.setState({ selectedPlant: plantId});
     }
   */
+
 
     render() {
       const PlantWithId = ({match}) => {

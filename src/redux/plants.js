@@ -2,7 +2,8 @@ import * as ActionTypes from './ActionTypes';
 
 export const Plants = (state = { isLoading: true,
     errMess: null,
-    plants:[]}, action) => {
+    plants:[]   
+}, action) => {
     switch (action.type) {
         case ActionTypes.ADD_PLANTS:
             return {...state, isLoading: false, errMess: null, plants: action.payload};
