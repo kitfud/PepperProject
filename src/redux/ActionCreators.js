@@ -531,3 +531,20 @@ export const googleLogin = () => (dispatch) => {
             dispatch(loginError(error.message));
         });
 }
+
+export const facebookLogin =() => (dispatch)=>{
+const provider = new fireauth.FacebookAuthProvider();  
+
+auth.signInWithPopup(provider)
+.then((result) => {
+    var user = result.user;
+    localStorage.setItem('user', JSON.stringify(user));
+    // Dispatch the success action
+    dispatch(fetchFavorites());
+    dispatch(receiveLogin(user));
+})
+.catch((error) => {
+    dispatch(loginError(error.message));
+});
+
+}

@@ -13,7 +13,7 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
+import {facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
@@ -31,6 +31,7 @@ const mapDispatchToProps = dispatch => ({
   logoutUser: () => dispatch(logoutUser()),
   fetchFavorites: () => dispatch(fetchFavorites()),
   googleLogin: () => dispatch(googleLogin()),
+  facebookLogin: () => dispatch(facebookLogin()),
   postFavorite: (plantId) => dispatch(postFavorite(plantId)),
   deleteFavorite: (plantId) => dispatch(deleteFavorite(plantId)),
 
@@ -156,6 +157,7 @@ class Main extends Component {
           loginUser={this.props.loginUser} 
           logoutUser={this.props.logoutUser}
           googleLogin={this.props.googleLogin}
+          facebookLogin = {this.props.facebookLogin}
           />
           <TransitionGroup location={this.props.location}>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>

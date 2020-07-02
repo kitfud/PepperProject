@@ -12,6 +12,7 @@ class Header extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+        this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
         this.checkLogin = this.checkLogin.bind(this);
 
@@ -45,6 +46,12 @@ class Header extends Component {
     handleGoogleLogin(event) {
         this.toggleModal();
         this.props.googleLogin();
+        event.preventDefault();
+    }
+
+    handleFacebookLogin(event) {
+        this.toggleModal();
+        this.props.facebookLogin();
         event.preventDefault();
     }
 
@@ -134,9 +141,17 @@ class Header extends Component {
                     <div> General Users login here via Google:</div>    
                     <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
                     <hr className="rounded"></hr>
-                     <div>Don't have a Google Account? Sign up for one <a target="_blank" rel="noopener noreferrer" href= "https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Fpc%3Dtopnav-about-n-en&flowName=GlifWebSignIn&flowEntry=SignUp">HERE</a></div>
+                    <div> General Users login here via Facebook:</div>    
+                    <Button color="primary" onClick={this.handleFacebookLogin}><span className="fa fa-facebook fa-lg"></span> Login with Facebook</Button>
                     <hr className="rounded"></hr>
-                    <div style={divStyle}>If I assigned you a login and password then login here:</div>
+                     <div>Don't have a Google account? Sign up here: 
+                         <a target="_blank" rel="noopener noreferrer" href= "https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Fpc%3Dtopnav-about-n-en&flowName=GlifWebSignIn&flowEntry=SignUp">
+                         HERE</a></div>
+                        <div>Want a Facebook account? Sign up here: 
+                         <a target="_blank" rel="noopener noreferrer" href= "https://www.facebook.com/r.php">
+                        HERE</a></div>
+                    <hr className="rounded"></hr>
+                    <div style={divStyle}>Admin login here:</div>
                     <Form onSubmit={this.handleLogin}>
                             <FormGroup>
                                 <Label htmlFor="username">Username</Label>

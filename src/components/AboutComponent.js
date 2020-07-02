@@ -69,7 +69,7 @@ function About(props) {
                     <h2>Our History</h2>
                     <p>Working with a small space and limited resources we are doing what we can to bring the <em>HEAT</em> to our urban patio.</p>
                     <img src="/assets/images/kitgarden.jpg" className="img-fluid" alt="Responsive"></img>
-                    <p>Our humble garden houses multiple varieties of peppers, basil as well as flower types.</p>  
+                    <p>Our humble garden houses multiple varieties of peppers, basil as well as flowers.</p>  
                 </div>
                 <div className="col-12 col-md-5" style={positionBox}>
                     <Card>
