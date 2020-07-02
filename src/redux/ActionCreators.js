@@ -97,7 +97,7 @@ export const addPromos = (promos) => ({
     payload: promos
 });
 
-export const postComment = (plantId, rating, comment,author) => (dispatch) => {
+export const postComment = (plantId, comment,author) => (dispatch) => {
 
   if (!auth.currentUser) {
       console.log('No user logged in!');
@@ -110,7 +110,6 @@ export const postComment = (plantId, rating, comment,author) => (dispatch) => {
           'firstname' : author
       },
       plant: plantId,
-      rating: rating,
       comment: comment,
       createdAt: firebasestore.FieldValue.serverTimestamp(),
       updatedAt: firebasestore.FieldValue.serverTimestamp()
@@ -252,6 +251,61 @@ export const deletePlant = (plantId) => (dispatch) => {
             }
             else{
                 alert("you can only delete your own plants")
+            }
+            
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+
+  
+};
+
+export const updatePlant = (plantId, source,name, description, scoville, category) => (dispatch) => {
+
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        alert("login to update plant")
+        return;
+    }
+
+    var user = auth.currentUser;
+    console.log(plantId)
+    console.log(user.email)
+    console.log(user.displayName)
+
+    
+    var docRef = firestore.collection("plants").doc(plantId);
+
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data()
+            console.log("Document data:", data.submittedBy);
+
+            if(data.submittedBy === user.displayName || data.submittedBy === user.email){
+               return firestore.collection('plants').doc(plantId).update({
+                    source: source,
+                    name:name,
+                    description:description,
+                    scoville: scoville,
+                    category:category,
+                    modifiedAt: firebasestore.FieldValue.serverTimestamp()
+
+                })
+                .then(function() {
+                    console.log("Document successfully updated!");
+                    dispatch(fetchPlants());
+                })
+                .catch(function(error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+            }
+            else{
+                alert("you can only edit your own plants")
             }
             
         } else {

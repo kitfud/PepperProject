@@ -9,7 +9,10 @@ function RenderGardenItem({ plant, deleteFavorite }) {
         <Media tag="li">
             <Media body className="ml-5">
                 <Media heading>{plant.name}</Media>
+                <Link to={`/garden/${plant._id}`} >
                 <Media object src={plant.image} alt={plant.name} />
+                </Link>
+                
                 <p>{plant.description}</p>
                 <Button outline color="danger" onClick={() => deleteFavorite(plant._id)}>
                     <span className="fa fa-times"></span>

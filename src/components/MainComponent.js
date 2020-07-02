@@ -13,14 +13,15 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
+import {updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
-  postComment: (plantId, rating, author, comment) => dispatch(postComment(plantId, rating, author, comment)),
+  postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
   fetchPlants: () => { dispatch(fetchPlants())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   resetPlantForm: () => { dispatch(actions.reset('plantform'))},
+  resetUpdatePlantForm:()=>{dispatch(actions.reset('updateplantform'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),
@@ -37,7 +38,7 @@ const mapDispatchToProps = dispatch => ({
   
   deletePlant: (plantId) => dispatch(deletePlant(plantId)),
   postPlant: (source,image, name, description, scoville, category,submittedBy)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy)),
-
+  updatePlant:(plantId, source,name, description, scoville, category)=> dispatch(updatePlant(plantId, source,name, description, scoville, category))
 });
 
 const mapStateToProps = state => {
@@ -88,6 +89,8 @@ class Main extends Component {
             postFavorite={this.props.postFavorite}
             deleteFavorite={this.props.deleteFavorite}
             auth={this.props.auth} 
+            updatePlant = {this.props.updatePlant}
+            resetUpdatePlantForm = {this.props.resetUpdatePlantForm}
             />
           :
           <PlantDetails plant={this.props.garden.plants.filter((plant) => plant._id === match.params.plantId)[0]}
@@ -102,6 +105,8 @@ class Main extends Component {
             postFavorite={this.props.postFavorite}
             deleteFavorite={this.props.deleteFavorite}
             auth={this.props.auth} 
+            updatePlant = {this.props.updatePlant}
+            resetUpdatePlantForm = {this.props.resetUpdatePlantForm}
             />
 
 

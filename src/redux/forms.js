@@ -15,3 +15,11 @@ export const PlantForm = {
     scoville:'',
     category:''
 }
+
+export const UpdatePlantForm = {
+    source:'',
+    name:'',
+    description:'',
+    scoville:'',
+    category:''
+}

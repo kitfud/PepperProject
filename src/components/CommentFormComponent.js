@@ -31,7 +31,7 @@ constructor(props){
 
         handleLogin(values) {
         console.log('Current State is: ' + JSON.stringify(values));
-        this.props.postComment(this.props.plantId, values.rating, values.comment, values.author);
+        this.props.postComment(this.props.plantId, values.comment, values.author);
         } 
 
         checkLogin(){
@@ -56,31 +56,6 @@ render(){
 <LocalForm onSubmit={(values) => this.handleLogin(values)}>
 
 <div className="container">
-
-<Row className="form-group">
-<Label htmlFor="rating" md={12}>Rating</Label>
-<Col md={{size: 3, offset: 0}}>
-<Control.select model=".rating" name="rating" className="form-control" validators={{required}}>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-</Control.select>
-<Errors
-                                        className="text-danger"
-                                        model=".rating"
-                                        show="touched"
-                                        messages={{
-                                            required: 'Rating required',
-                                        }}
-                                     />
-</Col>
-
-</Row>
-
-
-
 
              <Row className="form-group">
                                 <Label htmlFor="firstname" md={12}>Your Name</Label>
