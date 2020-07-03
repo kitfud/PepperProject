@@ -67,7 +67,7 @@ class Upload extends Component {
 
      dataCheck(values){
       if(values.name.length !==0 && values.description.length !== 0){
-        this.props.postPlant(values.source,this.state.url, values.name, values.description, values.scoville,values.category, this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email);
+        this.props.postPlant(values.source,this.state.url, values.name, values.description, values.scoville,values.category, this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email,values.sown,values.transplant,values.fruits);
         this.props.resetPlantForm();
         alert("Success! Thank you for adding a plant to the garden!")
       }
@@ -181,10 +181,34 @@ class Upload extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="source" md={2}>Seed Source (URL): </Label>
                                 <Col md={10}>
-                                    <Control.text model=".source" id="category" name="category"
+                                    <Control.text model=".source" id="source" name="source"
                                         placeholder="Source"
                                         className="form-control"
                                     
+                                         />
+                               
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Label htmlFor="sown" md={2}>Seeds Sown: </Label>
+                                <Col md={10}>
+                                    <Control.text model=".sown" id="sown" name="sown"
+                                        placeholder="Sown"
+                                        className="form-control"
+                                    
+                                         />
+                               
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Label htmlFor="transplant" md={2}>Transplant Date: </Label>
+                                <Col md={10}>
+                                    <Control.text model=".transplant" id="transplant" name="transplant"
+                                        placeholder="Transplant"
+                                        className="form-control"
+
                                          />
                                
                                 </Col>
@@ -196,6 +220,7 @@ class Upload extends Component {
                                     <Control.textarea model=".description" id="description" name="description"
                                         rows="12"
                                         className="form-control" 
+                                        placeholder="Description"
                                         validators={{required}}/>
                                         <Errors
                                         className="text-danger"
@@ -208,6 +233,17 @@ class Upload extends Component {
                                 </Col>
                             </Row>
                             
+                            <Row className="form-group">
+                                <Label htmlFor="fruits" md={2}># Fruits: </Label>
+                                <Col md={10}>
+                                    <Control.text model=".fruits" id="fruits" name="fruits"
+                                        placeholder="# Fruits"
+                                        className="form-control"
+
+                                         />
+                               
+                                </Col>
+                            </Row>
                        
                             <Row className="form-group">
                                 <Col md={{size:10, offset: 2}}>

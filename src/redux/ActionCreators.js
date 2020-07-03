@@ -133,7 +133,7 @@ export const postComment = (plantId, comment,author) => (dispatch) => {
       alert('Your comment could not be posted\nError: '+ error.message); })
 }
 
-export const postPlant = (source,url,name, description, scoville, category, submittedBy) => (dispatch) => {
+export const postPlant = (source,url,name, description, scoville, category, submittedBy,sown,transplant,fruits) => (dispatch) => {
 
     /*if (!auth.currentUser) {
         console.log('No user logged in!');
@@ -149,7 +149,11 @@ export const postPlant = (source,url,name, description, scoville, category, subm
         category:category,
         createdAt: firebasestore.FieldValue.serverTimestamp(),
         modifiedAt: firebasestore.FieldValue.serverTimestamp(),
-        submittedBy: submittedBy
+        submittedBy: submittedBy,
+
+        sown: sown,
+        transplant: transplant,
+        fruits: fruits,
     })
     .then(docRef => {
         firestore.collection('plants').doc(docRef.id).get()
@@ -264,7 +268,7 @@ export const deletePlant = (plantId) => (dispatch) => {
   
 };
 
-export const updatePlant = (plantId, source,name, description, scoville, category) => (dispatch) => {
+export const updatePlant = (plantId, source,name, description, scoville, category,sown,transplant,fruits) => (dispatch) => {
 
     if (!auth.currentUser) {
         console.log('No user logged in!');
@@ -292,7 +296,10 @@ export const updatePlant = (plantId, source,name, description, scoville, categor
                     description:description,
                     scoville: scoville,
                     category:category,
-                    modifiedAt: firebasestore.FieldValue.serverTimestamp()
+                    modifiedAt: firebasestore.FieldValue.serverTimestamp(),
+                    sown: sown,
+                    transplant: transplant,
+                    fruits: fruits
 
                 })
                 .then(function() {

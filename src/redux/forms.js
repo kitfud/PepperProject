@@ -13,7 +13,10 @@ export const PlantForm = {
     name:'',
     description:'',
     scoville:'',
-    category:''
+    category:'',
+    sown:'',
+    transplant:'',
+    fruits:''
 }
 
 export const UpdatePlantForm = {
@@ -21,5 +24,9 @@ export const UpdatePlantForm = {
     name:'',
     description:'',
     scoville:'',
-    category:''
+    category:'',
+    sown:'',
+    transplant:'',
+    fruits:''
+
 }

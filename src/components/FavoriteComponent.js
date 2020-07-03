@@ -146,10 +146,14 @@ const Favorites = (props) => {
         return(
             <div className="container">
                 <div className="row">
-                    <h4>You have no favorites! Head to the <a href ="/garden">Garden</a> and add some plants you like :)</h4>
+                    <h4><span>You have no favorites yet!</span> Head to the <a  href ="/garden"><span style ={styles}>Garden</span></a> and when you are logged in add some plants you like by clicking the heart symbol. Afterwards you will be able to see these plants and also the plants you have uploaded to the garden :)</h4>
                 </div>
             </div>
         )
     }
+}
+
+const styles = {
+    color:"blue"
 }
 export default Favorites;

@@ -7,6 +7,7 @@ import { Loading } from './LoadingComponent';
 import {Modal, ModalHeader, ModalBody,
     Form, Label } from 'reactstrap';
     import { Control, LocalForm, Errors } from 'react-redux-form';
+import { plantsFailed } from '../redux/ActionCreators';
 
     const required = (val) => val && val.length;
 
@@ -29,11 +30,20 @@ import {Modal, ModalHeader, ModalBody,
         
         <span style = {hot}>Description:</span>{plant.description} <br/>
         <br/>
-        <span style = {hot}>Hotness:</span> {plant.scoville} Scoville Units <br/>
+        <span style = {hot}>Submitted By:</span> {plant.submittedBy}<br/>
         <br/>
-        <span style = {hot}>Seed Source:</span>  {plant.source}
-                                   
-        
+        {plant.scoville? <span> <span style = {hot}> Hotness:</span>{plant.scoville} Scoville Units </span> : null}<br/>
+        <br/>
+        {plant.source? <span> <span style = {hot}>Seed Source:</span> {plant.source} </span> : null}<br/>
+        <br/>
+        {plant.category?<span > <span style = {hot}> Category:</span> {plant.category}  </span> : null}<br/>
+        <br/>
+        {plant.sown?<span><span style = {hot}> Plant Sown:</span> {plant.sown}  </span> : null}<br/>
+        <br/>
+        {plant.transplant?<span> <span style = {hot}>Transplant Date:</span> {plant.transplant}  </span> : null} <br/>
+        <br/>
+        { plant.fruits? <span> <span style = {hot}># Fruits:</span> {plant.fruits}  </span> : null } <br/>                          
+        <br/>
         </CardText>  
          
        </Card> 
@@ -123,6 +133,9 @@ class PlantDetails extends Component {
         let description;
         let scoville;
         let category; 
+        let sown;
+        let transplant;
+        let fruits;
 
         if(values.name === undefined){
            name = this.props.plant.name
@@ -158,8 +171,29 @@ class PlantDetails extends Component {
          else{
              category = values.category
          }
+
+         if(values.sown === undefined){
+            sown = this.props.plant.sown
+         }
+         else{
+             sown = values.sown
+         }
+
+         if(values.transplant === undefined){
+            transplant = this.props.plant.transplant
+         }
+         else{
+             transplant = values.transplant
+         }
+
+         if(values.fruits === undefined){
+            fruits = this.props.plant.fruits
+         }
+         else{
+             fruits = values.fruits
+         }
       
-        this.props.updatePlant(this.props.plant._id, source, name, description, scoville, category);
+        this.props.updatePlant(this.props.plant._id, source, name, description, scoville, category,sown,transplant,fruits);
        
         //values.preventDefault();
     }
@@ -245,7 +279,7 @@ class PlantDetails extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="source" md={2}>Seed Source (URL): </Label>
                                 <Col md={10}>
-                                    <Control.text model=".source" id="category" name="category"
+                                    <Control.text model=".source" id="source" name="source"
                                         placeholder="Source"
                                         className="form-control"
                                     
@@ -272,6 +306,42 @@ class PlantDetails extends Component {
                                 </Col>
                             </Row>
                             
+
+                            <Row className="form-group">
+                                <Label htmlFor="sown" md={2}>Seeds Sown: </Label>
+                                <Col md={10}>
+                                    <Control.text model=".sown" id="sown" name="sown"
+                                        placeholder="Sown"
+                                        className="form-control"
+                                    
+                                         />
+                               
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Label htmlFor="transplant" md={2}>Transplant Date: </Label>
+                                <Col md={10}>
+                                    <Control.text model=".transplant" id="transplant" name="transplant"
+                                        placeholder="Transplant"
+                                        className="form-control"
+
+                                         />
+                               
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Label htmlFor="fruits" md={2}># Harvested Fruits: </Label>
+                                <Col md={10}>
+                                    <Control.text model=".fruits" id="fruits" name="fruits"
+                                        placeholder="# Fruits"
+                                        className="form-control"
+
+                                         />
+                               
+                                </Col>
+                            </Row>
                        
                             <Row className="form-group">
                                 <Col md={{size:10, offset: 2}}>

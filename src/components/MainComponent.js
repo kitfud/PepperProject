@@ -38,8 +38,8 @@ const mapDispatchToProps = dispatch => ({
   deleteComment: (commentId)=>dispatch(deleteComment(commentId)),
   
   deletePlant: (plantId) => dispatch(deletePlant(plantId)),
-  postPlant: (source,image, name, description, scoville, category,submittedBy)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy)),
-  updatePlant:(plantId, source,name, description, scoville, category)=> dispatch(updatePlant(plantId, source,name, description, scoville, category))
+  postPlant: (source,image, name, description, scoville, category,submittedBy,sown,transplant,fruits)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy,sown,transplant,fruits)),
+  updatePlant:(plantId, source,name, description, scoville, category,sown,transplant,fruits)=> dispatch(updatePlant(plantId, source,name, description, scoville, category,sown,transplant,fruits))
 });
 
 const mapStateToProps = state => {
