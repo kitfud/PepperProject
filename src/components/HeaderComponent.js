@@ -90,7 +90,7 @@ class Header extends Component {
                     </NavItem>
                     <NavItem onClick = {this.checkLogin}>
                                     <NavLink className="nav-link" to="/favorites">
-                                        <span className="fa fa-heart fa-lg"></span> My Favorites
+                                        <span className="fa fa-heart fa-lg"></span> My Garden
                                     </NavLink>
                     </NavItem>
                     <NavItem onClick = {this.checkLogin}> 

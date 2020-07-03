@@ -5,20 +5,43 @@ import { Loading } from './LoadingComponent';
 
 
 function RenderGardenItem({ plant, deleteFavorite }) {
+    let plantHash = '#'+plant._id
+    let plantHead = plant._id + 'head'
+    console.log(plantHash)
+    console.log(plantHead)
     return(
-        <Media tag="li">
-            <Media body className="ml-5">
+        <div class="card">
+        <div class="card-header" id={plantHead}>
+            <h3 class="mb-0">
+                    {plant.name}   
+                </h3>
+        </div>
+            <div class="card-body">
+            <Link to={`/garden/${plant._id}`} >
+                <Media object width="50%" height="50%" src={plant.image} alt={plant.name} />
+                </Link>
+            <p class = "d-none d-sm-block">{plant.description}</p>
+            <Button col="12" outline color="danger" onClick={() => deleteFavorite(plant._id)}>
+                    <span className="fa fa-times"></span>
+                </Button>
+        </div>
+        
+    </div> 
+        
+    /* 
+   <Media tag="li">
+            <Media body >
                 <Media heading>{plant.name}</Media>
                 <Link to={`/garden/${plant._id}`} >
                 <Media object src={plant.image} alt={plant.name} />
                 </Link>
                 
                 <p>{plant.description}</p>
-                <Button outline color="danger" onClick={() => deleteFavorite(plant._id)}>
-                    <span className="fa fa-times"></span>
-                </Button>
+               
             </Media>
         </Media>
+      */
+     
     );
 }
 
@@ -27,7 +50,7 @@ function RenderUploadItems({plant}){
         <Card>
             <CardBody>
             <Media tag="li">
-        <Media body className="ml-5">
+        <Media >
         <Link to={`/garden/${plant._id}`} >
             <Media heading  > {plant.name}</Media>
             </Link>  
@@ -69,9 +92,9 @@ const Favorites = (props) => {
                 return null
             }
                 return (
-                    <div key={plant._id} className="col-12 col-sm-4">
-                        <RenderGardenItem plant={plant} deleteFavorite={props.deleteFavorite} />
-                    </div>
+                 
+                        <RenderGardenItem  key={plant._id} plant={plant} deleteFavorite={props.deleteFavorite} />
+                    
                 );
             })
 
@@ -80,9 +103,9 @@ const Favorites = (props) => {
 
             const uploads = filterUploads.map((plant) => {
                     return (
-                        <div key={plant._id} className="col-12 mt-5">
-                            <RenderUploadItems plant={plant} />
-                        </div>
+                       
+                            <RenderUploadItems key={plant._id} plant={plant} />
+                      
                     );
                 })
 
@@ -98,21 +121,25 @@ const Favorites = (props) => {
                         <hr />
                     </div>
                 </div>
-                <div className="container row">
+                <div className="row">
+               
                     <div className="col-12 col-md-6">
                     <h3>Favorites:</h3>
-                    <Media list>
                         {favorites}
-                    </Media>
                     </div>
-                    <div className = "col-12 col-md-6">
+              
+               
+                <div className = "col-12 col-md-6">
                         <h3>Uploaded Plants:</h3>
                         <Media list>
                         {uploads}
                     </Media>
                     </div>
+                
                 </div>
+            
             </div>
+            
         );
     }
     else {
