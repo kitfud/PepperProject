@@ -7,7 +7,8 @@ import { Loading } from './LoadingComponent';
 import {Modal, ModalHeader, ModalBody,
     Form, Label } from 'reactstrap';
     import { Control, LocalForm, Errors } from 'react-redux-form';
-import { plantsFailed } from '../redux/ActionCreators';
+import { storage } from '../firebase/firebase';
+
 
     const required = (val) => val && val.length;
 
@@ -98,11 +99,15 @@ class PlantDetails extends Component {
         super(props);
 
         this.toggleModal = this.toggleModal.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+
+      this.toggleImageModal = this.toggleImageModal.bind(this);
+      this.toggleImageHandleClose = this.toggleImageHandleClose.bind(this);
         //this.test = this.test.bind(this);
    
         this.state = {
-          isModalOpen: false
+          isModalOpen: false,
+          show: false,
         };
       }
 
@@ -123,6 +128,60 @@ class PlantDetails extends Component {
             alert("Login to edit plants")
         }
     }
+
+    toggleImageModal(){
+        this.setState({
+            show: !this.state.show
+        })
+    }
+
+    toggleImageHandleClose(){
+        this.setState({show:!this.state.show})
+    }
+
+    handleChange = e => {
+        if (e.target.files[0]) {
+          const image = e.target.files[0];
+          this.setState(() => ({ image }));
+        }
+      };
+    
+      handleUpload = () => {
+      const { image } = this.state;
+      if (this.state.image != null){
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        uploadTask.on(
+          "state_changed",
+          snapshot => {
+            // progress function ...
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            this.setState({ progress });
+          },
+          error => {
+            // Error function ...
+            console.log(error);
+          },
+          () => {
+            // complete function ...
+            storage
+              .ref("images")
+              .child(image.name)
+              .getDownloadURL()
+              .then(url => {
+                this.setState({ url });
+              });
+          }
+        );
+      }
+      else{
+        alert("upload a file first")
+      }
+       
+      };
+
+   
 
     handleSubmit(values) {
         this.toggleModal();
@@ -198,6 +257,10 @@ class PlantDetails extends Component {
         //values.preventDefault();
     }
 
+    handleUpdate(){
+
+    }
+
 
    render(){
   
@@ -225,6 +288,72 @@ class PlantDetails extends Component {
        return(
        
         <div className="container">
+            
+       <Modal isOpen={this.state.show} toggle={this.toggleImageHandleClose}>
+        <ModalHeader toggle={this.toggleImageHandleClose}> Update Image: <span style = {hot}>add an updated image</span></ModalHeader>
+
+                    <ModalBody>
+                        <div class="container">
+                        <div className="file-field input-field" >
+          <div className="btn">
+            <span>File</span>
+            <input type="file" onChange={this.handleChange}  />
+          </div>
+        </div>
+                        </div>
+
+                        <div className ="row align-items-center">
+       <div className="col align-items-center">
+       <span className = " align-items-center no-box-sizing no-gutters" >
+       <button onClick={this.handleUpload}>
+          Upload
+        </button>
+       </span>
+         <span className = "align-items-center no-box-sizing no-gutters "> 
+         <progress className = "no-box-sizing" style = {styles} value={this.state.progress} max="100"  />
+         </span>
+       </div>
+        </div>
+
+        <br />
+        <br />
+        <img
+          src={this.state.url || "https://via.placeholder.com/400x300"}
+          alt="Uploaded Images"
+          height="300"
+          width="400"
+          style={imageBox}
+        />
+
+<Form model="update" onSubmit={(values) => this.handleUpdate(values)}>
+                    
+                    <Row className="form-group">
+                                <Label htmlFor="name" md={2}>Plant Name</Label>
+                                <Col md={10}>
+                                    <Control.text model=".comment" id="comment" name="comment"
+                                        placeholder="Comment"
+                                        className="form-control"
+                                         />
+                                </Col>
+
+                                <Row className="form-group">
+                                <Col md={{size:10, offset: 2}}>
+                                    <Button type="submit" color="primary">
+                                   Update!
+                                    </Button>
+                                </Col>
+                            </Row>
+
+                            </Row>
+</Form>
+
+
+
+                    </ModalBody>
+        </Modal>  
+    
+
+
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
         <ModalHeader toggle={this.toggleModal}> Edit Details: <span style = {hot}>change the fields you want to update. Fields left blank will remain unchanged :)</span></ModalHeader>
 
@@ -358,8 +487,10 @@ class PlantDetails extends Component {
 
 
                     </ModalBody>
-
         </Modal>  
+
+     
+
         <div className="row">
             <Breadcrumb>
                 <BreadcrumbItem><Link to="/garden">Garden</Link></BreadcrumbItem>
@@ -374,7 +505,8 @@ class PlantDetails extends Component {
         <div className="row">
             <div className="col-12 col-md-5 m-1">
                 <RenderPlant plant={this.props.plant} favorite={this.props.favorite} postFavorite={this.props.postFavorite} deleteFavorite={this.props.deleteFavorite} auth={this.props.auth}/>
-                <span className="fa fa-pencil-square-o" onClick={this.toggleModal}> Edit Details</span>
+                <span style = {cardButtons} className="fa fa-pencil-square-o" onClick={this.toggleModal}> Edit Details</span>
+                <span style = {cardButtons} className="fa fa-file-image-o" onClick={this.toggleImageModal}> Update Plant Image</span>
             </div>
             <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={this.props.comments}
@@ -416,5 +548,20 @@ const cardStyle = {
     marginBottom: "10px"
 }
 
+const cardButtons = {
+    marginRight: "10px"
+}
+
 export default PlantDetails;
 
+const imageBox={
+    marginBottom:"10px"
+  }
+
+  const styles = {
+    marginLeft: "0px",
+    marginTop:"20px",
+    paddingRight:"0px",
+    paddingLeft:"0px",
+    color:"green"
+  }

@@ -103,8 +103,8 @@ class Upload extends Component {
                     </div>
                 </div>
         
-     <div className = "row row-content">
-     <div className="col-12 col-md-6" >
+     <div className = "row ">
+     <div className="container absolute-center col-12" >
    
         <div style = {divStyle} className="file-field input-field" >
           <div className="btn">
@@ -113,11 +113,23 @@ class Upload extends Component {
           </div>
         </div>
 
-        <div>
-        <button onClick={this.handleUpload}>
+
+        <div className ="row align-items-center">
+       <div className="col align-items-center">
+       <span className = " align-items-center no-box-sizing no-gutters" >
+       <button onClick={this.handleUpload}>
           Upload
         </button>
-        <progress style = {styles} value={this.state.progress} max="100" className="progress" />
+       </span>
+         <span className = "align-items-center no-box-sizing no-gutters "> 
+         <progress className = "no-box-sizing" style = {styles} value={this.state.progress} max="100"  />
+         </span>
+
+       </div>
+   
+      
+          
+      
         </div>
        
       
@@ -128,11 +140,10 @@ class Upload extends Component {
           alt="Uploaded Images"
           height="300"
           width="400"
+          style={imageBox}
         />
-      </div>
 
-      <div className="col-12 col-md-6">
-      <Form model="plantform" onSubmit={(values) => this.handleSubmit(values)}>
+<Form model="plantform" onSubmit={(values) => this.handleSubmit(values)}>
                     
                     <Row className="form-group">
                                 <Label htmlFor="name" md={2}>Plant Name</Label>
@@ -255,10 +266,14 @@ class Upload extends Component {
 
                         </Form>
       </div>
+
+      
+     
+      </div>
      </div>
      
                 
-            </div>
+            
         );
     }
 
@@ -266,13 +281,21 @@ class Upload extends Component {
    
  
 const styles = {
-  marginLeft: "210px",
+  marginLeft: "0px",
   marginTop:"20px",
+  paddingRight:"0px",
+  paddingLeft:"0px",
   color:"green"
 }
 
 const divStyle = {
   marginLeft:"150px"
 }
+
+const imageBox={
+  marginBottom:"10px"
+}
+
+
 
 export default Upload;

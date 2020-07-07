@@ -9,6 +9,7 @@ import { Auth } from './auth';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { favorites } from './favorites';
+import { updates } from './updates';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -19,6 +20,7 @@ export const ConfigureStore = () => {
             leaders: Leaders,
             auth: Auth,
             favorites,
+            updates,
             ...createForms({
                 feedback: InitialFeedback,
                 plantform: PlantForm,

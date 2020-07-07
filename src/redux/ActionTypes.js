@@ -28,4 +28,8 @@ export const UPLOAD_LOADING = 'UPLOAD_LOADING';
 export const UPLOAD_FAILED = 'UPLOAD_FAILED';
 export const ADD_PLANT = 'ADD_PLANT';
 
-export const FILTER_PLANT = 'FILTER_PLANT'
+export const FILTER_PLANT = 'FILTER_PLANT';
+
+export const ADD_UPDATES = 'ADD_UPDATES';
+export const UPDATES_FAILED= 'UPDATES_FAILED';
+export const ADD_UPDATE = 'ADD_UPDATE';

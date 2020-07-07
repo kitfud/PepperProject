@@ -13,11 +13,14 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
+import {postUpdate, fetchUpdate, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
   postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
+  postUpdate: (plantId, image, comment) => dispatch(postUpdate(plantId, image, comment)),
+
+
   fetchPlants: () => { dispatch(fetchPlants())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   resetPlantForm: () => { dispatch(actions.reset('plantform'))},
@@ -84,6 +87,7 @@ class Main extends Component {
             commentsErrMess={this.props.comments.errMess}
             postComment={this.props.postComment}
             deleteComment = {this.props.deleteComment}
+            postUpdate = {this.props.postUpdate}
 
 
             favorite={this.props.favorites.favorites.plants.some((plant) => plant === match.params.plantId)}
@@ -101,6 +105,7 @@ class Main extends Component {
             commentsErrMess={this.props.comments.errMess}
             postComment={this.props.postComment}
             deleteComment = {this.props.deleteComment}
+            postUpdate = {this.props.postUpdate}
 
             favorite={false}
             postFavorite={this.props.postFavorite}

@@ -482,6 +482,36 @@ export const postFavorite = (plantId) => (dispatch) => {
     .catch(error => dispatch(favoritesFailed(error.message)));
 }
 
+export const postUpdate = (plantId, image, comment) => (dispatch) => {
+
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
+    }
+
+    return firestore.collection('update').add({
+        user: auth.currentUser.uid,
+        plant: plantId,
+        images: image,
+        comment: comment
+    })
+
+    /*
+    .then(docRef => {
+        firestore.collection('update').doc(docRef.id).get()
+            .then(doc => {
+                if (doc.exists) {
+                    dispatch(fetchUpdates())
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such update document!");
+                }
+            });
+    })
+    .catch(error => dispatch(updateFailed(error.message)));
+    */
+}
+
 
 
 export const fetchFavorites = () => (dispatch) => {
