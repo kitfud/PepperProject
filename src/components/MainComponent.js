@@ -41,10 +41,10 @@ const mapDispatchToProps = dispatch => ({
   deleteFavorite: (plantId) => dispatch(deleteFavorite(plantId)),
 
   deleteComment: (commentId)=>dispatch(deleteComment(commentId)),
+
+  deleteUpdate: (plantId, url) => dispatch(deleteUpdate(plantId,url)),
   
-  deleteUpdate: (plantId) => dispatch(deleteUpdate(plantId)),
-  
-  deletePlant: (plantId) => dispatch(deletePlant(plantId)),
+  deletePlant: (plantId, url) => dispatch(deletePlant(plantId,url)),
   postPlant: (source,image, name, description, scoville, category,submittedBy,sown,transplant,fruits)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy,sown,transplant,fruits)),
   updatePlant:(plantId, source,name, description, scoville, category,sown,transplant,fruits)=> dispatch(updatePlant(plantId, source,name, description, scoville, category,sown,transplant,fruits))
 });

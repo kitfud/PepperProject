@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
-import { auth, firestore, fireauth, firebasestore } from '../firebase/firebase';
+import { auth, firestore, fireauth, firebasestore,storage } from '../firebase/firebase';
+import {  } from 'firebase';
 
 
 
@@ -199,7 +200,7 @@ export const deleteComment = (comment) => (dispatch) => {
     .catch(error => dispatch(commentsFailed(error.message)));
 };
 
-export const deletePlant = (plantId) => (dispatch) => {
+export const deletePlant = (plantId,url) => (dispatch) => {
 
     if (!auth.currentUser) {
         console.log('No user logged in!');
@@ -212,6 +213,7 @@ export const deletePlant = (plantId) => (dispatch) => {
     console.log(user.email)
     console.log(user.displayName)
 
+
     
     var docRef = firestore.collection("plants").doc(plantId);
 
@@ -222,7 +224,22 @@ export const deletePlant = (plantId) => (dispatch) => {
 
             if(data.submittedBy === user.displayName || data.submittedBy === user.email){
                 firestore.collection('plants').doc(plantId).delete()  
-                dispatch(fetchPlants());
+                .then(function(){
+                    var desertRef = storage.refFromURL(url)
+                    // Delete the file
+                    desertRef.delete().then(function() {
+                      console.log("file deleted")
+                    }).catch(function(error) {
+                      console.log("error deleting occured")
+                    });
+                })
+                .then(function(){
+                    dispatch(fetchPlants())
+                })
+                
+                
+                // Create a reference to the file to delete from the firestore, image/store
+
             }
             else{
                 alert("you can only delete your own plants")
@@ -236,6 +253,7 @@ export const deletePlant = (plantId) => (dispatch) => {
         console.log("Error getting document:", error);
     });
 
+   
   
 };
 
@@ -297,7 +315,7 @@ export const updatePlant = (plantId, source,name, description, scoville, categor
   
 };
 
-export const deleteUpdate = (plantId) => (dispatch) => {
+export const deleteUpdate = (plantId,imageURL) => (dispatch) => {
 
     /*
     if (!auth.currentUser) {
@@ -306,7 +324,18 @@ export const deleteUpdate = (plantId) => (dispatch) => {
     }
 
     var user = auth.currentUser;
+
 */
+
+// Create a reference to the file to delete
+var desertRef = storage.refFromURL(imageURL)
+// Delete the file
+desertRef.delete().then(function() {
+  console.log("file deleted")
+}).catch(function(error) {
+  console.log("error deleting occured")
+});
+
     return firestore.collection('updates').where('plant', '==', plantId).get()
     .then(snapshot => {
         console.log(snapshot);
@@ -319,6 +348,8 @@ export const deleteUpdate = (plantId) => (dispatch) => {
         });
     })
     .catch(error => dispatch(updatesFailed(error.message)));
+
+    
 };
 
 

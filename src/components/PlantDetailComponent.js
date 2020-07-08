@@ -21,7 +21,7 @@ function RenderUpdates({updates, deleteUpdate, plant}){
             <CardBody>
             <CardImg width="100%" top src={info.images} />
             </CardBody>
-            <span className="fa fa-trash-o" onClick={() => deleteUpdate(plant._id)}></span>
+            <span className="fa fa-trash-o" onClick={() => deleteUpdate(plant._id, info.images)}></span>
             </Card>
             </ol>
            
