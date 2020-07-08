@@ -562,6 +562,45 @@ export const postFavorite = (plantId) => (dispatch) => {
     .catch(error => dispatch(favoritesFailed(error.message)));
 }
 
+export const updateComment = (plantId,image,comment)=>(dispatch) =>{
+    if(comment === undefined || comment.length ===0){
+        comment="";
+    }
+    return firestore.collection('updates').where('plant', '==', plantId).where('images','==',image).get()
+    .then(snapshot => {
+        console.log(snapshot);
+        snapshot.forEach(doc => {
+            console.log(doc.id);
+            firestore.collection('updates').doc(doc.id).update(
+                {
+                    comment: comment
+                }
+            )
+            .then(() => {
+/*
+  return firestore.collection('plants').doc(plantId).update({
+                    image: updateURL,
+                    modifiedAt: firebasestore.FieldValue.serverTimestamp(),
+                })
+
+
+
+                // Create a reference to the file to delete
+var desertRef = storage.refFromURL(imageURL)
+// Delete the file
+desertRef.delete().then(function() {
+  console.log("file deleted")
+}).catch(function(error) {
+  console.log("error deleting occured")
+});
+*/
+dispatch(fetchUpdates());
+            })
+        });
+    })
+    .catch(error => dispatch(updatesFailed(error.message)));
+}
+
 export const postUpdate = (plantId, image, comment) => (dispatch) => {
 
 if(comment === undefined || comment.length ===0){

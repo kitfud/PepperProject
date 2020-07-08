@@ -9,7 +9,7 @@ import {Modal, ModalHeader, ModalBody,
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
-function RenderUpdates({updates, deleteUpdate, plant, updateMainPlantImage,toggleMainImageModal}){
+function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggleCommentModal}){
 
 
         if(updates != null && updates.length !== 0){
@@ -25,6 +25,8 @@ function RenderUpdates({updates, deleteUpdate, plant, updateMainPlantImage,toggl
             </Card>
             <text>Switch Main Plant Image:</text>
             <span className="fa fa fa-refresh" onClick={()=>toggleMainImageModal(info.images)}></span>
+            <text>Update Comment:</text>
+            <span className="fa fa fa-pencil" onClick={()=>toggleCommentModal(info.images)}></span>
             </ol>
            
           
@@ -127,6 +129,10 @@ class PlantDetails extends Component {
       this.toggleModal = this.toggleModal.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
 
+      this.toggleCommentModal = this.toggleCommentModal.bind(this);
+      this.toggleCommentModalHandleClose = this.toggleCommentModalHandleClose.bind(this);
+      this.handleSubmitCommentModal = this.handleSubmitCommentModal.bind(this);
+
       this.toggleImageModal = this.toggleImageModal.bind(this);
       this.toggleImageHandleClose = this.toggleImageHandleClose.bind(this);
 
@@ -142,6 +148,7 @@ class PlantDetails extends Component {
           isModalOpen: false,
           show: false,
           showMainImageModal:false,
+          showCommentModal: false,
           image: null,
           url: "",
           progress: 0,
@@ -177,6 +184,27 @@ class PlantDetails extends Component {
         this.setState({show:!this.state.show})
     }
 
+    toggleCommentModal(val){
+        console.log(val)
+        let input = val
+        this.setState({
+            updateURL: input,
+        },() => 
+        console.log(this.state.updateURL))
+
+        this.setState({
+            showCommentModal: !this.state.showCommentModal
+        })
+    }
+
+    handleSubmitCommentModal(values){
+    this.props.updateComment(this.props.plant._id, this.state.updateURL, values.commentUpdate)
+    } 
+
+    toggleCommentModalHandleClose(){
+        this.setState({showCommentModal:!this.state.showCommentModal})
+    }
+
     toggleMainImageModal(val){
         console.log(val)
         let input = val
@@ -190,9 +218,6 @@ class PlantDetails extends Component {
         })
       
     }
-  
-     
-    
 
     toggleMainImageHandleClose(){
         this.setState({
@@ -363,10 +388,52 @@ class PlantDetails extends Component {
    
         <div className="container">
 
+<Modal isOpen={this.state.showCommentModal} toggle={this.toggleCommentModalHandleClose}>
+        <ModalHeader toggle={this.toggleCommentModalHandleClose}> Update Comment:</ModalHeader>
+
+                    <ModalBody>
+                        
+
+<LocalForm model="updateComment" onSubmit={(val) => this.handleSubmitCommentModal(val)}>
+                    
+                    <Row className="form-group">
+                    
+                                <Col md={10}>
+                                    <Control.text model=".commentUpdate" id="commentUpdate" name="commentUpdate"
+                                        placeholder="Comment"
+                                        className="form-control"
+                                         />
+                                </Col>
+                                </Row>
+
+                                <Row className="form-group">
+                                <Col md={{size:10, offset: 2}}>
+                                    <Button type="submit" color="primary">
+                                   Update Comment!
+                                    </Button>
+                                </Col>
+                            </Row>
+
+                           
+</LocalForm>
+
+
+
+                    </ModalBody>
+        </Modal>  
+
+
+
+
+
+
+
+
 <Modal isOpen={this.state.showMainImageModal} toggle={this.toggleMainImageHandleClose}>
         <ModalHeader toggle={this.toggleMainImageHandleClose}> Update Image: <span style = {hot}>save a comment with old plant profile picture</span></ModalHeader>
 
                     <ModalBody>
+                        
 
 <LocalForm model="update" onSubmit={(val) => this.handleMainImageUpdate(val)}>
                     
@@ -628,7 +695,9 @@ class PlantDetails extends Component {
         
         <div className="row">
         <h3>Updates:</h3>
-        <RenderUpdates updates={this.props.updates} plant={this.props.plant} deleteUpdate={this.props.deleteUpdate} toggleMainImageModal ={this.toggleMainImageModal} />
+        <RenderUpdates updates={this.props.updates} 
+        toggleCommentModal = {this.toggleCommentModal}
+        plant={this.props.plant} deleteUpdate={this.props.deleteUpdate} toggleMainImageModal ={this.toggleMainImageModal} />
         </div>
 
         </div>
