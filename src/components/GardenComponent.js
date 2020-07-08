@@ -12,7 +12,7 @@ import { Loading } from './LoadingComponent';
                     <CardTitle>{plant.name} </CardTitle>    
                     <CardImg width="100%" src={plant.image} alt={plant.name} key={plant.id}/>
                     </Link>
-                    <span className="fa fa-trash-o" onClick={() => deletePlant(plant._id, plant.image)}></span>
+                    <span className="fa fa-trash-o" onClick={() => {if(window.confirm('are you sure you want to delete this plant from the garden?'))deletePlant(plant._id, plant.image)}}></span>
             </Card>
         );
     }

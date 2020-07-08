@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem, CardImgOverlay,Button, Row, Col, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 import {Modal, ModalHeader, ModalBody,
-    Form, Label } from 'reactstrap';
+     Label } from 'reactstrap';
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
@@ -15,24 +14,27 @@ function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggle
         if(updates != null && updates.length !== 0){
 
             const updatePlants = updates.map((info) => 
-            <ol>
-            <Card style = {cardStyle}>
+            <div className="col-12 col-md-4 " key={info._id}>
+            <Card style = {cardStyle} >
             <p style = {textStyle}>{info.comment}</p>
             <CardBody>
-            <CardImg width="100%" top src={info.images} />
+            <CardImg width="100%" top src={info.images}  />
             </CardBody>
-            <span className="fa fa-trash-o" onClick={() => auth.isAuthenticated ? auth.user.displayName === plant.submittedBy || auth.user.email === plant.submittedBy ? deleteUpdate(plant._id, info.images):alert("you can only delete your own plants"): alert("login to delete")}></span>
+            <span className="fa fa-trash-o" onClick={() => (auth.isAuthenticated ===true && auth.user.displayName === plant.submittedBy) || (auth.isAuthenticated===true&&auth.user.email === plant.submittedBy) ? window.confirm('are you sure you want to delete this update?')? deleteUpdate(plant._id, info.images) :alert("another time"): alert("login to delete plants. You can only delete YOUR plants.")}></span>
             </Card>
-            <text>Switch Main Plant Image:</text>
-            <span className="fa fa fa-refresh" onClick={()=>toggleMainImageModal(info.images)}></span>
-            <text>Update Comment:</text>
-            <span className="fa fa fa-pencil" onClick={()=>toggleCommentModal(info.images)}></span>
-            </ol>
+            <CardText>Switch To Main Image:  <span className="fa fa fa-refresh" onClick={()=>toggleMainImageModal(info.images)}></span> </CardText>
+           
+            <CardText>Update Comment: <span className="fa fa fa-pencil" onClick={()=>toggleCommentModal(info.images)}></span></CardText>
+            
+            </div>
            
           
     )
     return (
-        updatePlants
+        
+         updatePlants
+       
+        
     )
            }
            else{
@@ -87,30 +89,30 @@ function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggle
   
        if(comments != null){
         const rencomment = comments.map((info) => 
-        <Card style = {cardStyle}>
-        <Fade in key={comments._id} >
-        <ol >
+        <Card style = {cardStyle}  key={info._id}>
+       
+        <ol>
         <p style = {textStyle}>{info.comment}</p>
         <p>-- {info.author.firstname}<span> </span>
         {new Intl.DateTimeFormat('en-US', 
         { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(info.updatedAt.toDate())))}
          
        
-         <span style={buttonStyle} className="fa fa-trash-o" onClick={() => deleteComment(info)}></span>
+         <span style={buttonStyle} className="fa fa-trash-o" onClick={() =>{if(window.confirm('are you sure you want to delete this comment?')) deleteComment(info) }}></span>
         
 
         </p>
         </ol> 
-        </Fade>  
+        
         </Card>
       
 );
            console.log("about to return JSX")    
            return(
            <div  >
-                 <Stagger in >
+              
                  {rencomment} 
-                 </Stagger>
+                
            
            <CommentForm plantId={plantId} postComment={postComment} authenticate={auth}/> 
            </div> 
@@ -473,7 +475,7 @@ class PlantDetails extends Component {
 
 
 <Modal isOpen={this.state.showMainImageModal} toggle={this.toggleMainImageHandleClose}>
-        <ModalHeader toggle={this.toggleMainImageHandleClose}> Update Image: <span style = {hot}>save a comment with old plant profile picture</span></ModalHeader>
+        <ModalHeader toggle={this.toggleMainImageHandleClose}> Update Image: <span style = {hot}>optional: save a comment with replaced plant profile picture</span></ModalHeader>
 
                     <ModalBody>
                         
@@ -509,7 +511,7 @@ class PlantDetails extends Component {
 
             
        <Modal isOpen={this.state.show} toggle={this.toggleImageHandleClose}>
-        <ModalHeader toggle={this.toggleImageHandleClose}> Update Image: <span style = {hot}>add an updated image</span></ModalHeader>
+        <ModalHeader toggle={this.toggleImageHandleClose}> Update Image: <span style = {hot}>add an updated picture:</span></ModalHeader>
 
                     <ModalBody>
                         <div class="container">
@@ -524,7 +526,8 @@ class PlantDetails extends Component {
                         <div className ="row align-items-center">
        <div className="col align-items-center">
        <span className = " align-items-center no-box-sizing no-gutters" >
-       <button onClick={this.handleUpload}>
+       <button onClick={()=>{if(window.confirm('are you sure you want to upload this image to the Garden server?'))this.handleUpload()}}>
+      
           Upload
         </button>
        </span>
@@ -725,7 +728,7 @@ class PlantDetails extends Component {
             <div className="col-12 col-md-5 m-1">
                 <RenderPlant plant={this.props.plant} favorite={this.props.favorite} postFavorite={this.props.postFavorite} deleteFavorite={this.props.deleteFavorite} auth={this.props.auth}/>
                 <span style = {cardButtons} className="fa fa-pencil-square-o" onClick={this.toggleModal}> Edit Details</span>
-                <span style = {cardButtons} className="fa fa-file-image-o" onClick={this.toggleImageModal}> Update Plant Image</span>
+                <span style = {cardButtons} className="fa fa-file-image-o" onClick={this.toggleImageModal}> Add Image To Diary</span>
             </div>
             <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={this.props.comments}
@@ -736,8 +739,9 @@ class PlantDetails extends Component {
             </div>
         </div>
         
+        <hr style= {linestyles}  />
+        <h3>{this.props.plant.name} Image Diary:</h3>
         <div className="row">
-        <h3>Updates:</h3>
         <RenderUpdates updates={this.props.updates} 
         toggleCommentModal = {this.toggleCommentModal}
         auth = {this.props.auth}
@@ -757,6 +761,10 @@ class PlantDetails extends Component {
        
        
        }
+
+const linestyles = {
+    border:"2px solid black"
+}       
 
 const hot = {
     color:"red"

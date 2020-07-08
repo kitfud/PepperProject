@@ -117,7 +117,7 @@ class Upload extends Component {
         <div className ="row align-items-center">
        <div className="col align-items-center">
        <span className = " align-items-center no-box-sizing no-gutters" >
-       <button onClick={this.handleUpload}>
+       <button onClick={()=>{if(window.confirm('are you sure you want to upload this image to the Garden server?'))this.handleUpload()}}>
           Upload
         </button>
        </span>
