@@ -88,6 +88,7 @@ function About(props) {
                         </CardBody>
                     </Card>
                 </div>
+
                 <div className="col-12">
                     <Card>
                         <CardBody className="bg-faded">
@@ -99,6 +100,7 @@ function About(props) {
                         </CardBody>
                     </Card>
                 </div>
+                
             </div>
             <div className="row row-content">
                 <div className="col-12">
