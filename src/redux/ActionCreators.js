@@ -256,6 +256,56 @@ export const deletePlant = (plantId,url) => (dispatch) => {
    
   
 };
+export const updateMainPlantImage = (plantId, currentURL,updateURL,comment) =>(dispatch)=>{
+  
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        alert("login to update plant")
+        return;
+    }
+
+    var user = auth.currentUser;
+    console.log(plantId)
+    console.log(user.email)
+    console.log(user.displayName)
+
+    
+    var docRef = firestore.collection("plants").doc(plantId);
+
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data()
+            console.log("Document data:", data.submittedBy);
+
+            if(data.submittedBy === user.displayName || data.submittedBy === user.email){
+               return firestore.collection('plants').doc(plantId).update({
+                    image: updateURL,
+                    modifiedAt: firebasestore.FieldValue.serverTimestamp(),
+                })
+                .then(function() {
+                    console.log("Document successfully updated!");
+                    dispatch(deleteUpdate(plantId,updateURL))
+                    dispatch(postUpdate(plantId,currentURL,comment))
+                    dispatch(fetchPlants());
+                    dispatch(fetchUpdates());
+                })
+                .catch(function(error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+            }
+            else{
+                alert("you can only edit your own plants")
+            }
+            
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
 
 export const updatePlant = (plantId, source,name, description, scoville, category,sown,transplant,fruits) => (dispatch) => {
 
@@ -327,7 +377,17 @@ export const deleteUpdate = (plantId,imageURL) => (dispatch) => {
 
 */
 
-// Create a reference to the file to delete
+
+
+    return firestore.collection('updates').where('plant', '==', plantId).where('images','==',imageURL).get()
+    .then(snapshot => {
+        console.log(snapshot);
+        snapshot.forEach(doc => {
+            console.log(doc.id);
+            firestore.collection('updates').doc(doc.id).delete()
+            .then(() => {
+/*
+                // Create a reference to the file to delete
 var desertRef = storage.refFromURL(imageURL)
 // Delete the file
 desertRef.delete().then(function() {
@@ -335,19 +395,14 @@ desertRef.delete().then(function() {
 }).catch(function(error) {
   console.log("error deleting occured")
 });
-
-    return firestore.collection('updates').where('plant', '==', plantId).get()
-    .then(snapshot => {
-        console.log(snapshot);
-        snapshot.forEach(doc => {
-            console.log(doc.id);
-            firestore.collection('updates').doc(doc.id).delete()
-            .then(() => {
-                dispatch(fetchUpdates());
+*/
+dispatch(fetchUpdates());
             })
         });
     })
     .catch(error => dispatch(updatesFailed(error.message)));
+
+
 
     
 };
@@ -509,8 +564,9 @@ export const postFavorite = (plantId) => (dispatch) => {
 
 export const postUpdate = (plantId, image, comment) => (dispatch) => {
 
-    alert("about to add/within action creator")
-
+if(comment === undefined || comment.length ===0){
+    comment="";
+}
     return firestore.collection('updates').add({
        
         plant: plantId,
@@ -525,11 +581,11 @@ export const postUpdate = (plantId, image, comment) => (dispatch) => {
                     dispatch(fetchUpdates())
                 } else {
                     // doc.data() will be undefined in this case
-                    alert("No such document!");
+                    console.log("No such document!");
                 }
             });
     })
-    .catch(alert("nothing added"));
+    .catch(console.log("Error.nothing added"));
 
     /*
     .then(docRef => {

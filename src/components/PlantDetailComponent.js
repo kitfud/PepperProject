@@ -9,7 +9,7 @@ import {Modal, ModalHeader, ModalBody,
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
-function RenderUpdates({updates, deleteUpdate, plant}){
+function RenderUpdates({updates, deleteUpdate, plant, updateMainPlantImage,toggleMainImageModal}){
 
 
         if(updates != null && updates.length !== 0){
@@ -23,6 +23,8 @@ function RenderUpdates({updates, deleteUpdate, plant}){
             </CardBody>
             <span className="fa fa-trash-o" onClick={() => deleteUpdate(plant._id, info.images)}></span>
             </Card>
+            <text>Switch Main Plant Image:</text>
+            <span className="fa fa fa-refresh" onClick={()=>toggleMainImageModal(info.images)}></span>
             </ol>
            
           
@@ -128,15 +130,22 @@ class PlantDetails extends Component {
       this.toggleImageModal = this.toggleImageModal.bind(this);
       this.toggleImageHandleClose = this.toggleImageHandleClose.bind(this);
 
+      this.toggleMainImageModal = this.toggleMainImageModal.bind(this);
+      this.toggleMainImageHandleClose = this.toggleMainImageHandleClose.bind(this);
+
       this.handleUpdate = this.handleUpdate.bind(this);
+
+      this.handleMainImageUpdate = this.handleMainImageUpdate.bind(this);
         //this.test = this.test.bind(this);
    
         this.state = {
           isModalOpen: false,
           show: false,
+          showMainImageModal:false,
           image: null,
           url: "",
           progress: 0,
+          updateURL:""
         };
       }
 
@@ -166,6 +175,29 @@ class PlantDetails extends Component {
 
     toggleImageHandleClose(){
         this.setState({show:!this.state.show})
+    }
+
+    toggleMainImageModal(val){
+        console.log(val)
+        let input = val
+        this.setState({
+            updateURL: input,
+        },() => 
+        console.log(this.state.updateURL))
+   
+        this.setState({
+            showMainImageModal:!this.state.showMainImageModal
+        })
+      
+    }
+  
+     
+    
+
+    toggleMainImageHandleClose(){
+        this.setState({
+            showMainImageModal:!this.state.showMainImageModal
+        })
     }
 
     handleChange = e => {
@@ -293,6 +325,16 @@ class PlantDetails extends Component {
         this.props.postUpdate(this.props.plant._id, this.state.url, values.commentUpdate)
     }
 
+    handleMainImageUpdate(values){
+        if(values.commentMainUpdate === undefined || values.commentMainUpdate.length===0){
+            values.commentMainUpdate = "";
+        }
+       
+        //alert(("id:"+this.props.plant._id+ " url:"+this.state.url+" comment:"+values.commentUpdate))
+        this.toggleMainImageHandleClose();
+        this.props.updateMainPlantImage(this.props.plant._id, this.props.plant.image,this.state.updateURL,values.commentMainUpdate)
+    }
+
 
    render(){
   
@@ -318,8 +360,43 @@ class PlantDetails extends Component {
        else if (this.props.plant != null)
        
        return(
-       
+   
         <div className="container">
+
+<Modal isOpen={this.state.showMainImageModal} toggle={this.toggleMainImageHandleClose}>
+        <ModalHeader toggle={this.toggleMainImageHandleClose}> Update Image: <span style = {hot}>save a comment with old plant profile picture</span></ModalHeader>
+
+                    <ModalBody>
+
+<LocalForm model="update" onSubmit={(val) => this.handleMainImageUpdate(val)}>
+                    
+                    <Row className="form-group">
+                    
+                                <Col md={10}>
+                                    <Control.text model=".commentMainUpdate" id="commentMainUpdate" name="commentMainUpdate"
+                                        placeholder="Comment"
+                                        className="form-control"
+                                         />
+                                </Col>
+                                </Row>
+
+                                <Row className="form-group">
+                                <Col md={{size:10, offset: 2}}>
+                                    <Button type="submit" color="primary">
+                                   Update Main Plant Picture!
+                                    </Button>
+                                </Col>
+                            </Row>
+
+                           
+</LocalForm>
+
+
+
+                    </ModalBody>
+        </Modal>  
+
+
             
        <Modal isOpen={this.state.show} toggle={this.toggleImageHandleClose}>
         <ModalHeader toggle={this.toggleImageHandleClose}> Update Image: <span style = {hot}>add an updated image</span></ModalHeader>
@@ -551,7 +628,7 @@ class PlantDetails extends Component {
         
         <div className="row">
         <h3>Updates:</h3>
-        <RenderUpdates updates={this.props.updates} plant={this.props.plant} deleteUpdate={this.props.deleteUpdate} />
+        <RenderUpdates updates={this.props.updates} plant={this.props.plant} deleteUpdate={this.props.deleteUpdate} toggleMainImageModal ={this.toggleMainImageModal} />
         </div>
 
         </div>
