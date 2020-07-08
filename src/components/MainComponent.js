@@ -13,7 +13,7 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
+import {deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
@@ -41,6 +41,8 @@ const mapDispatchToProps = dispatch => ({
   deleteFavorite: (plantId) => dispatch(deleteFavorite(plantId)),
 
   deleteComment: (commentId)=>dispatch(deleteComment(commentId)),
+  
+  deleteUpdate: (plantId) => dispatch(deleteUpdate(plantId)),
   
   deletePlant: (plantId) => dispatch(deletePlant(plantId)),
   postPlant: (source,image, name, description, scoville, category,submittedBy,sown,transplant,fruits)=>dispatch(postPlant(source,image, name,description,scoville,category,submittedBy,sown,transplant,fruits)),
@@ -93,6 +95,7 @@ class Main extends Component {
             deleteComment = {this.props.deleteComment}
             postUpdate = {this.props.postUpdate}
             updates = {this.props.updates.updates.filter((update) => update.plant === match.params.plantId)}
+            deleteUpdate = {this.props.deleteUpdate}
     
 
 
@@ -113,6 +116,7 @@ class Main extends Component {
             deleteComment = {this.props.deleteComment}
             postUpdate = {this.props.postUpdate}
             updates = {this.props.updates.updates.filter((update) => update.plant === match.params.plantId)}
+            deleteUpdate = {this.props.deleteUpdate}
 
             favorite={false}
             postFavorite={this.props.postFavorite}

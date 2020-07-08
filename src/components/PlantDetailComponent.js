@@ -9,7 +9,7 @@ import {Modal, ModalHeader, ModalBody,
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
-function RenderUpdates({updates}){
+function RenderUpdates({updates, deleteUpdate, plant}){
 
 
         if(updates != null && updates.length !== 0){
@@ -21,7 +21,7 @@ function RenderUpdates({updates}){
             <CardBody>
             <CardImg width="100%" top src={info.images} />
             </CardBody>
-           
+            <span className="fa fa-trash-o" onClick={() => deleteUpdate(plant._id)}></span>
             </Card>
             </ol>
            
@@ -551,7 +551,7 @@ class PlantDetails extends Component {
         
         <div className="row">
         <h3>Updates:</h3>
-        <RenderUpdates updates={this.props.updates} plant={this.props.plant} />
+        <RenderUpdates updates={this.props.updates} plant={this.props.plant} deleteUpdate={this.props.deleteUpdate} />
         </div>
 
         </div>

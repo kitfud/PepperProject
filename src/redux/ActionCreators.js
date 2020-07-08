@@ -297,6 +297,29 @@ export const updatePlant = (plantId, source,name, description, scoville, categor
   
 };
 
+export const deleteUpdate = (plantId) => (dispatch) => {
+
+    /*
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
+    }
+
+    var user = auth.currentUser;
+*/
+    return firestore.collection('updates').where('plant', '==', plantId).get()
+    .then(snapshot => {
+        console.log(snapshot);
+        snapshot.forEach(doc => {
+            console.log(doc.id);
+            firestore.collection('updates').doc(doc.id).delete()
+            .then(() => {
+                dispatch(fetchUpdates());
+            })
+        });
+    })
+    .catch(error => dispatch(updatesFailed(error.message)));
+};
 
 
 export const deleteFavorite = (plantId) => (dispatch) => {
