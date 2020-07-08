@@ -92,7 +92,7 @@ class Upload extends Component {
       render(){
         return(
             <div className="container-fluid">
-                <div className="row col-12">
+                   <div className="row col-12">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
                         <BreadcrumbItem active>Upload</BreadcrumbItem>
@@ -102,11 +102,10 @@ class Upload extends Component {
                         <hr />
                     </div>
                 </div>
-        
-     <div className = "row ">
-     <div className="container absolute-center col-12" >
-   
-        <div style = {divStyle} className="file-field input-field" >
+
+              <div className="row row-content">
+                <div className ="col-12 col-md-6">
+                <div style = {divStyle} className="file-field input-field" >
           <div className="btn">
             <span>File</span>
             <input type="file" onChange={this.handleChange}  />
@@ -125,11 +124,7 @@ class Upload extends Component {
          <progress className = "no-box-sizing" style = {styles} value={this.state.progress} max="100"  />
          </span>
 
-       </div>
-   
-      
-          
-      
+       </div>      
         </div>
        
       
@@ -143,7 +138,13 @@ class Upload extends Component {
           style={imageBox}
         />
 
-<Form model="plantform" onSubmit={(values) => this.handleSubmit(values)}>
+                </div>
+
+
+
+ <div className ="col-12 col-md-6">
+
+ <Form model="plantform" onSubmit={(values) => this.handleSubmit(values)}>
                     
                     <Row className="form-group">
                                 <Label htmlFor="name" md={2}>Plant Name</Label>
@@ -265,12 +266,24 @@ class Upload extends Component {
                             </Row>
 
                         </Form>
+
+         
+         </div>
+
+
+
+              </div>
+           
+        
+  
+        
+
+
       </div>
 
       
      
-      </div>
-     </div>
+     
      
                 
             
