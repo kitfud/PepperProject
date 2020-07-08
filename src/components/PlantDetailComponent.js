@@ -9,7 +9,7 @@ import {Modal, ModalHeader, ModalBody,
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
-function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggleCommentModal}){
+function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggleCommentModal, auth}){
 
 
         if(updates != null && updates.length !== 0){
@@ -21,7 +21,7 @@ function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggle
             <CardBody>
             <CardImg width="100%" top src={info.images} />
             </CardBody>
-            <span className="fa fa-trash-o" onClick={() => deleteUpdate(plant._id, info.images)}></span>
+            <span className="fa fa-trash-o" onClick={() => auth.isAuthenticated ? auth.user.displayName === plant.submittedBy || auth.user.email === plant.submittedBy ? deleteUpdate(plant._id, info.images):alert("you can only delete your own plants"): alert("login to delete")}></span>
             </Card>
             <text>Switch Main Plant Image:</text>
             <span className="fa fa fa-refresh" onClick={()=>toggleMainImageModal(info.images)}></span>
@@ -175,9 +175,22 @@ class PlantDetails extends Component {
     }
 
     toggleImageModal(){
-        this.setState({
-            show: !this.state.show
-        })
+        if(this.props.auth.isAuthenticated){
+            if(this.props.auth.user.displayName === this.props.plant.submittedBy || this.props.auth.user.email === this.props.plant.submittedBy){
+                this.setState({
+                    show: !this.state.show
+                })
+            }
+            else{
+                alert("you can only update plants YOU have added to the garden")
+            }   
+       
+           }   
+          
+            else{
+                alert("Login to edit plants")
+            }
+       
     }
 
     toggleImageHandleClose(){
@@ -185,16 +198,31 @@ class PlantDetails extends Component {
     }
 
     toggleCommentModal(val){
-        console.log(val)
-        let input = val
-        this.setState({
-            updateURL: input,
-        },() => 
-        console.log(this.state.updateURL))
+        if(this.props.auth.isAuthenticated){
+            if(this.props.auth.user.displayName === this.props.plant.submittedBy || this.props.auth.user.email === this.props.plant.submittedBy){
+                console.log(val)
+                let input = val
+                this.setState({
+                    updateURL: input,
+                },() => 
+                console.log(this.state.updateURL))
+        
+                this.setState({
+                    showCommentModal: !this.state.showCommentModal
+                })
+            }
+            else{
+                alert("you can only update comments for plants YOU have added to the garden")
+            }   
+       
+           }   
+          
+            else{
+                alert("Login to edit plant update comments")
+            }
 
-        this.setState({
-            showCommentModal: !this.state.showCommentModal
-        })
+
+     
     }
 
     handleSubmitCommentModal(values){
@@ -206,16 +234,31 @@ class PlantDetails extends Component {
     }
 
     toggleMainImageModal(val){
-        console.log(val)
-        let input = val
-        this.setState({
-            updateURL: input,
-        },() => 
-        console.log(this.state.updateURL))
-   
-        this.setState({
-            showMainImageModal:!this.state.showMainImageModal
-        })
+        if(this.props.auth.isAuthenticated){
+            if(this.props.auth.user.displayName === this.props.plant.submittedBy || this.props.auth.user.email === this.props.plant.submittedBy){
+                console.log(val)
+                let input = val
+                this.setState({
+                    updateURL: input,
+                },() => 
+                console.log(this.state.updateURL))
+           
+                this.setState({
+                    showMainImageModal:!this.state.showMainImageModal
+                })
+            }
+            else{
+                alert("you can only edit plants YOU have added to the garden")
+            }   
+       
+           }   
+          
+            else{
+                alert("Login to edit plants")
+            }
+
+
+      
       
     }
 
@@ -697,6 +740,7 @@ class PlantDetails extends Component {
         <h3>Updates:</h3>
         <RenderUpdates updates={this.props.updates} 
         toggleCommentModal = {this.toggleCommentModal}
+        auth = {this.props.auth}
         plant={this.props.plant} deleteUpdate={this.props.deleteUpdate} toggleMainImageModal ={this.toggleMainImageModal} />
         </div>
 
