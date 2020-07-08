@@ -30,3 +30,7 @@ export const UpdatePlantForm = {
     fruits:''
 
 }
+
+export const Update = {
+    comment:''
+}

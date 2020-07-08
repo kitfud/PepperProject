@@ -66,36 +66,7 @@ export const addComments = (comments) => ({
     payload: comments
 });
 
-export const fetchPromos = () => (dispatch) => {
-  dispatch(promosLoading(true));
 
-  return firestore.collection('promotions').get()
-      .then(snapshot => {
-          let promos = [];
-          snapshot.forEach(doc => {
-              const data = doc.data()
-              const _id = doc.id
-              promos.push({_id, ...data });
-          });
-          return promos;
-      })
-      .then(promos => dispatch(addPromos(promos)))
-      .catch(error => dispatch(promosFailed(error.message)));
-}
-
-export const promosLoading = () => ({
-    type: ActionTypes.PROMOS_LOADING
-});
-
-export const promosFailed = (errmess) => ({
-    type: ActionTypes.PROMOS_FAILED,
-    payload: errmess
-});
-
-export const addPromos = (promos) => ({
-    type: ActionTypes.ADD_PROMOS,
-    payload: promos
-});
 
 export const postComment = (plantId, comment,author) => (dispatch) => {
 
@@ -484,17 +455,27 @@ export const postFavorite = (plantId) => (dispatch) => {
 
 export const postUpdate = (plantId, image, comment) => (dispatch) => {
 
-    if (!auth.currentUser) {
-        console.log('No user logged in!');
-        return;
-    }
+    alert("about to add/within action creator")
 
-    return firestore.collection('update').add({
-        user: auth.currentUser.uid,
+    return firestore.collection('updates').add({
+       
         plant: plantId,
         images: image,
         comment: comment
     })
+    .then(docRef => {
+        firestore.collection('updates').doc(docRef.id).get()
+            .then(doc => {
+                if (doc.exists) {
+                    dispatch(addUpdate(doc))
+                    dispatch(fetchUpdates())
+                } else {
+                    // doc.data() will be undefined in this case
+                    alert("No such document!");
+                }
+            });
+    })
+    .catch(alert("nothing added"));
 
     /*
     .then(docRef => {
@@ -512,6 +493,67 @@ export const postUpdate = (plantId, image, comment) => (dispatch) => {
     */
 }
 
+export const addUpdate = (image) => ({
+    type: ActionTypes.ADD_UPDATE,
+    payload: image
+    
+});
+
+export const fetchUpdates =()=> (dispatch) =>{
+    return firestore.collection('updates').get()
+    .then(snapshot => {
+        let updates = [];
+        snapshot.forEach(doc => {
+            const data = doc.data()
+            const _id = doc.id
+            updates.push({_id, ...data });
+        });
+        return updates;
+    })
+    .then(updates => dispatch(addUpdates(updates)))
+    .catch(error => dispatch(updatesFailed(error.message)));
+}
+
+export const addUpdates = (update) => ({
+    type: ActionTypes.ADD_UPDATES,
+    payload: update
+});
+
+export const updatesFailed = (errmess) => ({
+    type: ActionTypes.UPDATES_FAILED,
+    payload: errmess
+});
+
+export const fetchPromos = () => (dispatch) => {
+    dispatch(promosLoading(true));
+  
+    return firestore.collection('promotions').get()
+        .then(snapshot => {
+            let promos = [];
+            snapshot.forEach(doc => {
+                const data = doc.data()
+                const _id = doc.id
+                promos.push({_id, ...data });
+            });
+            return promos;
+        })
+        .then(promos => dispatch(addPromos(promos)))
+        .catch(error => dispatch(promosFailed(error.message)));
+  }
+  
+  export const promosLoading = () => ({
+      type: ActionTypes.PROMOS_LOADING
+  });
+  
+  export const promosFailed = (errmess) => ({
+      type: ActionTypes.PROMOS_FAILED,
+      payload: errmess
+  });
+  
+  export const addPromos = (promos) => ({
+      type: ActionTypes.ADD_PROMOS,
+      payload: promos
+  });
 
 
 export const fetchFavorites = () => (dispatch) => {
@@ -536,6 +578,7 @@ export const fetchFavorites = () => (dispatch) => {
         return favorites;
     })
     .then(favorites => dispatch(addFavorites(favorites)))
+    
     .catch(error => dispatch(favoritesFailed(error.message)));
 }
 

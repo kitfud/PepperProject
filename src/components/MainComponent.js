@@ -13,12 +13,14 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {postUpdate, fetchUpdate, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
+import {postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
   postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
   postUpdate: (plantId, image, comment) => dispatch(postUpdate(plantId, image, comment)),
+
+  fetchUpdates: () =>dispatch(fetchUpdates()),
 
 
   fetchPlants: () => { dispatch(fetchPlants())},
@@ -52,7 +54,8 @@ const mapStateToProps = state => {
     promotions: state.promotions,
     leaders: state.leaders,
     favorites: state.favorites,
-    auth: state.auth
+    auth: state.auth,
+    updates: state.updates
   }
 }
 
@@ -64,6 +67,7 @@ class Main extends Component {
     this.props.fetchPromos();
     this.props.fetchLeaders();
     this.props.fetchFavorites();
+    this.props.fetchUpdates();
   }
 
  
@@ -88,6 +92,8 @@ class Main extends Component {
             postComment={this.props.postComment}
             deleteComment = {this.props.deleteComment}
             postUpdate = {this.props.postUpdate}
+            updates = {this.props.updates.updates.filter((update) => update.plant === match.params.plantId)}
+    
 
 
             favorite={this.props.favorites.favorites.plants.some((plant) => plant === match.params.plantId)}
@@ -106,6 +112,7 @@ class Main extends Component {
             postComment={this.props.postComment}
             deleteComment = {this.props.deleteComment}
             postUpdate = {this.props.postUpdate}
+            updates = {this.props.updates.updates.filter((update) => update.plant === match.params.plantId)}
 
             favorite={false}
             postFavorite={this.props.postFavorite}

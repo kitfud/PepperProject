@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem, CardImgOverlay,Button, Row, Col } from 'reactstrap';
+import { Card, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem, CardImgOverlay,Button, Row, Col, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
@@ -9,8 +9,34 @@ import {Modal, ModalHeader, ModalBody,
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
+function RenderUpdates({updates}){
 
-    const required = (val) => val && val.length;
+
+        if(updates != null && updates.length !== 0){
+
+            const updatePlants = updates.map((info) => 
+            <ol>
+            <Card style = {cardStyle}>
+            <p style = {textStyle}>{info.comment}</p>
+            <CardBody>
+            <CardImg width="100%" top src={info.images} />
+            </CardBody>
+           
+            </Card>
+            </ol>
+           
+          
+    )
+    return (
+        updatePlants
+    )
+           }
+           else{
+               return <div>No Updates</div>;
+           }
+    
+}
+
 
     function RenderPlant({plant,favorite, postFavorite, deleteFavorite, auth}){
         return (   
@@ -68,8 +94,6 @@ import { storage } from '../firebase/firebase';
        
          <span style={buttonStyle} className="fa fa-trash-o" onClick={() => deleteComment(info)}></span>
         
-        
-       
 
         </p>
         </ol> 
@@ -98,16 +122,21 @@ class PlantDetails extends Component {
     constructor(props) {
         super(props);
 
-        this.toggleModal = this.toggleModal.bind(this);
+      this.toggleModal = this.toggleModal.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
 
       this.toggleImageModal = this.toggleImageModal.bind(this);
       this.toggleImageHandleClose = this.toggleImageHandleClose.bind(this);
+
+      this.handleUpdate = this.handleUpdate.bind(this);
         //this.test = this.test.bind(this);
    
         this.state = {
           isModalOpen: false,
           show: false,
+          image: null,
+          url: "",
+          progress: 0,
         };
       }
 
@@ -257,8 +286,11 @@ class PlantDetails extends Component {
         //values.preventDefault();
     }
 
-    handleUpdate(){
-
+    handleUpdate(values){
+       
+        //alert(("id:"+this.props.plant._id+ " url:"+this.state.url+" comment:"+values.commentUpdate))
+        this.toggleImageHandleClose();
+        this.props.postUpdate(this.props.plant._id, this.state.url, values.commentUpdate)
     }
 
 
@@ -325,12 +357,12 @@ class PlantDetails extends Component {
           style={imageBox}
         />
 
-<Form model="update" onSubmit={(values) => this.handleUpdate(values)}>
+<LocalForm model="update" onSubmit={(val) => this.handleUpdate(val)}>
                     
                     <Row className="form-group">
-                                <Label htmlFor="name" md={2}>Plant Name</Label>
+                                <Label htmlFor="commentUpdate" md={2}>Update Comment:</Label>
                                 <Col md={10}>
-                                    <Control.text model=".comment" id="comment" name="comment"
+                                    <Control.text model=".commentUpdate" id="commentUpdate" name="commentUpdate"
                                         placeholder="Comment"
                                         className="form-control"
                                          />
@@ -345,7 +377,7 @@ class PlantDetails extends Component {
                             </Row>
 
                             </Row>
-</Form>
+</LocalForm>
 
 
 
@@ -515,6 +547,11 @@ class PlantDetails extends Component {
                 deleteComment = {this.props.deleteComment}
                 auth={this.props.auth}/>
             </div>
+        </div>
+        
+        <div className="row">
+        <h3>Updates:</h3>
+        <RenderUpdates updates={this.props.updates} plant={this.props.plant} />
         </div>
 
         </div>

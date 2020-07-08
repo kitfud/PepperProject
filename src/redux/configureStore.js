@@ -4,7 +4,7 @@ import { Comments } from './comments';
 import { Promotions } from './promotions';
 import { Leaders } from './leaders';
 import { createForms } from 'react-redux-form';
-import { InitialFeedback, PlantForm, UpdatePlantForm } from './forms';
+import { InitialFeedback, PlantForm, UpdatePlantForm, Update } from './forms';
 import { Auth } from './auth';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
@@ -24,7 +24,8 @@ export const ConfigureStore = () => {
             ...createForms({
                 feedback: InitialFeedback,
                 plantform: PlantForm,
-                updateplantform:UpdatePlantForm
+                updateplantform:UpdatePlantForm,
+                update: Update
             })
         }),
         applyMiddleware(thunk, logger)
