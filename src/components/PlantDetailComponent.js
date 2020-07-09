@@ -280,7 +280,9 @@ class PlantDetails extends Component {
       handleUpload = () => {
       const { image } = this.state;
       if (this.state.image != null){
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        let date = Date.now()
+
+        const uploadTask = storage.ref(`images/${date+ image.name}`).put(image);
         uploadTask.on(
           "state_changed",
           snapshot => {
@@ -298,7 +300,7 @@ class PlantDetails extends Component {
             // complete function ...
             storage
               .ref("images")
-              .child(image.name)
+              .child(date+ image.name)
               .getDownloadURL()
               .then(url => {
                 this.setState({ url });

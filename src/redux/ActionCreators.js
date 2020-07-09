@@ -543,10 +543,12 @@ export const postFavorite = (plantId) => (dispatch) => {
         console.log('No user logged in!');
         return;
     }
-
+   
     return firestore.collection('favorites').add({
         user: auth.currentUser.uid,
+        userName: auth.currentUser.displayName? auth.currentUser.displayName:auth.currentUser.email,
         plant: plantId
+        
     })
     .then(docRef => {
         firestore.collection('favorites').doc(docRef.id).get()

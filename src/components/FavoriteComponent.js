@@ -62,7 +62,17 @@ function RenderUploadItems({plant}){
     )
 }
 
+
 const Favorites = (props) => {
+
+    const filterUploads = props.plants.plants.filter(plant => plant.submittedBy === props.auth.user.displayName || plant.submittedBy ===props.auth.user.email)
+    const uploads = filterUploads.map((plant) => {
+        return (
+           
+                <RenderUploadItems key={plant._id} plant={plant} />
+          
+        );
+    })    
 
     if (props.favorites.isLoading) {
         return(
@@ -82,7 +92,7 @@ const Favorites = (props) => {
             </div>
         )
     }
-    else if (props.favorites.favorites.plants.length !==0) {
+    else if (props.favorites.favorites.plants.length !==0 || uploads.length !==0) {
      
         console.log(props.plants.plants)
 
@@ -98,16 +108,9 @@ const Favorites = (props) => {
                 );
             })
 
-            const filterUploads = props.plants.plants.filter(plant => plant.submittedBy === props.auth.user.displayName || plant.submittedBy ===props.auth.user.email)
+           
 
 
-            const uploads = filterUploads.map((plant) => {
-                    return (
-                       
-                            <RenderUploadItems key={plant._id} plant={plant} />
-                      
-                    );
-                })
 
         return(
             <div className="container">
@@ -146,7 +149,9 @@ const Favorites = (props) => {
         return(
             <div className="container">
                 <div className="row">
-                    <h4><span>You have no favorites yet!</span> Head to the <a  href ="/garden"><span style ={styles}>Garden</span></a> and when you are logged in add some plants you like by clicking the heart symbol. Afterwards you will be able to see these plants and also the plants you have uploaded to the garden :)</h4>
+                    <h4><span style={stylez}>You have no favorites yet!</span><br/>
+                     <br/>
+                     Head to the <a  href ="/garden"><span style ={styles}>Garden</span></a> and when you are logged in add some plants you like by clicking the heart symbol. Afterwards you will be able to see these plants and also the plants you have uploaded to the garden. You can also access My Garden by Uploading plant via the "Upload" tab above- be sure to log in first before using.</h4>
                 </div>
             </div>
         )
@@ -155,5 +160,8 @@ const Favorites = (props) => {
 
 const styles = {
     color:"blue"
+}
+const stylez = {
+    color:"red"
 }
 export default Favorites;

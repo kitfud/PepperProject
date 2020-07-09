@@ -75,26 +75,26 @@ class Header extends Component {
                 <NavbarBrand className="mr-auto" href="/"><img src='/assets/images/pepperpainting.jpg' height="30" width="41" alt="Kit's Garden" /></NavbarBrand>
             
                 <Collapse isOpen={this.state.isNavOpen} navbar>
-                    <Nav navbar>
+                    <Nav navbar id="thenav" >
                     <NavItem>
-                        <NavLink className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
+                        <NavLink onClick={this.toggleNav} className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
+                        <NavLink onClick={this.toggleNav} className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink className="nav-link"  to='/garden'><span className="fa fa-envira fa-lg"></span>Garden</NavLink>
+                        <NavLink onClick={this.toggleNav} className="nav-link"  to='/garden'><span className="fa fa-envira fa-lg"></span>Garden</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
+                        <NavLink onClick={this.toggleNav}  className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
                     </NavItem>
                     <NavItem onClick = {this.checkLogin}>
-                                    <NavLink className="nav-link" to="/favorites">
+                                    <NavLink onClick={this.props.auth.isAuthenticated ? this.toggleNav:null} className="nav-link" to="/favorites">
                                         <span className="fa fa-heart fa-lg"></span> My Garden
                                     </NavLink>
                     </NavItem>
                     <NavItem onClick = {this.checkLogin}> 
-                    <NavLink className="nav-link" to='/upload'><span className="fa fa-cloud-upload fa-lg"></span> Upload</NavLink>
+                    <NavLink onClick={this.props.auth.isAuthenticated ? this.toggleNav:null} className="nav-link" to='/upload'><span className="fa fa-cloud-upload fa-lg"></span> Upload</NavLink>
                     </NavItem>
                     </Nav>
                 </Collapse>

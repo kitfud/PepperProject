@@ -59,6 +59,7 @@ const mapStateToProps = state => {
     promotions: state.promotions,
     leaders: state.leaders,
     favorites: state.favorites,
+    allfavorites: state.allfavorites,
     auth: state.auth,
     updates: state.updates
   }
