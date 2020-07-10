@@ -40,9 +40,7 @@ function RenderCard({item , isLoading, errMess}) {
 function Home(props) {
     return(
         <div className="container">
-            <div className= "row">
-       <h3 style={{color:"green",marginLeft:"19px"}}>New? Click <a href="/aboutus"><span style={{color:"blue"}}>HERE</span></a> to learn about this application.</h3>
-            </div>
+       
 
             <div className="row align-items-start">
                 <div className="col-12 col-md m-1">

@@ -10,7 +10,7 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import About from './AboutComponent';
-
+import $ from 'jquery';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
@@ -206,7 +206,9 @@ class Main extends Component {
           </CSSTransition>
           </TransitionGroup>
           <Footer/>
+     
         </div>
+       
       );
     }
   }

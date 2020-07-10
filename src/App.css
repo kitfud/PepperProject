@@ -158,12 +158,30 @@ progress{
 
 
 .navbar-dark .navbar-nav .nav-link.active{
-      
 color:yellow !important;
-
-      
-  
 }
+
+#back2Top {
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+  text-align: center;
+  margin-right: 10px;
+  color:black;
+}
+
+
+#back2Top:hover {
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+  text-align: center;
+  margin-right: 10px;
+  color:red;
+}
+
+
+
 
 
 
