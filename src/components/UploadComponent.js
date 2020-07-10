@@ -94,7 +94,7 @@ class Upload extends Component {
 
       render(){
         return(
-            <div className="container-fluid">
+            <div className="container">
                    <div className="row col-12">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
@@ -107,10 +107,10 @@ class Upload extends Component {
                 </div>
 
               <div className="row row-content">
-                <div className ="col-12 col-md-5">
+                <div className ="col-12 col-md-5 align-items-left">
+
                 <div style = {divStyle} className="file-field input-field" >
           <div className="btn">
-            <span>File</span>
             <input type="file" onChange={this.handleChange}  />
           </div>
         </div>
@@ -136,8 +136,8 @@ class Upload extends Component {
         <img
           src={this.state.url || "https://via.placeholder.com/400x300"}
           alt="Uploaded Images"
-          height="300"
-          width="400"
+          height="250"
+          width="350"
           style={imageBox}
         />
 
@@ -305,7 +305,7 @@ const styles = {
 }
 
 const divStyle = {
-  marginLeft:"150px"
+  marginLeft:"50px"
 }
 
 const imageBox={
