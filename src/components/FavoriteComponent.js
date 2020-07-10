@@ -11,20 +11,20 @@ function RenderGardenItem({ plant, deleteFavorite }) {
     console.log(plantHead)
     return(
         <div className = "col-6">
-   <div class="card">
-        <div class="card-header" id={plantHead}>
-            <h3 class="mb-0">
+   <div className="card h-100">
+        <div className="card-header" id={plantHead}>
+            <h3 className="mb-0">
                     {plant.name}   
                 </h3>
         </div>
             <div class="card-body">
-            <Link to={`/garden/${plant._id}`} >
-                <Media object width="50%" height="50%" src={plant.image} alt={plant.name} />
+            <Link style = {align} to={`/garden/${plant._id}`} >
+                <Media object width="80%" height="80%" src={plant.image} alt={plant.name} />
                 </Link>
                 <div className ="row">
                     <div className = "col-12">
                         <div style = {align}>
-                        <Button  outline color="danger" onClick={() => deleteFavorite(plant._id)}>
+                        <Button  style ={buttonAlign} outline color="danger" onClick={() => deleteFavorite(plant._id)}>
                     <span className="fa fa-times"></span>
                 </Button>
                         </div>
@@ -181,6 +181,11 @@ const stylez = {
     color:"red"
 }
 const align = {
-    align: "center"
+    align: "center",
+    marginBottom:"5px"
+}
+
+const buttonAlign = {
+    marginTop: "5px"
 }
 export default Favorites;

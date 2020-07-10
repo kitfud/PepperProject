@@ -24,7 +24,7 @@ function RenderCard({item , isLoading, errMess}) {
         transformProps={{
             exitTransform: 'scale(0.5) translateY(-50%)'
         }}>
-        <Card>
+        <Card className = "h-100">
             <CardImg src={item.image} alt={item.name} />
             <CardBody>
             <CardTitle>{item.name}</CardTitle>

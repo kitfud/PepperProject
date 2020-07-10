@@ -130,7 +130,7 @@ class Header extends Component {
                 <div className="row row-header">
                     <div className="col-12 col-sm-6">
                         <h1>Kit's Garden</h1>
-                        <p>A Green Space In The Heart Of Seattle</p>
+                        <p>A Green Space At The Heart Of The Internet</p>
                     </div>
                 </div>
             </div>

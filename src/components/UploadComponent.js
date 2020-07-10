@@ -107,7 +107,7 @@ class Upload extends Component {
                 </div>
 
               <div className="row row-content">
-                <div className ="col-12 col-md-6">
+                <div className ="col-12 col-md-5">
                 <div style = {divStyle} className="file-field input-field" >
           <div className="btn">
             <span>File</span>
@@ -116,7 +116,7 @@ class Upload extends Component {
         </div>
 
 
-        <div className ="row align-items-center">
+        <div className ="row ">
        <div className="col align-items-center">
        <span className = " align-items-center no-box-sizing no-gutters" >
        <button onClick={()=>{if(window.confirm('are you sure you want to upload this image to the Garden server?'))this.handleUpload()}}>
