@@ -13,7 +13,7 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
+import {fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
@@ -34,7 +34,11 @@ const mapDispatchToProps = dispatch => ({
   
   loginUser: (creds) => dispatch(loginUser(creds)),
   logoutUser: () => dispatch(logoutUser()),
+
   fetchFavorites: () => dispatch(fetchFavorites()),
+
+  fetchAllFav:()=>dispatch(fetchAllFav()),
+
   googleLogin: () => dispatch(googleLogin()),
   facebookLogin: () => dispatch(facebookLogin()),
   postFavorite: (plantId) => dispatch(postFavorite(plantId)),
@@ -59,7 +63,7 @@ const mapStateToProps = state => {
     promotions: state.promotions,
     leaders: state.leaders,
     favorites: state.favorites,
-    allfavorites: state.allfavorites,
+    allfav: state.favorites.allfav,
     auth: state.auth,
     updates: state.updates
   }
@@ -68,12 +72,14 @@ const mapStateToProps = state => {
 
 class Main extends Component {
   componentDidMount() {
+    this.props.fetchAllFav();
     this.props.fetchPlants();
     this.props.fetchComments();
     this.props.fetchPromos();
     this.props.fetchLeaders();
     this.props.fetchFavorites();
     this.props.fetchUpdates();
+    
   }
 
  
@@ -102,6 +108,7 @@ class Main extends Component {
             deleteUpdate = {this.props.deleteUpdate}
             updateMainPlantImage = {this.props.updateMainPlantImage}
             updateComment = {this.props.updateComment}
+            allfavorites = {this.props.allfav}
     
 
 
@@ -125,6 +132,7 @@ class Main extends Component {
             deleteUpdate = {this.props.deleteUpdate}
             updateMainPlantImage = {this.props.updateMainPlantImage}
             updateComment = {this.props.updateComment}
+            allfavorites = {this.props.allfav}
 
             favorite={false}
             postFavorite={this.props.postFavorite}

@@ -38,7 +38,12 @@ function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggle
     )
            }
            else{
-               return <div>No Updates</div>;
+               return(<div className="col-12">
+                <div style = {align}>No Updates Posted</div>;
+               </div>
+                
+               ) 
+              
            }
     
 }
@@ -733,6 +738,9 @@ class PlantDetails extends Component {
                 <span style = {cardButtons} className="fa fa-file-image-o" onClick={this.toggleImageModal}> Add Image To Diary</span>
             </div>
             <div className="col-12 col-md-5 m-1">
+            <hr style= {linestyles}  />
+                                    <div>Plant Favorited {this.props.allfavorites? this.props.allfavorites.filter((fav)=>fav.plant===this.props.plant._id).length: null} Times By App Users</div>
+        <hr style= {linestyles}  />
                 <RenderComments comments={this.props.comments}
                 postComment={this.props.postComment}
                 plantId={this.props.plant._id} 
@@ -740,7 +748,7 @@ class PlantDetails extends Component {
                 auth={this.props.auth}/>
             </div>
         </div>
-        
+
         <hr style= {linestyles}  />
         <h3>{this.props.plant.name} Image Diary:</h3>
         <div className="row">
@@ -787,6 +795,10 @@ const cardStyle = {
 
 const cardButtons = {
     marginRight: "10px"
+}
+
+const align = {
+    align: "center"
 }
 
 export default PlantDetails;

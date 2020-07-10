@@ -408,28 +408,7 @@ dispatch(fetchUpdates());
 };
 
 
-export const deleteFavorite = (plantId) => (dispatch) => {
 
-    if (!auth.currentUser) {
-        console.log('No user logged in!');
-        return;
-    }
-
-    var user = auth.currentUser;
-
-    return firestore.collection('favorites').where('user', '==', user.uid).where('plant', '==', plantId).get()
-    .then(snapshot => {
-        console.log(snapshot);
-        snapshot.forEach(doc => {
-            console.log(doc.id);
-            firestore.collection('favorites').doc(doc.id).delete()
-            .then(() => {
-                dispatch(fetchFavorites());
-            })
-        });
-    })
-    .catch(error => dispatch(favoritesFailed(error.message)));
-};
 
 export const addFeedback = (feedback) => ({
     type: ActionTypes.ADD_FEEDBACK,
@@ -537,32 +516,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(receiveLogout())
 }
 
-export const postFavorite = (plantId) => (dispatch) => {
 
-    if (!auth.currentUser) {
-        console.log('No user logged in!');
-        return;
-    }
-   
-    return firestore.collection('favorites').add({
-        user: auth.currentUser.uid,
-        userName: auth.currentUser.displayName? auth.currentUser.displayName:auth.currentUser.email,
-        plant: plantId
-        
-    })
-    .then(docRef => {
-        firestore.collection('favorites').doc(docRef.id).get()
-            .then(doc => {
-                if (doc.exists) {
-                    dispatch(fetchFavorites())
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            });
-    })
-    .catch(error => dispatch(favoritesFailed(error.message)));
-}
 
 export const updateComment = (plantId,image,comment)=>(dispatch) =>{
     if(comment === undefined || comment.length ===0){
@@ -705,7 +659,68 @@ export const fetchPromos = () => (dispatch) => {
       type: ActionTypes.ADD_PROMOS,
       payload: promos
   });
+  export const postFavorite = (plantId) => (dispatch) => {
 
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
+    }
+   
+    return firestore.collection('favorites').add({
+        user: auth.currentUser.uid,
+        userName: auth.currentUser.displayName? auth.currentUser.displayName:auth.currentUser.email,
+        plant: plantId
+        
+    })
+    .then(docRef => {
+        firestore.collection('favorites').doc(docRef.id).get()
+            .then(doc => {
+                if (doc.exists) {
+                    
+                    dispatch(fetchFavorites())
+                  
+                  
+                    
+                    
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            });
+    })
+    .then(()=>dispatch(fetchAllFav()))
+    .catch(error => dispatch(favoritesFailed(error.message)));
+}
+
+export const deleteFavorite = (plantId) => (dispatch) => {
+
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
+    }
+
+    var user = auth.currentUser;
+
+    return firestore.collection('favorites').where('user', '==', user.uid).where('plant', '==', plantId).get()
+    .then(snapshot => {
+        console.log(snapshot);
+        snapshot.forEach(doc => {
+            console.log(doc.id);
+            firestore.collection('favorites').doc(doc.id).delete()
+            .then(() => {
+               
+                dispatch(fetchFavorites())
+                
+              
+              
+               
+                
+            })
+        });
+    })
+    .then(()=>dispatch(fetchAllFav()))
+    .catch(error => dispatch(favoritesFailed(error.message)));
+};
 
 export const fetchFavorites = () => (dispatch) => {
 
@@ -733,8 +748,37 @@ export const fetchFavorites = () => (dispatch) => {
     .catch(error => dispatch(favoritesFailed(error.message)));
 }
 
+export const fetchAllFav = () => (dispatch) => {
+
+    dispatch(allfavoritesLoading(true));
+  
+    return firestore.collection('favorites').get()
+        .then(snapshot => {
+            let fav = [];
+
+            snapshot.forEach(doc => {
+                const data = doc.data()
+                const _id = doc.id
+                fav.push({_id, ...data });
+            });
+           console.log(fav);
+            return fav;
+        })
+        .then((fav) => dispatch(addAllFav(fav)))
+
+        .catch(() => alert("error adding all fav"));
+  }
+  export const addAllFav = (fav) => ({
+    type: ActionTypes.ADD_ALLFAV,
+    payload: fav
+});
+
 export const favoritesLoading = () => ({
     type: ActionTypes.FAVORITES_LOADING
+});
+
+export const allfavoritesLoading = () => ({
+    type: ActionTypes.ALLFAV_LOADING
 });
 
 export const favoritesFailed = (errmess) => ({
@@ -746,6 +790,8 @@ export const addFavorites = (favorites) => ({
     type: ActionTypes.ADD_FAVORITES,
     payload: favorites
 });
+
+
 
 export const googleLogin = () => (dispatch) => {
     const provider = new fireauth.GoogleAuthProvider();

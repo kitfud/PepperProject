@@ -4,15 +4,18 @@ export const favorites = (state = {
         isLoading: true,
         errMess: null,
         favorites: null,
-
-        allfavorites:null,
+        allfav:null,
     }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_FAVORITES:
             return {...state, isLoading: false, errMess: null, favorites: action.payload};
         
-        case ActionTypes.ADD_ALLFAVORITES:
-            return {...state, isLoading: false, errMess: null, allfavorites: action.payload};    
+        case ActionTypes.ADD_ALLFAV:
+            let payload = action.payload
+            return {...state, isLoading: false, errMess: null, allfav: payload};  
+        
+        case ActionTypes.ALLFAV_LOADING:
+            return {...state, isLoading: true, errMess: null, allfav: null};
 
         case ActionTypes.FAVORITES_LOADING:
             return {...state, isLoading: true, errMess: null, favorites: null};

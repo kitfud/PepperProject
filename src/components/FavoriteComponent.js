@@ -1,5 +1,5 @@
 import React from 'react';
-import { Media, Breadcrumb, BreadcrumbItem, Button, CardBody,Card } from 'reactstrap';
+import { Media, Breadcrumb, BreadcrumbItem, Button, CardBody,CardText,Card } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
@@ -10,7 +10,8 @@ function RenderGardenItem({ plant, deleteFavorite }) {
     console.log(plantHash)
     console.log(plantHead)
     return(
-        <div class="card">
+        <div className = "col-6">
+   <div class="card">
         <div class="card-header" id={plantHead}>
             <h3 class="mb-0">
                     {plant.name}   
@@ -20,13 +21,23 @@ function RenderGardenItem({ plant, deleteFavorite }) {
             <Link to={`/garden/${plant._id}`} >
                 <Media object width="50%" height="50%" src={plant.image} alt={plant.name} />
                 </Link>
-            <p class = "d-none d-sm-block">{plant.description}</p>
-            <Button col="12" outline color="danger" onClick={() => deleteFavorite(plant._id)}>
+                <div className ="row">
+                    <div className = "col-12">
+                        <div style = {align}>
+                        <Button  outline color="danger" onClick={() => deleteFavorite(plant._id)}>
                     <span className="fa fa-times"></span>
                 </Button>
+                        </div>
+                  
+                    </div>
+              
+                </div>
+           
         </div>
         
     </div> 
+        </div>
+     
         
     /* 
    <Media tag="li">
@@ -128,7 +139,12 @@ const Favorites = (props) => {
                
                     <div className="col-12 col-md-6">
                     <h3>Favorites:</h3>
-                        {favorites}
+                  <div className = "row">
+                  {favorites}
+                  </div>
+                    
+                   
+                       
                     </div>
               
                
@@ -163,5 +179,8 @@ const styles = {
 }
 const stylez = {
     color:"red"
+}
+const align = {
+    align: "center"
 }
 export default Favorites;
