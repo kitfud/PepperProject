@@ -39,7 +39,7 @@ function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggle
            }
            else{
                return(<div className="col-12">
-                <div style = {align}>No Updates Posted</div>;
+                <div style = {align}>No Updates Posted</div>
                </div>
                 
                ) 
@@ -518,17 +518,17 @@ class PlantDetails extends Component {
 
             
        <Modal isOpen={this.state.show} toggle={this.toggleImageHandleClose}>
-        <ModalHeader toggle={this.toggleImageHandleClose}> Update Image: <span style = {hot}>add an updated picture:</span></ModalHeader>
+        <ModalHeader toggle={this.toggleImageHandleClose}> Update Image: <span style = {hot}>add an updated picture</span></ModalHeader>
 
                     <ModalBody>
-                        <div class="container">
-                        <div className="file-field input-field" >
+                        <div className="container">
+
+                        <div className="row file-field input-field" >
           <div className="btn">
-            <span>File</span>
             <input type="file" onChange={this.handleChange}  />
           </div>
         </div>
-                        </div>
+                        
 
                         <div className ="row align-items-center">
        <div className="col align-items-center">
@@ -546,38 +546,47 @@ class PlantDetails extends Component {
 
         <br />
         <br />
+        <div className = "row align-items-center">
+        <div style = {{padding:"0px"}}className = "col-12">
         <img
+          className = "img-responsive"
           src={this.state.url || "https://via.placeholder.com/400x300"}
           alt="Uploaded Images"
           height="300"
-          width="400"
+          width="100%"
           style={imageBox}
         />
+        </div>
+       
+        </div>
+     
 
 <LocalForm model="update" onSubmit={(val) => this.handleUpdate(val)}>
                     
-                    <Row className="form-group">
+                    <Row className="form-group align-items-center">
                                 <Label htmlFor="commentUpdate" md={2}>Update Comment:</Label>
+
                                 <Col md={10}>
                                     <Control.text model=".commentUpdate" id="commentUpdate" name="commentUpdate"
-                                        placeholder="Comment"
+                                        placeholder="Comment (optional)"
                                         className="form-control"
                                          />
                                 </Col>
+                                </Row>
 
-                                <Row className="form-group">
+                                <Row className="form-group align-items-center">
                                 <Col md={{size:10, offset: 2}}>
-                                    <Button type="submit" color="primary">
+                                    <Button style = {{marginTop:"10px"}}type="submit" color="primary">
                                    Update!
                                     </Button>
                                 </Col>
                             </Row>
 
-                            </Row>
+                            
 </LocalForm>
 
 
-
+</div>
                     </ModalBody>
         </Modal>  
     
@@ -804,7 +813,8 @@ const align = {
 export default PlantDetails;
 
 const imageBox={
-    marginBottom:"10px"
+    marginBottom:"10px",
+    marginLeft:"5px"
   }
 
   const styles = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media,CardText } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {Fade} from 'react-animation-components';
 import { Loading } from './LoadingComponent';
@@ -22,7 +22,7 @@ function About(props) {
               <Media left middle>
                   <Media object style={imgStyle} src={leader.image} alt={leader.name} />
               </Media>
-              <Media body className="ml-5">
+              <Media body className="ml-3">
                 <Media heading>{leader.name}</Media>
                 <p>{leader.description}</p>
               </Media>
@@ -64,24 +64,46 @@ function About(props) {
                     <hr />
                 </div>                
             </div>
-            <div className="row row-content">
+            <div style ={{padding:"20px"}}className="row row-content">
                 <div className="col-12 col-md-6">
                     <h2>Our History</h2>
-                    <p>Working with a small space and limited resources we are doing what we can to bring the <em>HEAT</em> to our urban patio.</p>
+                    <p>Working with a small space and limited resources we are doing what we can to bring the <em>HEAT</em> to our urban balcony.</p>
                     <img src="/assets/images/kitgarden.jpg" className="img-fluid" alt="Responsive"></img>
-                    <p>Our humble garden houses multiple varieties of peppers, basil as well as flowers.</p>  
+                    <p>Our humble garden houses multiple varieties of peppers, basil as well as flowers and is the inspiration behind this web application.</p>  
                 </div>
+
+                        
                 <div className="col-12 col-md-5" style={positionBox}>
-                    <Card>
+                <Card style = {{marginBottom:"5px"}}>
+                        <CardHeader style={header} className=" text-white">How To Use Kit's Garden:</CardHeader>
+                        <CardBody>
+                         <CardText>
+                        This application is an online repository for everyone's garden plants. <br/>
+                        <br/>
+                        Once you <span style={{color:"green"}}>"Login"</span>, through the <span style={{color:"green"}}>"Upload"</span> tab you can store images of a plant, update images as it grows, as well as log 
+                        information about it.<br/> 
+                        <br/> 
+                        All uploaded plants go to the shared <a href="/garden"><span  style={{color:"blue"}}>"Garden"</span> </a> tab which is a searchable collection of plants. For each plant image you can "favorite" it by selecting the heart button overlaying the image which will
+                        save the plant within your personalized <span style={{color:"green"}}> "My Garden" </span> tab. <br/> 
+                        <br/> 
+
+                        Have fun exploring the garden and I welcome you to contribute some plants :)  
+                
+                         </CardText>
+                        </CardBody>
+                    </Card>
+
+
+                    <Card style = {{marginBottom:"5px"}}>
                         <CardHeader style={header} className=" text-white">Facts At a Glance</CardHeader>
                         <CardBody>
                             <dl className="row p-1">
-                                <dt className="col-6">Started</dt>
+                                <dt className="col-6">Project Started</dt>
                                 <dd className="col-6">June, 2019</dd>
                                 <dt className="col-6">Major Stake Holder(s)</dt>
                                 <dd className="col-6">Kit + Rita</dd>
-                                <dt className="col-6">Last Year's Produce:</dt>
-                                <dd className="col-6">Peppers, beans, flowers</dd>
+                                <dt className="col-6">What We Grow</dt>
+                                <dd className="col-6">Peppers, flowers, basil</dd>
                                 <dt className="col-6">Employees</dt>
                                 <dd className="col-6">2.5</dd>
                             </dl>
@@ -89,12 +111,17 @@ function About(props) {
                     </Card>
                 </div>
 
+
+              
+             
+              
+
                 <div className="col-12">
                     <Card>
                         <CardBody className="bg-faded">
                             <blockquote className="blockquote">
                                 <p className="mb-0">"If you believe you can achieve."</p>
-                                <footer className="blockquote-footer">An Old Saying
+                                <footer className="blockquote-footer">-A Timeless Saying
                                 </footer>
                             </blockquote>
                         </CardBody>
@@ -104,7 +131,7 @@ function About(props) {
             </div>
             <div className="row row-content">
                 <div className="col-12">
-                    <h2>Corporate Leadership</h2>
+                    <h2>Contributors:</h2>
                 </div>
                 <div className="col-12">
                     <Media list>
@@ -122,7 +149,7 @@ const imgStyle = {
   }
 
   const positionBox = {
-    marginTop: "130px"
+    marginTop: "40px"
   }
 
   const header = {

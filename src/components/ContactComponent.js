@@ -71,7 +71,7 @@ class Contact extends Component {
                 <div className="row row-content">
                
                     <div className="col-12 col-md-6">
-                      <h3>Send us your Feedback</h3>
+                      <h3>Send Us Feedback/App Feature Requests:</h3>
                       <h4 style = {textStyle}>If you'd like some free pepper seeds include a mailing address within your feedback</h4>
                       <div className="col-12 ">
 
