@@ -147,6 +147,7 @@ class PlantDetails extends Component {
       this.toggleMainImageHandleClose = this.toggleMainImageHandleClose.bind(this);
 
       this.handleUpdate = this.handleUpdate.bind(this);
+      this.handleUpload = this.handleUpload.bind(this);
 
       this.handleMainImageUpdate = this.handleMainImageUpdate.bind(this);
         //this.test = this.test.bind(this);
@@ -285,9 +286,10 @@ class PlantDetails extends Component {
       handleUpload = () => {
       const { image } = this.state;
       if (this.state.image != null){
+
         let date = Date.now()
 
-        const uploadTask = storage.ref(`images/${date+ image.name}`).put(image);
+        const uploadTask = storage.ref(`images/${date+image.name}`).put(image);
         uploadTask.on(
           "state_changed",
           snapshot => {
@@ -305,7 +307,7 @@ class PlantDetails extends Component {
             // complete function ...
             storage
               .ref("images")
-              .child(date+ image.name)
+              .child(date+image.name)
               .getDownloadURL()
               .then(url => {
                 this.setState({ url });
