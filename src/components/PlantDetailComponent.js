@@ -49,44 +49,74 @@ function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggle
 }
 
 
-    function RenderPlant({plant,favorite, postFavorite, deleteFavorite, auth}){
-        return (   
+function RenderPlant({plant,favorite, postFavorite, deleteFavorite, auth}){
+
+
+const dataArray= [{category:"Description: ",data:plant.description}, {category:"Submitted By: ", data: plant.submittedBy}];
+
+
+if(plant.scoville){
+    let scovilleString = plant.scoville +" Scoville Units"
+    dataArray.push({category: "Description: ", data: scovilleString})
+}
+if(plant.source){
+    let sourceString = plant.source
+    dataArray.push({category:"Seed Source: ",data: sourceString})
+}
+if(plant.category){
+    let categoryString =  plant.category
+    dataArray.push({category:"Category:" ,data:categoryString})
+}
+if(plant.sown){
+    let sownString = plant.sown
+    dataArray.push({category:"Plant Sown", data:sownString})
+}
+if(plant.transplant){
+    let transplantString = plant.transplant
+    dataArray.push({category:"Transplant Date: ", data:transplantString})
+}
+if(plant.fruits){
+    let fruitString =  plant.fruits
+    dataArray.push({category:"# Fruits: ", data: fruitString})
+}
+
+if(dataArray != null){
+
+    const rendata = dataArray.map((info) =>
+
+  <div key={info._id}>
+  <span style = {hot}>{info.category}</span> <span > {info.data} </span> <br/>
+   <br/>
+    </div>  
+    )
+
+return (   
         
-       <Card key={plant.id}>
-           <CardImg width="100%" top src={plant.image} alt={plant.name} />
-           <CardImgOverlay>
-                                <Button outline style={buttonStyle} onClick={() =>auth.isAuthenticated ? favorite ? deleteFavorite(plant._id) : postFavorite(plant._id) : alert("login first to use favorite button")}>
-                                    {favorite ?
-                                        <span className="fa fa-heart"></span>
-                                        : 
-                                        <span className="fa fa-heart-o"></span>
-                                    }
-                                </Button>
-        </CardImgOverlay>
-        <CardTitle>{plant.name} </CardTitle>
-        <CardText>
-        
-        <span style = {hot}>Description:</span>{plant.description} <br/>
-        <br/>
-        <span style = {hot}>Submitted By:</span> {plant.submittedBy}<br/>
-        <br/>
-        {plant.scoville? <span> <span style = {hot}> Hotness:</span>{plant.scoville} Scoville Units </span> : null}<br/>
-        <br/>
-        {plant.source? <span> <span style = {hot}>Seed Source:</span> {plant.source} </span> : null}<br/>
-        <br/>
-        {plant.category?<span > <span style = {hot}> Category:</span> {plant.category}  </span> : null}<br/>
-        <br/>
-        {plant.sown?<span><span style = {hot}> Plant Sown:</span> {plant.sown}  </span> : null}<br/>
-        <br/>
-        {plant.transplant?<span> <span style = {hot}>Transplant Date:</span> {plant.transplant}  </span> : null} <br/>
-        <br/>
-        { plant.fruits? <span> <span style = {hot}># Fruits:</span> {plant.fruits}  </span> : null } <br/>                          
-        <br/>
-        </CardText>  
-         
-       </Card> 
+    <Card key={plant.id}>
+        <CardImg width="100%" top src={plant.image} alt={plant.name} />
+        <CardImgOverlay>
+                             <Button outline style={buttonStyle} onClick={() =>auth.isAuthenticated ? favorite ? deleteFavorite(plant._id) : postFavorite(plant._id) : alert("login first to use favorite button")}>
+                                 {favorite ?
+                                     <span className="fa fa-heart"></span>
+                                     : 
+                                     <span className="fa fa-heart-o"></span>
+                                 }
+                             </Button>
+     </CardImgOverlay>
+     <CardTitle>{plant.name} </CardTitle>
+     <CardText>
+     
+     {rendata}
+     
+     </CardText>  
       
-        )}
+    </Card> 
+   
+     )
+      
+   }
+
+      }
        
        
        
