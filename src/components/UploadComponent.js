@@ -8,6 +8,8 @@ import { Control,Form, Errors} from 'react-redux-form';
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => val && (val.length >= len);
 
+
+
 class Upload extends Component {
 
     constructor(props) {
@@ -73,6 +75,7 @@ class Upload extends Component {
         this.props.postPlant(values.source,this.state.url, values.name, values.description, values.scoville,values.category, this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email,values.sown,values.transplant,values.fruits);
         this.props.resetPlantForm();
         alert("Success! Thank you for adding a plant to the garden!")
+        
       }
       else{
         alert("You need to add a plant name + descrption before submitting") 

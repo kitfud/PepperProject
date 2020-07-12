@@ -8,6 +8,8 @@ import {Modal, ModalHeader, ModalBody,
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
+
+
 function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggleCommentModal, auth}){
 
 
