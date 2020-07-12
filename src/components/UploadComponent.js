@@ -4,25 +4,34 @@ import { Link } from 'react-router-dom';
 import React, { Component } from "react";
 import { storage } from '../firebase/firebase';
 import { Control,Form, Errors} from 'react-redux-form';
-
+import {  Redirect} from 'react-router-dom'
 const required = (val) => val && val.length;
-const minLength = (len) => (val) => val && (val.length >= len);
-
 
 
 class Upload extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
           image: null,
           url: "",
           progress: 0,
 
-     
+          formsubmitted:this.props.submitted
+
+        
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+      }
+      componentDidMount(){
+        console.log("recent is now:" + this.props.recent)
+      
+      }
+
+      resetProps(){
+        this.props.resetProps();
       }
 
       handleChange = e => {
@@ -34,6 +43,7 @@ class Upload extends Component {
     
       handleUpload = () => {
       const { image } = this.state;
+
       if (this.state.image != null){
 
         let date = Date.now()
@@ -72,9 +82,15 @@ class Upload extends Component {
 
      dataCheck(values){
       if(values.name.length !==0 && values.description.length !== 0){
+     
+   
         this.props.postPlant(values.source,this.state.url, values.name, values.description, values.scoville,values.category, this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email,values.sown,values.transplant,values.fruits);
-        this.props.resetPlantForm();
+      
+        this.props.resetPlantForm()
+        
         alert("Success! Thank you for adding a plant to the garden!")
+
+       
         
       }
       else{
@@ -96,7 +112,8 @@ class Upload extends Component {
     }
 
       render(){
-        return(
+        if(!this.state.formsubmitted){
+          return(
             <div className="container">
                    <div className="row col-12">
                     <Breadcrumb>
@@ -294,6 +311,21 @@ class Upload extends Component {
                 
             
         );
+        }
+        else{
+
+          this.resetProps();
+          return(
+         
+            <Redirect to={{
+              pathname: '/garden/'+this.props.recent,
+              
+            }} />
+          )
+        }
+        
+    
+   
     }
 
       }

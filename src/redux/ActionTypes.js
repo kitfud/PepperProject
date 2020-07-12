@@ -36,3 +36,6 @@ export const FILTER_PLANT = 'FILTER_PLANT';
 export const ADD_UPDATES = 'ADD_UPDATES';
 export const UPDATES_FAILED= 'UPDATES_FAILED';
 export const ADD_UPDATE = 'ADD_UPDATE';
+export const ADD_PLANTID= 'ADD_PLANTID';
+
+export const RESET_PROPS = 'RESET_PROPS';

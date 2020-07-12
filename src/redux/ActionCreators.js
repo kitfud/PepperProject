@@ -111,7 +111,8 @@ export const postPlant = (source,url,name, description, scoville, category, subm
         console.log('No user logged in!');
         return;
     }*/
-  
+    //dispatch(addPlantId("innerTEST"))
+
     return firestore.collection('plants').add({
         source:source,
         image: url,
@@ -133,9 +134,16 @@ export const postPlant = (source,url,name, description, scoville, category, subm
                 if (doc.exists) {
                   const data = doc.data();
                   const _id = doc.id;
+                  
                   let plant = {_id, ...data};
-                  dispatch(addPlant(plant))
-               
+                  
+                  var d = {}; 
+                  d.plant = plant
+                  //console.log("d.plant="+d.pant)
+                  d.individualId = _id
+                  console.log("d.individualId="+d.individualId)
+                  
+                  dispatch(addPlant(d)) 
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
@@ -151,15 +159,29 @@ export const postPlant = (source,url,name, description, scoville, category, subm
                 const _id = doc.id
                 plants.push({_id, ...data });
             });
+           
             return plants;
         })
         .then(plants => dispatch(addPlants(plants)))
         .catch(error => dispatch(plantsFailed(error.message)));
     })
-    .catch(error => { console.log('Post comments ', error.message);
-        alert('Your plant could not be posted\nError: '+ error.message); })
+
+    .catch(error => { console.log('Post plant ', error.message);
+    alert('Your plant could not be posted\nError: '+ error.message); })
+
+        
   }
 
+
+export const addPlantId = (plant) =>({
+    type: ActionTypes.ADD_PLANTID,
+    payload:plant
+   
+})
+
+export const resetProps = () => ({
+    type: ActionTypes.RESET_PROPS
+})
 
 
   export const addPlant = (plant) => ({

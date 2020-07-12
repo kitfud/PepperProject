@@ -10,15 +10,16 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import About from './AboutComponent';
-import $ from 'jquery';
+
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
+import {resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
 
   postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
   postUpdate: (plantId, image, comment) => dispatch(postUpdate(plantId, image, comment)),
+  resetProps: ()=> dispatch(resetProps()),
 
   fetchUpdates: () =>dispatch(fetchUpdates()),
   updateComment: (plantId, image, comment)=>dispatch(updateComment(plantId,image,comment)),
@@ -58,6 +59,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => {
   return {
+    recent: state.plants.recent,
+    submitted:state.plants.submitted,
     garden: state.plants,
     comments: state.comments,
     promotions: state.promotions,
@@ -199,7 +202,7 @@ class Main extends Component {
               <Route exact path='/garden' component={() => <Garden garden={this.props.garden} deletePlant ={this.props.deletePlant} />} />
               <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
               <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders}  />} />
-              <PrivateRoute exact path='/upload' component = {()=><Upload auth={this.props.auth} postPlant = {this.props.postPlant} resetPlantForm={this.props.resetPlantForm}/>} />
+              <PrivateRoute exact path='/upload' component = {()=><Upload auth={this.props.auth} resetProps = {this.props.resetProps} postPlant = {this.props.postPlant} resetPlantForm={this.props.resetPlantForm} recent={this.props.recent} submitted = {this.props.submitted}/>} />
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} plants={this.props.garden} deleteFavorite={this.props.deleteFavorite} auth ={this.props.auth} />} />
               <Redirect to="/home" />
           </Switch>
