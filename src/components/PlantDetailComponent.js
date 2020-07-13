@@ -8,6 +8,8 @@ import {Modal, ModalHeader, ModalBody,
     import { Control, LocalForm, Errors } from 'react-redux-form';
 import { storage } from '../firebase/firebase';
 
+import $ from 'jquery';
+import 'bootstrap';
 
 
 function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggleCommentModal, auth}){
@@ -20,7 +22,7 @@ function RenderUpdates({updates, deleteUpdate, plant,toggleMainImageModal,toggle
             <Card style = {cardStyle} >
             <p style = {textStyle}>{info.comment}</p>
             <CardBody>
-            <CardImg width="100%" top src={info.images}  />
+            <CardImg data-toggle="modal" data-target="#myModal" width="100%" top src={info.images} alt="" />
             </CardBody>
             <span className="fa fa-trash-o" onClick={() => (auth.isAuthenticated ===true && auth.user.displayName === plant.submittedBy) || (auth.isAuthenticated===true&&auth.user.email === plant.submittedBy) ? window.confirm('are you sure you want to delete this update?')? deleteUpdate(plant._id, info.images) :alert("another time"): alert("login to delete plants. You can only delete YOUR plants.")}></span>
             </Card>
@@ -86,15 +88,15 @@ if(dataArray != null){
 
     const rendata = dataArray.map((info) =>
 
-  <div key={info._id}>
+  <span key={info.data}>
   <span style = {hot}>{info.category}</span> <span > {info.data} </span> <br/>
    <br/>
-    </div>  
+    </span>  
     )
 
 return (   
         
-    <Card key={plant.id}>
+    <Card key={plant._id}>
         <CardImg width="100%" top src={plant.image} alt={plant.name} />
         <CardImgOverlay>
                              <Button outline style={buttonStyle} onClick={() =>auth.isAuthenticated ? favorite ? deleteFavorite(plant._id) : postFavorite(plant._id) : alert("login first to use favorite button")}>
@@ -194,6 +196,23 @@ class PlantDetails extends Component {
           progress: 0,
           updateURL:""
         };
+      }
+
+      componentDidMount(){
+
+        $(document).ready(function () {
+            $('img').on('click', function () {
+                var image = $(this).attr('src');
+                console.log(image)
+                $('#myModal').on('show.bs.modal', function () {
+                    $(".img-responsive").attr("src", image);
+                });
+              
+             
+            });
+        });
+
+      
       }
 
       toggleModal(){
@@ -473,6 +492,22 @@ class PlantDetails extends Component {
        return(
    
         <div className="container">
+
+<div id="myModal" className="modal fade" role="dialog">
+    <div className="modal-dialog" >
+        <div style = {modalContent} className="modal-content">
+            <div style={modalBody} className="modal-body">
+              
+                    
+                    <img id="previewImg" className="img-responsive" src="" alt=""/>
+                
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <Modal isOpen={this.state.showCommentModal} toggle={this.toggleCommentModalHandleClose}>
         <ModalHeader toggle={this.toggleCommentModalHandleClose}> Update Comment:</ModalHeader>
@@ -762,6 +797,7 @@ class PlantDetails extends Component {
         </Modal>  
 
      
+   
 
         <div className="row">
             <Breadcrumb>
@@ -815,6 +851,19 @@ class PlantDetails extends Component {
        
        }
 
+const modalBody ={
+    width: "100%",
+    height: "100%",
+    margin: "0",
+    padding: "0"
+
+}   
+
+const modalContent = {
+    height: "auto",
+    minHeight: "100%",
+    borderRadius: "0"
+}
 const linestyles = {
     border:"2px solid black"
 }       

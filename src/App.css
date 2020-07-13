@@ -205,6 +205,27 @@ color:yellow !important;
   }
 }
 
+#previewImg {
+  padding: 5px 5px 5px 5px;
+  margin-top:10px;
+  margin-bottom:10px;
+  max-height: 60vh;
+  max-width: 60vh;
+}
+
+@media screen and (max-width: 480px){
+  #previewImg {
+    padding: 5px 5px 5px 5px;
+    margin-top:10px;
+    margin-bottom:10px;
+    max-height: 60vh;
+    max-width: 40vh;
+  }
+}
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@ import $ from 'jquery'
 
 class Footer extends Component {
     componentDidMount() {
+        
         $(window).scroll(function() {
             var height = $(window).scrollTop();
             if (height > 100) {
