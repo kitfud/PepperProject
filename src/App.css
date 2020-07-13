@@ -161,24 +161,50 @@ progress{
 color:yellow !important;
 }
 
-#back2Top {
-  position: fixed;
-  bottom: 50px;
-  right: 0;
-  text-align: center;
-  margin-right: 10px;
-  color:black;
-}
 
 
-#back2Top:hover {
-  position: fixed;
-  bottom: 50px;
-  right: 0;
-  text-align: center;
-  margin-right: 10px;
-  color:red;
+@media(hover: hover) and (pointer: fine) {
+  #back2Top {
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    text-align: center;
+    margin-right: 10px;
+    color:black;
+  
+  }
+  #back2Top:hover{
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    text-align: center;
+    margin-right: 10px;
+    color:red;
+    
+  }
 }
+
+@media(hover: none) and (pointer: coarse) {
+  #back2Top {
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    text-align: center;
+    margin-right: 10px;
+    color:darkred;
+  
+  }
+  #back2Top:active{
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    text-align: center;
+    margin-right: 10px;
+    color:yellow;
+    
+  }
+}
+
 
 
 
