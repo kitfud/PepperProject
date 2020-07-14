@@ -199,7 +199,8 @@ class Main extends Component {
           <Switch>
               <Route path='/home' component={HomePage} />
               <Route path='/garden/:plantId' component={PlantWithId} />
-              <Route exact path='/garden' component={() => <Garden garden={this.props.garden} deletePlant ={this.props.deletePlant} />} />
+              <Route exact path='/garden' component={() => <Garden   plantsLoading={this.props.garden.isLoading}
+                plantsErrMess={this.props.garden.errMess} garden={this.props.garden} deletePlant ={this.props.deletePlant} />} />
               <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
               <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders}  />} />
               <PrivateRoute exact path='/upload' component = {()=><Upload auth={this.props.auth} resetProps = {this.props.resetProps} postPlant = {this.props.postPlant} resetPlantForm={this.props.resetPlantForm} recent={this.props.recent} submitted = {this.props.submitted}/>} />

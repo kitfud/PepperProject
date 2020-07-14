@@ -4,7 +4,18 @@ import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
 
-    function RenderGardenItem ({plant,deletePlant}) {
+    function RenderGardenItem ({plant,deletePlant,isLoading,errMess}) {
+        if (isLoading) {
+            return(
+                    <Loading />
+            );
+        }
+        else if (errMess) {
+            return(
+                    <h4>{errMess}</h4>
+            );
+        }
+        else 
         return (
             <Card
             >
@@ -48,7 +59,7 @@ class Garden extends Component  {
     const garden = filteredPlants.map((pepper) => {
         return (
             <div style= {styles} className="col-12 col-md-4 " key={pepper._id} >
-                <RenderGardenItem plant={pepper} onClick={this.props.onClick} deletePlant = {this.props.deletePlant}/>
+                <RenderGardenItem plant={pepper} onClick={this.props.onClick} deletePlant = {this.props.deletePlant} isLoading={this.props.plantsLoading} errMess ={this.props.plantsErrMess}/>
             </div>
         );
     });
