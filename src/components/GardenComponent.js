@@ -51,6 +51,7 @@ class Garden extends Component  {
   }
 
   render(){
+      
     const filteredPlants = this.state.plants.filter(plant =>{
         return plant.name.toLowerCase().includes(this.state.inputValue.toLowerCase())
     })
@@ -63,6 +64,7 @@ class Garden extends Component  {
             </div>
         );
     });
+    
     if (this.props.garden.isLoading) {
         return(
             <div className="container">

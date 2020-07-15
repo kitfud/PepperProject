@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import  Notification from './NotificationComponent';
 
 class Header extends Component {
     constructor(props) {
@@ -15,10 +16,12 @@ class Header extends Component {
         this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
         this.checkLogin = this.checkLogin.bind(this);
+        this.toggleNotificationModal = this.toggleNotificationModal.bind(this);
 
         this.state = {
           isNavOpen: false,
-          isModalOpen: false
+          isModalOpen: false,
+          isNotificationOpen:false,
         };
       }
 
@@ -34,6 +37,13 @@ class Header extends Component {
         this.setState({
             isModalOpen: !this.state.isModalOpen
         })
+    }
+
+    toggleNotificationModal(){
+        this.setState({
+            isNotificationOpen: !this.state.isNotificationOpen
+        })
+
     }
 
     handleLogin(event) {
@@ -68,6 +78,16 @@ class Header extends Component {
   render() {
     return(
         <div>
+            
+        <Modal isOpen={this.state.isNotificationOpen} toggle={this.toggleNotificationModal}>
+        <ModalHeader toggle={this.toggleNotificationModal}>Notifications</ModalHeader>
+        <ModalBody>
+
+            <Notification receiveLogin = {this.props.receiveLogin} auth={this.props.auth} plants={this.props.plants} comments = {this.props.comments}/>
+        
+        </ModalBody>
+        </Modal>
+
         <Navbar dark expand="md">
             
             <div className="container">
@@ -99,6 +119,11 @@ class Header extends Component {
                     </Nav>
                 </Collapse>
                 <Nav className="ml-auto" navbar>
+
+                    <NavItem onClick = {this.checkLogin}>
+                    <Button style={{marginRight:"20px"}} onClick={this.props.auth.isAuthenticated?this.toggleNotificationModal:null}><span className="fa fa-bell fa-lg"> Notifications</span> </Button>
+                    </NavItem>
+
                                 <NavItem>
                                 { !this.props.auth.isAuthenticated ?
                                         <Button onClick={this.toggleModal}>
@@ -135,6 +160,7 @@ class Header extends Component {
                 </div>
             </div>
         </Jumbotron>
+
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                     <ModalBody>

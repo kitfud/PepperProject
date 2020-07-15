@@ -499,10 +499,19 @@ export const loginError = (message) => {
 }
 
 export const loginUser = (creds) => (dispatch) => {
-    // We dispatch requestLogin to kickoff the call to the API
-    dispatch(requestLogin(creds))
 
+ 
+    // We dispatch requestLogin to kickoff the call to the API
+   
+    // We dispatch requestLogin to kickoff the call to the API
+    
+    
+return auth.setPersistence(fireauth.Auth.Persistence.SESSION).then(()=>{
+    dispatch(requestLogin(creds))
     return auth.signInWithEmailAndPassword(creds.username, creds.password)
+})
+   
+    
     .then(() => {
         var user = auth.currentUser;
         localStorage.setItem('user', JSON.stringify(user));
@@ -511,6 +520,7 @@ export const loginUser = (creds) => (dispatch) => {
         dispatch(receiveLogin(user));
     })
     .catch(error => dispatch(loginError(error.message)))
+ 
 };
 
 export const requestLogout = () => {
@@ -816,8 +826,8 @@ export const addFavorites = (favorites) => ({
 
 
 export const googleLogin = () => (dispatch) => {
+    
     const provider = new fireauth.GoogleAuthProvider();
-
     auth.signInWithPopup(provider)
         .then((result) => {
             var user = result.user;
@@ -829,6 +839,7 @@ export const googleLogin = () => (dispatch) => {
         .catch((error) => {
             dispatch(loginError(error.message));
         });
+    
 }
 
 export const facebookLogin =() => (dispatch)=>{

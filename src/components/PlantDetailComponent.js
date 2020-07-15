@@ -893,7 +893,7 @@ const align = {
     align: "center"
 }
 
-export default PlantDetails;
+
 
 const imageBox={
     marginBottom:"10px",
@@ -907,3 +907,5 @@ const imageBox={
     paddingLeft:"0px",
     color:"green"
   }
+
+  export default PlantDetails;

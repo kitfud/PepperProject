@@ -11,11 +11,14 @@ import Contact from './ContactComponent';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import About from './AboutComponent';
 
+
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
+import {receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
+  
+  receiveLogin: (creds) => dispatch(receiveLogin(creds)),
 
   postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
   postUpdate: (plantId, image, comment) => dispatch(postUpdate(plantId, image, comment)),
@@ -74,6 +77,10 @@ const mapStateToProps = state => {
 
 
 class Main extends Component {
+
+  
+
+
   componentDidMount() {
     this.props.fetchAllFav();
     this.props.fetchPlants();
@@ -81,19 +88,9 @@ class Main extends Component {
     this.props.fetchPromos();
     this.props.fetchLeaders();
     this.props.fetchFavorites();
-    this.props.fetchUpdates();
-    
+    this.props.fetchUpdates();    
   }
-
  
-
-  /*
-    onPlantSelect(plantId) {
-      this.setState({ selectedPlant: plantId});
-    }
-  */
-
-
     render() {
       const PlantWithId = ({match}) => {
         return(
@@ -193,6 +190,9 @@ class Main extends Component {
           logoutUser={this.props.logoutUser}
           googleLogin={this.props.googleLogin}
           facebookLogin = {this.props.facebookLogin}
+          comments = {this.props.comments}
+          plants = {this.props.garden}
+          receiveLogin = {this.props.receiveLogin}
           />
           <TransitionGroup location={this.props.location}>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
