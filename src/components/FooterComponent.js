@@ -6,7 +6,7 @@ class Footer extends Component {
         
         $(window).scroll(function() {
             var height = $(window).scrollTop();
-            if (height > 100) {
+            if (height > 150) {
                 $('#back2Top').fadeIn();
                
             } else {

@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import {receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
-  
+
   receiveLogin: (creds) => dispatch(receiveLogin(creds)),
 
   postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
@@ -77,10 +77,16 @@ const mapStateToProps = state => {
 
 
 class Main extends Component {
+  constructor(props) {
+    super(props);
 
-  
+    if(localStorage.getItem('user') != null){
+      this.props.receiveLogin(JSON.parse(localStorage.getItem('user')));
+    }
+    
 
-
+  }
+ 
   componentDidMount() {
     this.props.fetchAllFav();
     this.props.fetchPlants();
@@ -88,8 +94,11 @@ class Main extends Component {
     this.props.fetchPromos();
     this.props.fetchLeaders();
     this.props.fetchFavorites();
-    this.props.fetchUpdates();    
+    this.props.fetchUpdates();   
+   
   }
+
+  
  
     render() {
       const PlantWithId = ({match}) => {
@@ -109,6 +118,7 @@ class Main extends Component {
             updateMainPlantImage = {this.props.updateMainPlantImage}
             updateComment = {this.props.updateComment}
             allfavorites = {this.props.allfav}
+            login = {this.props.receiveLogin}
     
 
 
@@ -133,6 +143,7 @@ class Main extends Component {
             updateMainPlantImage = {this.props.updateMainPlantImage}
             updateComment = {this.props.updateComment}
             allfavorites = {this.props.allfav}
+            login = {this.props.receiveLogin}
 
             favorite={false}
             postFavorite={this.props.postFavorite}

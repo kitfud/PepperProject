@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from "react";
 import { storage } from '../firebase/firebase';
 import { Control,Form, Errors} from 'react-redux-form';
-import {  Redirect} from 'react-router-dom'
+import {  Redirect } from 'react-router-dom'
 const required = (val) => val && val.length;
 
 

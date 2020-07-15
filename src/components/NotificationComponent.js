@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; 
 
 
+
 class Notification extends Component {
 
 constructor(props){
@@ -8,17 +9,12 @@ constructor(props){
 
     this.state = {
         comments: this.props.comments.comments,
-        user: this.props.auth,
-        plants:this.props.plants.plants,
-     
+        user: JSON.parse(localStorage.getItem('user')),
+        plants:this.props.plants.plants,        
     }
   
 }
-componentDidMount(){
-    console.log("user"+ JSON.stringify(this.state.user))
-    
- 
-}
+
 
  
 render(){
@@ -26,7 +22,7 @@ render(){
     if(this.state.comments != null){
     
     
-    const userplants =this.state.plants.filter(element=> (element.submittedBy === this.state.user.user.displayName || element.submittedBy === this.state.user.user.email))
+    const userplants =this.state.plants.filter(element=> (element.submittedBy === this.state.user.displayName || element.submittedBy === this.state.user.email))
     
     const userplantIds = []
     userplants.forEach(element=> userplantIds.push(element._id))
@@ -37,8 +33,8 @@ render(){
   
   
   
-
-    const commentdata = filterdata.map(element=>{
+if(filterdata.length !==0){
+    var commentdata = filterdata.map(element=>{
         var seconds = new Date().getTime() / 1000;
 
         var planttime= new Date(Date.parse(element.createdAt.toDate()))
@@ -51,16 +47,23 @@ render(){
 
         return  (
         <div key={element._id}> 
-        <span style={hot}>{element.author.firstname}</span> <span style={spacer}> commented on: <a href={planturl}>{plant.name}</a></span> 
-        
+        <span style={hot}>{element.author.firstname}</span> <span style={spacer}> commented on: <a style = {linkstyle} href={planturl}>{plant.name}</a></span>
+
         <span style={spacer}>
         {days} days ago</span> 
          <br/>
         <br/>
+        <hr />
         </div> 
+         
        
         )
       })
+}
+else{
+    commentdata = <h1>No updates available. User comments on your uploaded plant(s) will appear here.</h1>
+}
+    
       
       
         
@@ -81,4 +84,8 @@ const hot = {
 
 const spacer = {
     marginLeft:"10px"
+}
+
+const linkstyle = {
+    color: "blue"
 }

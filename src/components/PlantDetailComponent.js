@@ -194,11 +194,15 @@ class PlantDetails extends Component {
           image: null,
           url: "",
           progress: 0,
-          updateURL:""
+          updateURL:"",
+         
         };
+        
       }
 
       componentDidMount(){
+       //console.log("user:"+JSON.stringify(this.state.user))
+      
 
         $(document).ready(function () {
             $('img').on('click', function () {

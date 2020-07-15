@@ -1,6 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { auth, firestore, fireauth, firebasestore,storage } from '../firebase/firebase';
-import {  } from 'firebase';
+import firebase from 'firebase';
+
 
 
 
@@ -505,13 +506,10 @@ export const loginUser = (creds) => (dispatch) => {
    
     // We dispatch requestLogin to kickoff the call to the API
     
-    
-return auth.setPersistence(fireauth.Auth.Persistence.SESSION).then(()=>{
-    dispatch(requestLogin(creds))
-    return auth.signInWithEmailAndPassword(creds.username, creds.password)
-})
-   
-    
+
+return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(()=>{
+    dispatch(requestLogin(creds)) 
+    return firebase.auth().signInWithEmailAndPassword(creds.username, creds.password)
     .then(() => {
         var user = auth.currentUser;
         localStorage.setItem('user', JSON.stringify(user));
@@ -519,6 +517,11 @@ return auth.setPersistence(fireauth.Auth.Persistence.SESSION).then(()=>{
         dispatch(fetchFavorites());
         dispatch(receiveLogin(user));
     })
+    
+})
+   
+    
+  
     .catch(error => dispatch(loginError(error.message)))
  
 };

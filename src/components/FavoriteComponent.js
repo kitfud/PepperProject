@@ -17,14 +17,17 @@ function RenderGardenItem({ plant, deleteFavorite }) {
                     {plant.name}   
                 </h3>
         </div>
-            <div class="card-body">
+            <div className="card-body">
             <Link style = {align} to={`/garden/${plant._id}`} >
                 <Media object width="80%" height="80%" src={plant.image} alt={plant.name} />
                 </Link>
                 <div className ="row">
                     <div className = "col-12">
                         <div style = {align}>
-                        <Button  style ={buttonAlign} outline color="danger" onClick={() => deleteFavorite(plant._id)}>
+                        <Button  style ={buttonAlign} outline color="danger" onClick={() => 
+                        deleteFavorite(plant._id)
+                        }>
+                            
                     <span className="fa fa-times"></span>
                 </Button>
                         </div>
@@ -76,103 +79,127 @@ function RenderUploadItems({plant}){
 
 const Favorites = (props) => {
 
-    const filterUploads = props.plants.plants.filter(plant => plant.submittedBy === props.auth.user.displayName || plant.submittedBy ===props.auth.user.email)
-    const uploads = filterUploads.map((plant) => {
-        return (
-           
-                <RenderUploadItems key={plant._id} plant={plant} />
-          
-        );
-    })    
+const filterUploads = props.plants.plants.filter(plant => plant.submittedBy === props.auth.user.displayName || plant.submittedBy ===props.auth.user.email)
+    
 
-    if (props.favorites.isLoading) {
-        return(
-            <div className="container">
-                <div className="row">
-                    <Loading />
-                </div>
-            </div>
-        );
+   const uploads =  filterUploads.map((plant) => {
+    if(filterUploads.length !==0){
+        return (
+               
+            <RenderUploadItems key={plant._id} plant={plant} />
+      
+    );
     }
-    else if (props.favorites.errMess) {
+    else{
         return(
-            <div className="container">
-                <div className="row">
-                    <h4>{props.favorites.errMess}</h4>
-                </div>
-            </div>
+            <h1>no uploads</h1>
         )
     }
-    else if (props.favorites.favorites.plants.length !==0 || uploads.length !==0) {
-     
-        console.log(props.plants.plants)
+          
+        }) 
+    
 
-        const favorites = props.favorites.favorites.plants.map((plantId) => {
-            let plant = props.plants.plants.filter((plant) => plant._id === plantId)[0];
-            if(plant === undefined){
-                return null
+if(props.favorites.favorites){
+    console.log(props.favorites.favorites)
+ if(props.favorites.favorites.plants.length >0){
+    var favorites = props.favorites.favorites.plants.map((plantId) => {
+        let plant = props.plants.plants.filter((plant) => plant._id === plantId)[0];
+        if(plant !=null){
+            return(
+                <RenderGardenItem  key={plant._id} plant={plant} deleteFavorite={props.deleteFavorite} />
+                    )
+        
+                }})
             }
-                return (
-                 
-                        <RenderGardenItem  key={plant._id} plant={plant} deleteFavorite={props.deleteFavorite} />
+        }
+    else{
+        favorites = 
+        <div className="container">
+        <div className="row">
+            <h4><span style={stylez}>You have no favorites yet!</span><br/>
+             <br/>
+             Head to the <a  href ="/garden"><span style ={styles}>Garden</span></a> and when you are logged in add some plants you like by clicking the heart symbol. Afterwards you will be able to see these plants and also the plants you have uploaded to the garden. You can also access My Garden by Uploading plant via the "Upload" tab above- be sure to log in first before using.</h4>
+        </div>
+    </div>
+        }
+            
+        
+ 
+          
+
+         
+                               
+        
+            if (props.favorites.isLoading) {
+                return(
+                    <div className="container">
+                        <div className="row">
+                            <Loading />
+                        </div>
+                    </div>
+                );
+            }
+            else if (props.favorites.errMess) {
+                return(
+                    <div className="container">
+                        <div className="row">
+                            <h4>{props.favorites.errMess}</h4>
+                        </div>
+                    </div>
+                )
+            }
+            else {
+        
+                return(
+                    <div className="container">
+                        <div className="row">
+                            <Breadcrumb>
+                                <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                                <BreadcrumbItem active>My Garden</BreadcrumbItem>
+                            </Breadcrumb>
+                            <div className="col-12">
+                                <h3>My Garden</h3>
+                                <hr />
+                            </div>
+                        </div>
+                        <div className="row">
+                       
+                            <div className="col-12 col-md-6">
+                            <h3>Favorites:</h3>
+                          <div className = "row">
+                          {favorites}
+                          </div>
+                            
+                           
+                               
+                            </div>
+                      
+                       
+                        <div className = "col-12 col-md-6">
+                                <h3>Uploaded Plants:</h3>
+                                <Media list>
+                                {uploads}
+                            </Media>
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
                     
                 );
-            })
-
-           
-
+            }
+        }
 
 
-        return(
-            <div className="container">
-                <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>My Garden</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>My Garden</h3>
-                        <hr />
-                    </div>
-                </div>
-                <div className="row">
-               
-                    <div className="col-12 col-md-6">
-                    <h3>Favorites:</h3>
-                  <div className = "row">
-                  {favorites}
-                  </div>
-                    
-                   
-                       
-                    </div>
-              
-               
-                <div className = "col-12 col-md-6">
-                        <h3>Uploaded Plants:</h3>
-                        <Media list>
-                        {uploads}
-                    </Media>
-                    </div>
-                
-                </div>
-            
-            </div>
-            
-        );
-    }
-    else {
-        return(
-            <div className="container">
-                <div className="row">
-                    <h4><span style={stylez}>You have no favorites yet!</span><br/>
-                     <br/>
-                     Head to the <a  href ="/garden"><span style ={styles}>Garden</span></a> and when you are logged in add some plants you like by clicking the heart symbol. Afterwards you will be able to see these plants and also the plants you have uploaded to the garden. You can also access My Garden by Uploading plant via the "Upload" tab above- be sure to log in first before using.</h4>
-                </div>
-            </div>
-        )
-    }
-}
+
+
+   
+        
+
+
+
+
+
 
 const styles = {
     color:"blue"

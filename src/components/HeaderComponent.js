@@ -5,6 +5,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
 import { NavLink } from 'react-router-dom';
 import  Notification from './NotificationComponent';
 
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -22,10 +23,9 @@ class Header extends Component {
           isNavOpen: false,
           isModalOpen: false,
           isNotificationOpen:false,
+          user: null
         };
       }
-
-
 
       toggleNav() {
         this.setState({
@@ -118,14 +118,21 @@ class Header extends Component {
                     </NavItem>
                     </Nav>
                 </Collapse>
+
+                <Nav navbar>
+                <NavItem onClick = {this.checkLogin}>
+                    <Button style={buttonBell} onClick={this.props.auth.isAuthenticated?this.toggleNotificationModal:null}><span className="fa fa-bell fa-lg"> </span> </Button>
+                    </NavItem>
+                    </Nav>
+
+
+
                 <Nav className="ml-auto" navbar>
 
-                    <NavItem onClick = {this.checkLogin}>
-                    <Button style={{marginRight:"20px"}} onClick={this.props.auth.isAuthenticated?this.toggleNotificationModal:null}><span className="fa fa-bell fa-lg"> Notifications</span> </Button>
-                    </NavItem>
+                   
 
                                 <NavItem>
-                                { !this.props.auth.isAuthenticated ?
+                                { this.props.auth.user ===null ?
                                         <Button onClick={this.toggleModal}>
                                             <span className="fa fa-sign-in fa-lg"></span> Login
                                             {this.props.auth.isFetching ?
@@ -136,7 +143,7 @@ class Header extends Component {
                                         :
                                         <div>
                                             
-                                        <div className="navbar-text mr-3">{this.props.auth.user.displayName?this.props.auth.user.displayName: this.props.auth.user.email}</div>
+                                        <div className="navbar-text mr-3">{this.props.auth.user.displayName ?this.props.auth.user.displayName: this.props.auth.user.email}</div>
                                         <Button onClick={this.handleLogout}>
                                             <span className="fa fa-sign-out fa-lg"></span> Logout
                                             {this.props.auth.isFetching ?
@@ -217,6 +224,11 @@ const styles ={
 
 const divStyle = {
     marginBottom : "20px" 
+}
+
+const buttonBell = {
+    background:"orange",
+    marginRight:"20px"
 }
 
 
