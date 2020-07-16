@@ -390,18 +390,6 @@ export const updatePlant = (plantId, source,name, description, scoville, categor
 
 export const deleteUpdate = (plantId,imageURL) => (dispatch) => {
 
-    /*
-    if (!auth.currentUser) {
-        console.log('No user logged in!');
-        return;
-    }
-
-    var user = auth.currentUser;
-
-*/
-
-
-
     return firestore.collection('updates').where('plant', '==', plantId).where('images','==',imageURL).get()
     .then(snapshot => {
         console.log(snapshot);
@@ -409,24 +397,12 @@ export const deleteUpdate = (plantId,imageURL) => (dispatch) => {
             console.log(doc.id);
             firestore.collection('updates').doc(doc.id).delete()
             .then(() => {
-/*
-                // Create a reference to the file to delete
-var desertRef = storage.refFromURL(imageURL)
-// Delete the file
-desertRef.delete().then(function() {
-  console.log("file deleted")
-}).catch(function(error) {
-  console.log("error deleting occured")
-});
-*/
+
 dispatch(fetchUpdates());
             })
         });
     })
     .catch(error => dispatch(updatesFailed(error.message)));
-
-
-
     
 };
 
@@ -486,6 +462,7 @@ export const addFeedback = (feedback) => ({
 }
   
 export const receiveLogin = (user) => {
+    
     return {
         type: ActionTypes.LOGIN_SUCCESS,
         user
@@ -499,32 +476,6 @@ export const loginError = (message) => {
     }
 }
 
-export const loginUser = (creds) => (dispatch) => {
-
- 
-    // We dispatch requestLogin to kickoff the call to the API
-   
-    // We dispatch requestLogin to kickoff the call to the API
-    
-
-return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(()=>{
-    dispatch(requestLogin(creds)) 
-    return firebase.auth().signInWithEmailAndPassword(creds.username, creds.password)
-    .then(() => {
-        var user = auth.currentUser;
-        localStorage.setItem('user', JSON.stringify(user));
-        // Dispatch the success action
-        dispatch(fetchFavorites());
-        dispatch(receiveLogin(user));
-    })
-    
-})
-   
-    
-  
-    .catch(error => dispatch(loginError(error.message)))
- 
-};
 
 export const requestLogout = () => {
     return {
@@ -568,23 +519,7 @@ export const updateComment = (plantId,image,comment)=>(dispatch) =>{
                 }
             )
             .then(() => {
-/*
-  return firestore.collection('plants').doc(plantId).update({
-                    image: updateURL,
-                    modifiedAt: firebasestore.FieldValue.serverTimestamp(),
-                })
 
-
-
-                // Create a reference to the file to delete
-var desertRef = storage.refFromURL(imageURL)
-// Delete the file
-desertRef.delete().then(function() {
-  console.log("file deleted")
-}).catch(function(error) {
-  console.log("error deleting occured")
-});
-*/
 dispatch(fetchUpdates());
             })
         });
@@ -826,24 +761,141 @@ export const addFavorites = (favorites) => ({
     payload: favorites
 });
 
+export const loginUser = (creds) => (dispatch) => {
 
+    dispatch(requestLogin(creds)) 
+    return firebase.auth().signInWithEmailAndPassword(creds.username, creds.password)
+    .then(() => {
+
+        var user = auth.currentUser;
+        //console.log("user:"+ JSON.stringify(user))
+        
+        Promise.resolve(user).then(()=>{
+        //console.log("inner user:" + user.email)
+
+        return firestore.collection('users').where('user', '==', user.email).get()
+        .then(snapshot => {
+          var id = [];
+            snapshot.forEach(doc => {
+                //const data = doc.data()
+                const item = doc.id
+                id.push(item)
+                //console.log("document data:"+ JSON.stringify(data))
+                //console.log("id:"+ JSON.stringify(id))
+                 
+               
+            });
+            return id;
+              
+        })
+        .then((id) => { 
+        //id[0] is the first document to turn up with criteria for update
+        console.log("object id =" + id[0])
+        
+        if(id[0] !== undefined){
+            return firestore.collection('users').doc(id[0]).update({
+                loginAt: firebasestore.FieldValue.serverTimestamp(),
+            })
+            
+        }
+        else{
+            return firestore.collection('users').add({
+                user: user.email,
+                loginAt: firebasestore.FieldValue.serverTimestamp(),
+                updates: false
+            
+            }) 
+        }
+
+        })
+
+        .then(()=>{
+        localStorage.setItem('user', JSON.stringify(user));
+        //Dispatch the success action
+        dispatch(fetchFavorites());
+        dispatch(receiveLogin(user))
+        })
+       
+
+       
+        .catch(error => dispatch(loginError(error.message)))   
+  
+})
+})
+}
 
 export const googleLogin = () => (dispatch) => {
     
     const provider = new fireauth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
-        .then((result) => {
+    .then((result) => {
             var user = result.user;
-            localStorage.setItem('user', JSON.stringify(user));
-            // Dispatch the success action
-            dispatch(fetchFavorites());
-            dispatch(receiveLogin(user));
+
+            Promise.resolve(user).then(()=>{
+                //console.log("inner user:" + user.email)
+        
+                return firestore.collection('users').where('user', '==', user.displayName).get()
+                .then(snapshot => {
+                  var id = [];
+                    snapshot.forEach(doc => {
+                        //const data = doc.data()
+                        const item = doc.id
+                        id.push(item)
+                        //console.log("document data:"+ JSON.stringify(data))
+                        //console.log("id:"+ JSON.stringify(id))
+                         
+                       
+                    });
+                    return id;
+                      
+                })
+                .then((id) => { 
+                //id[0] is the first document to turn up with criteria for update
+                console.log("object id =" + id[0])
+                
+                if(id[0] !== undefined){
+                    return firestore.collection('users').doc(id[0]).update({
+                        loginAt: firebasestore.FieldValue.serverTimestamp(),
+                    })
+                    
+                }
+                else{
+                    return firestore.collection('users').add({
+                        user: user.displayName,
+                        loginAt: firebasestore.FieldValue.serverTimestamp(),
+                        updates:false
+                    
+                    }) 
+                }
+        
+                })
+        
+                .then(()=>{
+                localStorage.setItem('user', JSON.stringify(user));
+                //Dispatch the success action
+                dispatch(fetchFavorites());
+                dispatch(receiveLogin(user))
+                })
+               
+        
+               
+                .catch(error => dispatch(loginError(error.message)))   
+          
         })
-        .catch((error) => {
-            dispatch(loginError(error.message));
-        });
+        })
     
 }
+
+
+
+
+
+
+
+
+
+
+
 
 export const facebookLogin =() => (dispatch)=>{
 const provider = new fireauth.FacebookAuthProvider();  
@@ -851,13 +903,57 @@ const provider = new fireauth.FacebookAuthProvider();
 auth.signInWithPopup(provider)
 .then((result) => {
     var user = result.user;
-    localStorage.setItem('user', JSON.stringify(user));
-    // Dispatch the success action
-    dispatch(fetchFavorites());
-    dispatch(receiveLogin(user));
+    Promise.resolve(user).then(()=>{
+        //console.log("inner user:" + user.email)
+
+        return firestore.collection('users').where('user', '==', user.displayName).get()
+        .then(snapshot => {
+          var id = [];
+            snapshot.forEach(doc => {
+                //const data = doc.data()
+                const item = doc.id
+                id.push(item)
+                //console.log("document data:"+ JSON.stringify(data))
+                //console.log("id:"+ JSON.stringify(id))
+                 
+               
+            });
+            return id;
+              
+        })
+        .then((id) => { 
+        //id[0] is the first document to turn up with criteria for update
+        console.log("object id =" + id[0])
+        
+        if(id[0] !== undefined){
+            return firestore.collection('users').doc(id[0]).update({
+                loginAt: firebasestore.FieldValue.serverTimestamp(),
+            })
+            
+        }
+        else{
+            return firestore.collection('users').add({
+                user: user.displayName,
+                loginAt: firebasestore.FieldValue.serverTimestamp(),
+                updates:false
+            
+            }) 
+        }
+
+        })
+
+        .then(()=>{
+        localStorage.setItem('user', JSON.stringify(user));
+        //Dispatch the success action
+        dispatch(fetchFavorites());
+        dispatch(receiveLogin(user))
+        })
+       
+
+       
+        .catch(error => dispatch(loginError(error.message)))   
+  
 })
-.catch((error) => {
-    dispatch(loginError(error.message));
-});
+})
 
 }

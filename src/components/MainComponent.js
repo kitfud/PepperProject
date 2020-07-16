@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import {receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
-
+ 
   receiveLogin: (creds) => dispatch(receiveLogin(creds)),
 
   postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
@@ -81,7 +81,7 @@ class Main extends Component {
     super(props);
 
     if(localStorage.getItem('user') != null){
-      this.props.receiveLogin(JSON.parse(localStorage.getItem('user')));
+      this.props.receiveLogin(JSON.parse(localStorage.getItem('user')));   
     }
     
 
