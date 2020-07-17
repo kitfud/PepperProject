@@ -39,3 +39,6 @@ export const ADD_UPDATE = 'ADD_UPDATE';
 export const ADD_PLANTID= 'ADD_PLANTID';
 
 export const RESET_PROPS = 'RESET_PROPS';
+export const DATA_SUCCESS = 'DATA_SUCCESS';
+
+export const DATA_SEEN='DATA_SEEN'

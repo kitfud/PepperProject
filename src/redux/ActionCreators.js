@@ -839,7 +839,7 @@ export const addFavorites = (favorites) => ({
 });
 
 export const loginUser = (creds) => (dispatch) => {
-
+console.log("loggin in")
     dispatch(requestLogin(creds)) 
     return firebase.auth().signInWithEmailAndPassword(creds.username, creds.password)
     .then(() => {
@@ -852,7 +852,7 @@ export const loginUser = (creds) => (dispatch) => {
 
         return firestore.collection('users').where('user', '==', user.email).get()
         .then(snapshot => {
-          var id = [];
+          var id = []
             snapshot.forEach(doc => {
                 //const data = doc.data()
                 const item = doc.id
@@ -867,26 +867,40 @@ export const loginUser = (creds) => (dispatch) => {
         })
         .then((id) => { 
         //id[0] is the first document to turn up with criteria for update
-        console.log("object id =" + id[0])
+        //console.log("object id* =" + id[0])
         
-        if(id[0] !== undefined){
-            return firestore.collection('users').doc(id[0]).update({
-                loginAt: firebasestore.FieldValue.serverTimestamp(),
-            })
-            
-        }
-        else{
-            return firestore.collection('users').add({
-                user: user.email,
-                loginAt: firebasestore.FieldValue.serverTimestamp(),
-                updates: false
-            
-            }) 
-        }
-
+       firestore.collection('users').doc(id[0]).get()
+        .then((docRef) => {
+            let data = docRef.data()
+            let updates=  data.updates
+        console.log("UPDATS ARE:"+ updates)
+           dispatch(receiveUpdates(updates))
         })
+        .catch((error) => {console.log("error on getting doc") })
+        
 
         .then(()=>{
+            if(id[0] !== undefined){
+                return firestore.collection('users').doc(id[0]).update({
+                    loginAt: firebasestore.FieldValue.serverTimestamp(),
+                })
+                
+            }
+            else{
+                return firestore.collection('users').add({
+                    user: user.email,
+                    loginAt: firebasestore.FieldValue.serverTimestamp(),
+                    updates: false
+                
+                }) 
+            }
+        })
+        
+
+        })
+    
+        .then(()=>{
+        console.log(JSON.stringify(user))
         localStorage.setItem('user', JSON.stringify(user));
         //Dispatch the success action
         dispatch(fetchFavorites());
@@ -897,8 +911,24 @@ export const loginUser = (creds) => (dispatch) => {
        
         .catch(error => dispatch(loginError(error.message)))   
   
+}
+)
 })
-})
+}
+
+export const receiveUpdates = (data) => {
+    
+    return {
+        type: ActionTypes.DATA_SUCCESS,
+        data
+    }
+}
+
+export const toggleSeen = () => {
+    
+    return {
+        type: ActionTypes.DATA_SEEN
+    }
 }
 
 export const googleLogin = () => (dispatch) => {
@@ -910,11 +940,9 @@ export const googleLogin = () => (dispatch) => {
 
 
             Promise.resolve(user).then(()=>{
-                //console.log("inner user:" + user.email)
-        
                 return firestore.collection('users').where('user', '==', user.displayName).get()
                 .then(snapshot => {
-                  var id = [];
+                  var id = []
                     snapshot.forEach(doc => {
                         //const data = doc.data()
                         const item = doc.id
@@ -929,26 +957,40 @@ export const googleLogin = () => (dispatch) => {
                 })
                 .then((id) => { 
                 //id[0] is the first document to turn up with criteria for update
-                console.log("object id =" + id[0])
+                //console.log("object id* =" + id[0])
                 
-                if(id[0] !== undefined){
-                    return firestore.collection('users').doc(id[0]).update({
-                        loginAt: firebasestore.FieldValue.serverTimestamp(),
-                    })
-                    
-                }
-                else{
-                    return firestore.collection('users').add({
-                        user: user.displayName,
-                        loginAt: firebasestore.FieldValue.serverTimestamp(),
-                        updates:false
-                    
-                    }) 
-                }
-        
+               firestore.collection('users').doc(id[0]).get()
+                .then((docRef) => {
+                    let data = docRef.data()
+                    let updates=  data.updates
+                console.log("UPDATS ARE:"+ updates)
+                   dispatch(receiveUpdates(updates))
                 })
+                .catch((error) => {console.log("error on getting doc") })
+                
         
                 .then(()=>{
+                    if(id[0] !== undefined){
+                        return firestore.collection('users').doc(id[0]).update({
+                            loginAt: firebasestore.FieldValue.serverTimestamp(),
+                        })
+                        
+                    }
+                    else{
+                        return firestore.collection('users').add({
+                            user: user.displayName,
+                            loginAt: firebasestore.FieldValue.serverTimestamp(),
+                            updates: false
+                        
+                        }) 
+                    }
+                })
+                
+        
+                })
+            
+                .then(()=>{
+                console.log(JSON.stringify(user))
                 localStorage.setItem('user', JSON.stringify(user));
                 //Dispatch the success action
                 dispatch(fetchFavorites());
@@ -958,8 +1000,10 @@ export const googleLogin = () => (dispatch) => {
         
                
                 .catch(error => dispatch(loginError(error.message)))   
-          
-        })
+ 
+        }
+       
+        )
         })
     
 }
@@ -982,11 +1026,9 @@ auth.signInWithPopup(provider)
 .then((result) => {
     var user = result.user;
     Promise.resolve(user).then(()=>{
-        //console.log("inner user:" + user.email)
-
         return firestore.collection('users').where('user', '==', user.displayName).get()
         .then(snapshot => {
-          var id = [];
+          var id = []
             snapshot.forEach(doc => {
                 //const data = doc.data()
                 const item = doc.id
@@ -1001,26 +1043,40 @@ auth.signInWithPopup(provider)
         })
         .then((id) => { 
         //id[0] is the first document to turn up with criteria for update
-        console.log("object id =" + id[0])
+        //console.log("object id* =" + id[0])
         
-        if(id[0] !== undefined){
-            return firestore.collection('users').doc(id[0]).update({
-                loginAt: firebasestore.FieldValue.serverTimestamp(),
-            })
-            
-        }
-        else{
-            return firestore.collection('users').add({
-                user: user.displayName,
-                loginAt: firebasestore.FieldValue.serverTimestamp(),
-                updates:false
-            
-            }) 
-        }
-
+       firestore.collection('users').doc(id[0]).get()
+        .then((docRef) => {
+            let data = docRef.data()
+            let updates=  data.updates
+        console.log("UPDATS ARE:"+ updates)
+           dispatch(receiveUpdates(updates))
         })
+        .catch((error) => {console.log("error on getting doc") })
+        
 
         .then(()=>{
+            if(id[0] !== undefined){
+                return firestore.collection('users').doc(id[0]).update({
+                    loginAt: firebasestore.FieldValue.serverTimestamp(),
+                })
+                
+            }
+            else{
+                return firestore.collection('users').add({
+                    user: user.displayName,
+                    loginAt: firebasestore.FieldValue.serverTimestamp(),
+                    updates: false
+                
+                }) 
+            }
+        })
+        
+
+        })
+    
+        .then(()=>{
+        console.log(JSON.stringify(user))
         localStorage.setItem('user', JSON.stringify(user));
         //Dispatch the success action
         dispatch(fetchFavorites());
@@ -1031,7 +1087,8 @@ auth.signInWithPopup(provider)
        
         .catch(error => dispatch(loginError(error.message)))   
   
-})
+}
+)
 })
 
 }

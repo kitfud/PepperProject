@@ -14,9 +14,10 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {resolveNotifications, receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage} from '../redux/ActionCreators';
+import {resolveNotifications, receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage, toggleSeen} from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
+  toggleSeen: ()=> dispatch(toggleSeen()),
   resolveNotifications: (user)=> dispatch(resolveNotifications(user)),
   receiveLogin: (creds) => dispatch(receiveLogin(creds)),
 
@@ -71,7 +72,10 @@ const mapStateToProps = state => {
     favorites: state.favorites,
     allfav: state.favorites.allfav,
     auth: state.auth,
-    updates: state.updates
+    updates: state.updates,
+   
+
+   
   }
 }
 
@@ -81,12 +85,18 @@ class Main extends Component {
     super(props);
 
     if(localStorage.getItem('user') != null){
-      this.props.receiveLogin(JSON.parse(localStorage.getItem('user')));   
+      this.props.receiveLogin(JSON.parse(localStorage.getItem('user')));  
+      
     }
     
+    this.test = this.test.bind(this);
 
   }
- 
+
+  test = () => {
+    console.log(this.props.auth.userUpdates)
+  }
+
   componentDidMount() {
     this.props.fetchAllFav();
     this.props.fetchPlants();
@@ -95,6 +105,8 @@ class Main extends Component {
     this.props.fetchLeaders();
     this.props.fetchFavorites();
     this.props.fetchUpdates();   
+
+  
    
   }
 
@@ -190,7 +202,8 @@ class Main extends Component {
                 
             )} />
           );
-      
+        
+        
 
       return (
         <div>
@@ -204,6 +217,7 @@ class Main extends Component {
           plants = {this.props.garden}
           receiveLogin = {this.props.receiveLogin}
           resolveNotifications = {this.props.resolveNotifications}
+          toggleSeen = {this.props.toggleSeen}
           />
           <TransitionGroup location={this.props.location}>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
@@ -220,6 +234,7 @@ class Main extends Component {
           </Switch>
           </CSSTransition>
           </TransitionGroup>
+          <button type="button" onClick= {this.test}> Test Button Click Me!</button>
           <Footer/>
      
         </div>

@@ -23,7 +23,8 @@ class Header extends Component {
           isNavOpen: false,
           isModalOpen: false,
           isNotificationOpen:false,
-          user: null
+          user: null,
+       
         };
       }
 
@@ -43,7 +44,7 @@ class Header extends Component {
         this.setState({
             isNotificationOpen: !this.state.isNotificationOpen
         })
-        
+       this.props.toggleSeen(); 
        
     }
 
@@ -123,11 +124,22 @@ class Header extends Component {
                     </Nav>
                 </Collapse>
 
-                <Nav navbar>
-                <NavItem onClick = {this.checkLogin}>
-                    <Button style={buttonBell} onClick={this.props.auth.isAuthenticated?this.toggleNotificationModal:null}><span className="fa fa-bell fa-lg"> </span> </Button>
-                    </NavItem>
-                    </Nav>
+                {this.props.auth.userUpdates === true ?
+                 <Nav navbar>
+                 <NavItem onClick = {this.checkLogin}>
+                 <Button style={buttonBell} onClick={this.props.auth.isAuthenticated?this.toggleNotificationModal:null}><span className="fa fa-bell fa-lg"> </span> </Button>
+                 </NavItem>
+                 </Nav>
+                 :
+                 <Nav navbar>
+                 <NavItem onClick = {this.checkLogin}>
+                 <Button style={buttonBellNo} onClick={this.props.auth.isAuthenticated?this.toggleNotificationModal:null}><span className="fa fa-bell fa-lg"> </span> </Button>
+                 </NavItem>
+                 </Nav>
+            
+            
+            }
+                   
 
 
 
@@ -231,7 +243,12 @@ const divStyle = {
 }
 
 const buttonBell = {
-    background:"orange",
+    background:"yellow",
+    marginRight:"20px"
+}
+
+const buttonBellNo = {
+    background:"lightGreen",
     marginRight:"20px"
 }
 

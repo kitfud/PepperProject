@@ -7,9 +7,14 @@ export const Auth = (state = {
         isLoading: false,
         isAuthenticated: false,
         user: null,
+        userUpdates: null,
         errMess: null
     }, action) => {
     switch (action.type) {
+        case ActionTypes.DATA_SEEN:
+            return {...state,
+                userUpdates:false
+            };
         case ActionTypes.LOGIN_REQUEST:
             return {...state,
                 isLoading: true,
@@ -22,6 +27,10 @@ export const Auth = (state = {
                 errMess: '',
                 user: action.user
             };
+        case ActionTypes.DATA_SUCCESS:
+            return {...state,
+                userUpdates: action.data
+            }
         case ActionTypes.LOGIN_FAILURE:
             return {...state,
                 isLoading: false,
@@ -38,7 +47,8 @@ export const Auth = (state = {
                 isLoading: false,
                 isAuthenticated: false,
                 token: '',
-                user: null
+                user: null,
+                userUpdates:null
             };
         default:
             return state
