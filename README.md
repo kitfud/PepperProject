@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The react-redux state management was scaffolded out to handle uni-directional data flow and the sharing of props. There are a lot of feature to discover in this app and the key ones to highlight involve the plant detail pages and the "my garden tab." Users can keep tabs of how many other people "heart" their plants and also will be notified by a color changing button whenever someone makes a comment on a picture of a plant they have uploaded. Additionally- per uploaded plant clients can update the info on the plant as it grows and can also add updated images of a specific plant (idea is to do this as it grows), to the "Plant Diary." I've implemented the app to be used with authentication via Google or Facebook- the admin fields for login are specific for my use during testing. 
+
+Backend: has been setup using Firebase cloud server in a non-relational database style. Many of the functions to query the back end database resembles what you would use in other non-relational databases (mongoDB). 
+
+With a backend implemented- if you want to use Firebase then you'll have to go about registering your app and connecting it to a clone/download of this repo. Afterwards, per succceful implementation of the tokens for Firebase, and also uploading some initial pictures of pepper plants into the database to match what must be rendered on the initial painting of the DOM--> these scripts will be available to you:
 
 ## Available Scripts
 
