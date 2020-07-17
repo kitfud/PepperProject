@@ -27,7 +27,7 @@ class Footer extends Component {
     render(){
         return(
             <div className="footer">
-                <span className="fa fa-angle-double-up  fa-2x" aria-hidden="true" id="back2Top" title="Back to Top">  </span>
+                <span className="fa fa-angle-double-up  fa-3x" aria-hidden="true" id="back2Top" title="Back to Top">  </span>
                 <div className="container">
                     <div className="row justify-content-center">             
                         <div className="col-4 offset-1 col-sm-2">

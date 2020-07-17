@@ -72,7 +72,7 @@ export const addComments = (comments) => ({
 
 export const postComment = (plantId, comment,author,plantOwner) => (dispatch) => {
 
-alert("plant owner: "+ plantOwner)
+//alert("plant owner: "+ plantOwner)
 
   if (!auth.currentUser) {
       console.log('No user logged in!');
@@ -141,11 +141,15 @@ alert("plant owner: "+ plantOwner)
 
  })
       })
+.then(()=>{
+    //added to kick of the state change listener for user updates, on main component
+    dispatch(fetchComments())
+})
    
 }
 
 export const resolveNotifications =  (user) => () => {
-console.log(user)
+///console.log(user)
 let userName = user.displayName ? user.displayName : user.email
 
     
@@ -838,6 +842,39 @@ export const addFavorites = (favorites) => ({
     payload: favorites
 });
 
+export const refreshUpdates = (user) =>(dispatch)=> {
+    return firestore.collection('users').where('user', '==', user).get()
+    .then(snapshot => {
+      var id = []
+        snapshot.forEach(doc => {
+            //const data = doc.data()
+            const item = doc.id
+            id.push(item)
+            //console.log("document data:"+ JSON.stringify(data))
+            //console.log("id:"+ JSON.stringify(id))
+             
+           
+        });
+        return id;
+          
+    })
+    .then((id) => { 
+    //id[0] is the first document to turn up with criteria for update
+    //console.log("object id* =" + id[0])
+    
+   firestore.collection('users').doc(id[0]).get()
+    .then((docRef) => {
+        let data = docRef.data()
+        let updates=  data.updates
+    //console.log("UPDATeS ARE:"+ updates)
+       dispatch(receiveUpdates(updates))
+    })
+    .catch((error) => {console.log("error on getting doc") })
+
+
+})
+}
+
 export const loginUser = (creds) => (dispatch) => {
 console.log("loggin in")
     dispatch(requestLogin(creds)) 
@@ -873,7 +910,7 @@ console.log("loggin in")
         .then((docRef) => {
             let data = docRef.data()
             let updates=  data.updates
-        console.log("UPDATS ARE:"+ updates)
+        //console.log("UPDATeS ARE:"+ updates)
            dispatch(receiveUpdates(updates))
         })
         .catch((error) => {console.log("error on getting doc") })
@@ -963,7 +1000,8 @@ export const googleLogin = () => (dispatch) => {
                 .then((docRef) => {
                     let data = docRef.data()
                     let updates=  data.updates
-                console.log("UPDATS ARE:"+ updates)
+                    
+                //console.log("UPDATS ARE:"+ updates)
                    dispatch(receiveUpdates(updates))
                 })
                 .catch((error) => {console.log("error on getting doc") })
@@ -990,7 +1028,7 @@ export const googleLogin = () => (dispatch) => {
                 })
             
                 .then(()=>{
-                console.log(JSON.stringify(user))
+                //console.log(JSON.stringify(user))
                 localStorage.setItem('user', JSON.stringify(user));
                 //Dispatch the success action
                 dispatch(fetchFavorites());
@@ -1049,7 +1087,7 @@ auth.signInWithPopup(provider)
         .then((docRef) => {
             let data = docRef.data()
             let updates=  data.updates
-        console.log("UPDATS ARE:"+ updates)
+        //console.log("UPDATS ARE:"+ updates)
            dispatch(receiveUpdates(updates))
         })
         .catch((error) => {console.log("error on getting doc") })
@@ -1076,7 +1114,7 @@ auth.signInWithPopup(provider)
         })
     
         .then(()=>{
-        console.log(JSON.stringify(user))
+        //console.log(JSON.stringify(user))
         localStorage.setItem('user', JSON.stringify(user));
         //Dispatch the success action
         dispatch(fetchFavorites());

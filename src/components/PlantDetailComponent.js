@@ -299,7 +299,7 @@ class PlantDetails extends Component {
     toggleMainImageModal(val){
         if(this.props.auth.isAuthenticated){
             if(this.props.auth.user.displayName === this.props.plant.submittedBy || this.props.auth.user.email === this.props.plant.submittedBy){
-                console.log(val)
+                //console.log(val)
                 let input = val
                 this.setState({
                     updateURL: input,

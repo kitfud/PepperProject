@@ -14,9 +14,11 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {resolveNotifications, receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage, toggleSeen} from '../redux/ActionCreators';
+import {resolveNotifications, receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage, toggleSeen, refreshUpdates} from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
+
+  refreshUpdates: (user) => dispatch(refreshUpdates(user)),
   toggleSeen: ()=> dispatch(toggleSeen()),
   resolveNotifications: (user)=> dispatch(resolveNotifications(user)),
   receiveLogin: (creds) => dispatch(receiveLogin(creds)),
@@ -88,14 +90,11 @@ class Main extends Component {
       this.props.receiveLogin(JSON.parse(localStorage.getItem('user')));  
       
     }
-    
-    this.test = this.test.bind(this);
+
+  
 
   }
 
-  test = () => {
-    console.log(this.props.auth.userUpdates)
-  }
 
   componentDidMount() {
     this.props.fetchAllFav();
@@ -105,10 +104,19 @@ class Main extends Component {
     this.props.fetchLeaders();
     this.props.fetchFavorites();
     this.props.fetchUpdates();   
-
-  
+    
    
+
   }
+
+  componentDidUpdate(prevProps) {
+    //Typical usage, don't forget to compare the props
+    if(this.props.auth.user){
+      if (this.props.comments !== prevProps.comments) {
+        this.props.refreshUpdates(this.props.auth.user.displayName ? this.props.auth.user.displayName : this.props.auth.user.email)
+      }
+    }
+   }
 
   
  
@@ -234,7 +242,7 @@ class Main extends Component {
           </Switch>
           </CSSTransition>
           </TransitionGroup>
-          <button type="button" onClick= {this.test}> Test Button Click Me!</button>
+          
           <Footer/>
      
         </div>

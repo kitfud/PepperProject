@@ -53,7 +53,7 @@ if(filterdata.length !==0){
         <span style={hot}>{element.author.firstname}</span> <span style={spacer}> commented on: <a style = {linkstyle} href={planturl}>{plant.name}</a></span>
 
         <span style={spacer}>
-        {days} days ago</span> 
+        {parseInt(days) === 0? "today": days + " days ago"} </span> 
          <br/>
         <br/>
         <hr />
@@ -64,7 +64,7 @@ if(filterdata.length !==0){
       })
 }
 else{
-    commentdata = <h1>No updates available. User comments on your uploaded plant(s) will appear here.</h1>
+    commentdata = <div><h1>No updates available. User comments on your uploaded plant(s) will appear here.</h1> </div>
 }
     
       
