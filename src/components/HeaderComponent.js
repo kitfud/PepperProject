@@ -43,7 +43,8 @@ class Header extends Component {
         this.setState({
             isNotificationOpen: !this.state.isNotificationOpen
         })
-
+        
+       
     }
 
     handleLogin(event) {
@@ -74,6 +75,8 @@ class Header extends Component {
            alert("login first to access this tab")
        }   
     }
+
+   
   
   render() {
     return(
@@ -81,9 +84,10 @@ class Header extends Component {
             
         <Modal isOpen={this.state.isNotificationOpen} toggle={this.toggleNotificationModal}>
         <ModalHeader toggle={this.toggleNotificationModal}>Notifications</ModalHeader>
+        
         <ModalBody>
 
-            <Notification receiveLogin = {this.props.receiveLogin} auth={this.props.auth} plants={this.props.plants} comments = {this.props.comments}/>
+            <Notification resolveNotifications = {this.props.resolveNotifications} receiveLogin = {this.props.receiveLogin} auth={this.props.auth} plants={this.props.plants} comments = {this.props.comments}/>
         
         </ModalBody>
         </Modal>

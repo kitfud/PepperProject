@@ -31,7 +31,7 @@ constructor(props){
 
         handleLogin(values) {
         console.log('Current State is: ' + JSON.stringify(values));
-        this.props.postComment(this.props.plantId, values.comment, values.author);
+        this.props.postComment(this.props.plantId, values.comment, values.author, this.props.plantOwner);
         } 
 
         checkLogin(){

@@ -14,13 +14,13 @@ import About from './AboutComponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import {receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage } from '../redux/ActionCreators';
+import {resolveNotifications, receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage} from '../redux/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
- 
+  resolveNotifications: (user)=> dispatch(resolveNotifications(user)),
   receiveLogin: (creds) => dispatch(receiveLogin(creds)),
 
-  postComment: (plantId, author, comment) => dispatch(postComment(plantId, author, comment)),
+  postComment: (plantId, author, comment,plant) => dispatch(postComment(plantId, author, comment,plant)),
   postUpdate: (plantId, image, comment) => dispatch(postUpdate(plantId, image, comment)),
   resetProps: ()=> dispatch(resetProps()),
 
@@ -119,9 +119,7 @@ class Main extends Component {
             updateComment = {this.props.updateComment}
             allfavorites = {this.props.allfav}
             login = {this.props.receiveLogin}
-    
-
-
+            
             favorite={this.props.favorites.favorites.plants.some((plant) => plant === match.params.plantId)}
             postFavorite={this.props.postFavorite}
             deleteFavorite={this.props.deleteFavorite}
@@ -144,6 +142,7 @@ class Main extends Component {
             updateComment = {this.props.updateComment}
             allfavorites = {this.props.allfav}
             login = {this.props.receiveLogin}
+            
 
             favorite={false}
             postFavorite={this.props.postFavorite}
@@ -204,6 +203,7 @@ class Main extends Component {
           comments = {this.props.comments}
           plants = {this.props.garden}
           receiveLogin = {this.props.receiveLogin}
+          resolveNotifications = {this.props.resolveNotifications}
           />
           <TransitionGroup location={this.props.location}>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>

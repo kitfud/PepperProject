@@ -15,6 +15,9 @@ constructor(props){
   
 }
 
+componentDidMount(){
+    this.props.resolveNotifications(this.state.user)
+}
 
  
 render(){

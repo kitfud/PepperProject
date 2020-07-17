@@ -124,7 +124,7 @@ return (
        
        
        
-       function RenderComments({comments,postComment, plantId,deleteComment,auth}){  
+       function RenderComments({comments,postComment, plantId,deleteComment,auth, plant}){  
   
        if(comments != null){
         const rencomment = comments.map((info) => 
@@ -153,7 +153,7 @@ return (
                  {rencomment} 
                 
            
-           <CommentForm plantId={plantId} postComment={postComment} authenticate={auth}/> 
+           <CommentForm plantId={plantId} postComment={postComment} authenticate={auth} plantOwner = {plant.submittedBy}/> 
            </div> 
            )
        }
@@ -828,7 +828,8 @@ class PlantDetails extends Component {
                 postComment={this.props.postComment}
                 plantId={this.props.plant._id} 
                 deleteComment = {this.props.deleteComment}
-                auth={this.props.auth}/>
+                auth={this.props.auth}
+                plant = {this.props.plant}/>
             </div>
         </div>
 

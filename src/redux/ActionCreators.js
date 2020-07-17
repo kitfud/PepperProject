@@ -70,7 +70,9 @@ export const addComments = (comments) => ({
 
 
 
-export const postComment = (plantId, comment,author) => (dispatch) => {
+export const postComment = (plantId, comment,author,plantOwner) => (dispatch) => {
+
+alert("plant owner: "+ plantOwner)
 
   if (!auth.currentUser) {
       console.log('No user logged in!');
@@ -104,6 +106,81 @@ export const postComment = (plantId, comment,author) => (dispatch) => {
   })
   .catch(error => { console.log('Post comments ', error.message);
       alert('Your comment could not be posted\nError: '+ error.message); })
+
+
+.then(()=>{
+ //check the users document to see if updates flag is false,if false then turn true, update plant owner doc
+ return firestore.collection('users').where('user', '==', plantOwner).get()
+ .then(snapshot => {
+   var id = [];
+     snapshot.forEach(doc => {
+         //const data = doc.data()
+         const item = doc.id
+         id.push(item)
+         //console.log("document data:"+ JSON.stringify(data))
+         //console.log("id:"+ JSON.stringify(id))
+          
+        
+     });
+     return id;
+       
+ })
+ .then((id) => { 
+ //id[0] is the first document to turn up with criteria for update
+ console.log("object id =" + id[0])
+ 
+ if(id[0] !== undefined){
+     return firestore.collection('users').doc(id[0]).update({
+         updates: true,
+     })
+     
+ }
+ else{
+  console.log("error updating comment update boolean")
+ }
+
+ })
+      })
+   
+}
+
+export const resolveNotifications =  (user) => () => {
+console.log(user)
+let userName = user.displayName ? user.displayName : user.email
+
+    
+        return firestore.collection('users').where('user', '==', userName).get()
+        .then(snapshot => {
+          var id = [];
+            snapshot.forEach(doc => {
+                //const data = doc.data()
+                const item = doc.id
+                id.push(item)
+                //console.log("document data:"+ JSON.stringify(data))
+                //console.log("id:"+ JSON.stringify(id))
+                 
+               
+            });
+            return id;
+              
+        })
+        .then((id) => { 
+        //id[0] is the first document to turn up with criteria for update
+        console.log("object id =" + id[0])
+        
+        if(id[0] !== undefined){
+            return firestore.collection('users').doc(id[0]).update({
+                updates: false,
+            })
+            
+        }
+        else{
+         console.log("error updating comment update boolean")
+        }
+       
+        })
+        .catch(()=>console.log("resolving updates toggle error!"))
+            
 }
 
 export const postPlant = (source,url,name, description, scoville, category, submittedBy,sown,transplant,fruits) => (dispatch) => {
@@ -830,6 +907,7 @@ export const googleLogin = () => (dispatch) => {
     auth.signInWithPopup(provider)
     .then((result) => {
             var user = result.user;
+
 
             Promise.resolve(user).then(()=>{
                 //console.log("inner user:" + user.email)
