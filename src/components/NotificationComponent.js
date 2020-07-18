@@ -1,5 +1,4 @@
 import React, {Component} from 'react'; 
-import { auth } from 'firebase';
 import { Link } from 'react-router-dom';
 
 
@@ -18,7 +17,7 @@ constructor(props){
 
 componentDidMount(){
     this.props.resolveNotifications(this.state.user)
-    console.log(auth.currentUser? "CURRENT USER IS"+ auth.currentUser : "THERE IS NO CURRENT USER")
+    //console.log(auth.currentUser? "CURRENT USER IS"+ auth.currentUser : "THERE IS NO CURRENT USER")
 }
 
  

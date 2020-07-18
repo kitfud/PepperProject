@@ -98,7 +98,7 @@ export const postComment = (plantId, comment,author,plantOwner) => (dispatch) =>
  })
  .then((id) => { 
  //id[0] is the first document to turn up with criteria for update
- //console.log("object id =" + id[0])
+
  
  if(id[0] !== undefined){
      return firestore.collection('users').doc(id[0]).update({
@@ -141,7 +141,7 @@ let userName = user.displayName ? user.displayName : user.email
         })
         .then((id) => { 
         //id[0] is the first document to turn up with criteria for update
-        //console.log("object id =" + id[0])
+       
         
         if(id[0] !== undefined){
             return firestore.collection('users').doc(id[0]).update({
@@ -847,7 +847,7 @@ export const refreshUpdates = (user) =>(dispatch)=> {
     })
     .then((id) => { 
     //id[0] is the first document to turn up with criteria for update
-    //console.log("object id* =" + id[0])
+
     
    firestore.collection('users').doc(id[0]).get()
     .then((docRef) => {
@@ -891,7 +891,7 @@ export const loginUser = (creds) => (dispatch) => {
         })
         .then((id) => { 
         //id[0] is the first document to turn up with criteria for update
-        //console.log("object id* =" + id[0])
+  
         
        firestore.collection('users').doc(id[0]).get()
         .then((docRef) => {
@@ -981,7 +981,7 @@ export const googleLogin = () => (dispatch) => {
                 })
                 .then((id) => { 
                 //id[0] is the first document to turn up with criteria for update
-                //console.log("object id* =" + id[0])
+           
                 
                firestore.collection('users').doc(id[0]).get()
                 .then((docRef) => {
@@ -1060,7 +1060,7 @@ auth.signInWithPopup(provider)
         })
         .then((id) => { 
         //id[0] is the first document to turn up with criteria for update
-        //console.log("object id* =" + id[0])
+      
         
        firestore.collection('users').doc(id[0]).get()
         .then((docRef) => {
