@@ -88,7 +88,7 @@ class Header extends Component {
         
         <ModalBody>
 
-            <Notification resolveNotifications = {this.props.resolveNotifications} receiveLogin = {this.props.receiveLogin} auth={this.props.auth} plants={this.props.plants} comments = {this.props.comments}/>
+            <Notification closeModal = {this.toggleNotificationModal} resolveNotifications = {this.props.resolveNotifications} receiveLogin = {this.props.receiveLogin} auth={this.props.auth} plants={this.props.plants} comments = {this.props.comments}/>
         
         </ModalBody>
         </Modal>

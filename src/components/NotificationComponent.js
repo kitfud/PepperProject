@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
-
+import { auth } from 'firebase';
+import { Link } from 'react-router-dom';
 
 
 class Notification extends Component {
@@ -9,7 +10,7 @@ constructor(props){
 
     this.state = {
         comments: this.props.comments.comments,
-        user: JSON.parse(localStorage.getItem('user')),
+        user: this.props.auth.user,
         plants:this.props.plants.plants,        
     }
   
@@ -17,6 +18,7 @@ constructor(props){
 
 componentDidMount(){
     this.props.resolveNotifications(this.state.user)
+    console.log(auth.currentUser? "CURRENT USER IS"+ auth.currentUser : "THERE IS NO CURRENT USER")
 }
 
  
@@ -50,7 +52,7 @@ if(filterdata.length !==0){
 
         return  (
         <div key={element._id}> 
-        <span style={hot}>{element.author.firstname}</span> <span style={spacer}> commented on: <a style = {linkstyle} href={planturl}>{plant.name}</a></span>
+        <span style={hot}>{element.author.firstname}</span> <span style={spacer}> commented on: <Link onClick={this.props.closeModal} style = {linkstyle} to={planturl}>{plant.name}</Link></span>
 
         <span style={spacer}>
         {parseInt(days) === 0? "today": days + " days ago"} </span> 

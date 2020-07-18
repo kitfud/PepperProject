@@ -197,11 +197,14 @@ class PlantDetails extends Component {
           updateURL:"",
          
         };
+
+      
         
       }
 
       componentDidMount(){
        //console.log("user:"+JSON.stringify(this.state.user))
+    
       
 
         $(document).ready(function () {

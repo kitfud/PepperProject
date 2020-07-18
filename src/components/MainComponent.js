@@ -15,6 +15,7 @@ import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {resolveNotifications, receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage, toggleSeen, refreshUpdates} from '../redux/ActionCreators';
+import { auth } from 'firebase';
 
 const mapDispatchToProps = dispatch => ({
 
@@ -87,8 +88,8 @@ class Main extends Component {
     super(props);
 
     if(localStorage.getItem('user') != null){
-      this.props.receiveLogin(JSON.parse(localStorage.getItem('user')));  
-      
+      this.props.receiveLogin(JSON.parse(localStorage.getItem('user')))
+   //figure out how to fetch favorites or re-login
     }
 
   
@@ -115,7 +116,15 @@ class Main extends Component {
       if (this.props.comments !== prevProps.comments) {
         this.props.refreshUpdates(this.props.auth.user.displayName ? this.props.auth.user.displayName : this.props.auth.user.email)
       }
+
     }
+
+   if(this.props.auth.currentUser !== prevProps.currentUser){
+     this.props.fetchFavorites();
+   }
+
+   
+
    }
 
   
@@ -146,6 +155,7 @@ class Main extends Component {
             auth={this.props.auth} 
             updatePlant = {this.props.updatePlant}
             resetUpdatePlantForm = {this.props.resetUpdatePlantForm}
+            fetchFavorites = {this.props.fetchFavorites}
             />
           :
           <PlantDetails plant={this.props.garden.plants.filter((plant) => plant._id === match.params.plantId)[0]}
@@ -162,6 +172,7 @@ class Main extends Component {
             updateComment = {this.props.updateComment}
             allfavorites = {this.props.allfav}
             login = {this.props.receiveLogin}
+            fetchFavorites = {this.props.fetchFavorites}
             
 
             favorite={false}

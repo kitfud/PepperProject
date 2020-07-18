@@ -18,7 +18,7 @@ function RenderGardenItem({ plant, deleteFavorite }) {
                 </h3>
         </div>
             <div className="card-body">
-            <Link style = {align} to={`/garden/${plant._id}`} >
+           <Link style = {align} to={`/garden/${plant._id}`} > 
                 <Media object width="80%" height="80%" src={plant.image} alt={plant.name} />
                 </Link>
                 <div className ="row">

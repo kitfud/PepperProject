@@ -23,25 +23,7 @@ export const fetchPlants = () => (dispatch) => {
       .catch(error => dispatch(plantsFailed(error.message)));
 }
 
-export const plantsLoading = () => ({
-    type: ActionTypes.PLANTS_LOADING
-});
 
-export const plantsFailed = (errmess) => ({
-    type: ActionTypes.PLANTS_FAILED,
-    payload: errmess
-});
-
-export const addPlants = (plants) => ({
-    type: ActionTypes.ADD_PLANTS,
-    payload: plants
-});
-
-export const addComment = (comment) => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: comment
-    
-});
 
 export const fetchComments = () => (dispatch) => {    
   return firestore.collection('comments').get()
@@ -57,17 +39,6 @@ export const fetchComments = () => (dispatch) => {
   .then(comments => dispatch(addComments(comments)))
   .catch(error => dispatch(commentsFailed(error.message)));
 };
-
-export const commentsFailed = (errmess) => ({
-    type: ActionTypes.COMMENTS_FAILED,
-    payload: errmess
-});
-
-export const addComments = (comments) => ({
-    type: ActionTypes.ADD_COMMENTS,
-    payload: comments
-});
-
 
 
 export const postComment = (plantId, comment,author,plantOwner) => (dispatch) => {
@@ -254,22 +225,6 @@ export const postPlant = (source,url,name, description, scoville, category, subm
         
   }
 
-
-export const addPlantId = (plant) =>({
-    type: ActionTypes.ADD_PLANTID,
-    payload:plant
-   
-})
-
-export const resetProps = () => ({
-    type: ActionTypes.RESET_PROPS
-})
-
-
-  export const addPlant = (plant) => ({
-    type: ActionTypes.ADD_PLANT,
-    payload: plant
-});
 
 
 export const deleteComment = (comment) => (dispatch) => {
@@ -522,53 +477,6 @@ export const addFeedback = (feedback) => ({
 
   
   
-  export const leadersLoading = () => ({
-    type: ActionTypes.LEADERS_LOADING
-  });
-  
-  export const leadersFailed = (errmess) => ({
-    type: ActionTypes.LEADERS_FAILED,
-    payload: errmess
-  });
-  
-  export const addLeaders = (leaders) => ({
-    type: ActionTypes.ADD_LEADERS,
-    payload: leaders
-  });
-  
-  export const requestLogin = () => {
-    return {
-        type: ActionTypes.LOGIN_REQUEST
-    }
-}
-  
-export const receiveLogin = (user) => {
-    
-    return {
-        type: ActionTypes.LOGIN_SUCCESS,
-        user
-    }
-}
-  
-export const loginError = (message) => {
-    return {
-        type: ActionTypes.LOGIN_FAILURE,
-        message
-    }
-}
-
-
-export const requestLogout = () => {
-    return {
-      type: ActionTypes.LOGOUT_REQUEST
-    }
-}
-  
-export const receiveLogout = () => {
-    return {
-      type: ActionTypes.LOGOUT_SUCCESS
-    }
-}
 
 // Logs the user out
 export const logoutUser = () => (dispatch) => {
@@ -633,27 +541,9 @@ if(comment === undefined || comment.length ===0){
     })
     .catch(console.log("Error.nothing added"));
 
-    /*
-    .then(docRef => {
-        firestore.collection('update').doc(docRef.id).get()
-            .then(doc => {
-                if (doc.exists) {
-                    dispatch(fetchUpdates())
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such update document!");
-                }
-            });
-    })
-    .catch(error => dispatch(updateFailed(error.message)));
-    */
+
 }
 
-export const addUpdate = (image) => ({
-    type: ActionTypes.ADD_UPDATE,
-    payload: image
-    
-});
 
 export const fetchUpdates =()=> (dispatch) =>{
     return firestore.collection('updates').get()
@@ -696,20 +586,7 @@ export const fetchPromos = () => (dispatch) => {
         .then(promos => dispatch(addPromos(promos)))
         .catch(error => dispatch(promosFailed(error.message)));
   }
-  
-  export const promosLoading = () => ({
-      type: ActionTypes.PROMOS_LOADING
-  });
-  
-  export const promosFailed = (errmess) => ({
-      type: ActionTypes.PROMOS_FAILED,
-      payload: errmess
-  });
-  
-  export const addPromos = (promos) => ({
-      type: ActionTypes.ADD_PROMOS,
-      payload: promos
-  });
+
   export const postFavorite = (plantId) => (dispatch) => {
 
     if (!auth.currentUser) {
@@ -776,7 +653,7 @@ export const deleteFavorite = (plantId) => (dispatch) => {
 export const fetchFavorites = () => (dispatch) => {
 
     if (!auth.currentUser) {
-        console.log('No user logged in!');
+        console.log('No user logged in! FOR FAVS!');
         return;
     }
 
@@ -841,7 +718,117 @@ export const addFavorites = (favorites) => ({
     type: ActionTypes.ADD_FAVORITES,
     payload: favorites
 });
+export const addUpdate = (image) => ({
+    type: ActionTypes.ADD_UPDATE,
+    payload: image
+    
+});
+export const leadersLoading = () => ({
+    type: ActionTypes.LEADERS_LOADING
+  });
+  
+  export const leadersFailed = (errmess) => ({
+    type: ActionTypes.LEADERS_FAILED,
+    payload: errmess
+  });
+  
+  export const addLeaders = (leaders) => ({
+    type: ActionTypes.ADD_LEADERS,
+    payload: leaders
+  });
+  
+  export const requestLogin = () => {
+    return {
+        type: ActionTypes.LOGIN_REQUEST
+    }
+}
+  
+export const receiveLogin = (user) => {
+    
+    return {
+        type: ActionTypes.LOGIN_SUCCESS,
+        user
+    }
+}
+  
+export const loginError = (message) => {
+    return {
+        type: ActionTypes.LOGIN_FAILURE,
+        message
+    }
+}
 
+
+export const requestLogout = () => {
+    return {
+      type: ActionTypes.LOGOUT_REQUEST
+    }
+}
+  
+export const receiveLogout = () => {
+    return {
+      type: ActionTypes.LOGOUT_SUCCESS
+    }
+}
+export const addPlantId = (plant) =>({
+    type: ActionTypes.ADD_PLANTID,
+    payload:plant
+   
+})
+
+export const resetProps = () => ({
+    type: ActionTypes.RESET_PROPS
+})
+
+
+  export const addPlant = (plant) => ({
+    type: ActionTypes.ADD_PLANT,
+    payload: plant
+});
+
+export const commentsFailed = (errmess) => ({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: errmess
+});
+
+export const addComments = (comments) => ({
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
+});
+
+
+export const plantsLoading = () => ({
+    type: ActionTypes.PLANTS_LOADING
+});
+
+export const plantsFailed = (errmess) => ({
+    type: ActionTypes.PLANTS_FAILED,
+    payload: errmess
+});
+
+export const addPlants = (plants) => ({
+    type: ActionTypes.ADD_PLANTS,
+    payload: plants
+});
+
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+    
+});
+  export const promosLoading = () => ({
+      type: ActionTypes.PROMOS_LOADING
+  });
+  
+  export const promosFailed = (errmess) => ({
+      type: ActionTypes.PROMOS_FAILED,
+      payload: errmess
+  });
+  
+  export const addPromos = (promos) => ({
+      type: ActionTypes.ADD_PROMOS,
+      payload: promos
+  });
 export const refreshUpdates = (user) =>(dispatch)=> {
     return firestore.collection('users').where('user', '==', user).get()
     .then(snapshot => {
@@ -1045,14 +1032,6 @@ export const googleLogin = () => (dispatch) => {
         })
     
 }
-
-
-
-
-
-
-
-
 
 
 
