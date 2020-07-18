@@ -7,8 +7,8 @@ import { Loading } from './LoadingComponent';
 function RenderGardenItem({ plant, deleteFavorite }) {
     let plantHash = '#'+plant._id
     let plantHead = plant._id + 'head'
-    console.log(plantHash)
-    console.log(plantHead)
+    //console.log(plantHash)
+    //console.log(plantHead)
     return(
         <div className = "col-6">
    <div className="card h-100">
@@ -100,7 +100,7 @@ const filterUploads = props.plants.plants.filter(plant => plant.submittedBy === 
     
 
 if(props.favorites.favorites){
-    console.log(props.favorites.favorites)
+    //console.log(props.favorites.favorites)
  if(props.favorites.favorites.plants.length >0){
     var favorites = props.favorites.favorites.plants.map((plantId) => {
         let plant = props.plants.plants.filter((plant) => plant._id === plantId)[0];

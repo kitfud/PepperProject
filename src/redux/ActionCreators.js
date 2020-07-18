@@ -98,7 +98,7 @@ export const postComment = (plantId, comment,author,plantOwner) => (dispatch) =>
  })
  .then((id) => { 
  //id[0] is the first document to turn up with criteria for update
- console.log("object id =" + id[0])
+ //console.log("object id =" + id[0])
  
  if(id[0] !== undefined){
      return firestore.collection('users').doc(id[0]).update({
@@ -141,7 +141,7 @@ let userName = user.displayName ? user.displayName : user.email
         })
         .then((id) => { 
         //id[0] is the first document to turn up with criteria for update
-        console.log("object id =" + id[0])
+        //console.log("object id =" + id[0])
         
         if(id[0] !== undefined){
             return firestore.collection('users').doc(id[0]).update({
@@ -194,7 +194,7 @@ export const postPlant = (source,url,name, description, scoville, category, subm
                   d.plant = plant
                   //console.log("d.plant="+d.pant)
                   d.individualId = _id
-                  console.log("d.individualId="+d.individualId)
+                  //console.log("d.individualId="+d.individualId)
                   
                   dispatch(addPlant(d)) 
                 } else {
@@ -236,13 +236,13 @@ export const deleteComment = (comment) => (dispatch) => {
     }
 
     var user = auth.currentUser;
-    console.log(user.email)
-    console.log(user.displayName)
+    //console.log(user.email)
+    //console.log(user.displayName)
   
 
     return firestore.collection('comments').get()
     .then(snapshot => {
-        console.log(comment.author.firstname);
+        //console.log(comment.author.firstname);
     
             if(auth.currentUser.uid === comment.author._id || user.email=== comment.author.firstname){
             firestore.collection('comments').doc(comment._id).delete()
@@ -279,7 +279,7 @@ export const deletePlant = (plantId,url) => (dispatch) => {
     docRef.get().then(function(doc) {
         if (doc.exists) {
             let data = doc.data()
-            console.log("Document data:", data.submittedBy);
+            //console.log("Document data:", data.submittedBy);
 
             if(data.submittedBy === user.displayName || data.submittedBy === user.email){
                 firestore.collection('plants').doc(plantId).delete()  
@@ -324,9 +324,9 @@ export const updateMainPlantImage = (plantId, currentURL,updateURL,comment) =>(d
     }
 
     var user = auth.currentUser;
-    console.log(plantId)
-    console.log(user.email)
-    console.log(user.displayName)
+    //console.log(plantId)
+    //console.log(user.email)
+    //console.log(user.displayName)
 
     
     var docRef = firestore.collection("plants").doc(plantId);
@@ -334,7 +334,7 @@ export const updateMainPlantImage = (plantId, currentURL,updateURL,comment) =>(d
     docRef.get().then(function(doc) {
         if (doc.exists) {
             let data = doc.data()
-            console.log("Document data:", data.submittedBy);
+            //console.log("Document data:", data.submittedBy);
 
             if(data.submittedBy === user.displayName || data.submittedBy === user.email){
                return firestore.collection('plants').doc(plantId).update({
@@ -428,7 +428,7 @@ export const deleteUpdate = (plantId,imageURL) => (dispatch) => {
 
     return firestore.collection('updates').where('plant', '==', plantId).where('images','==',imageURL).get()
     .then(snapshot => {
-        console.log(snapshot);
+        //console.log(snapshot);
         snapshot.forEach(doc => {
             console.log(doc.id);
             firestore.collection('updates').doc(doc.id).delete()
@@ -668,7 +668,7 @@ export const fetchFavorites = () => (dispatch) => {
             const data = doc.data()
             favorites.plants.push(data.plant);
         });
-        console.log(favorites);
+        //console.log(favorites);
         return favorites;
     })
     .then(favorites => dispatch(addFavorites(favorites)))
@@ -689,7 +689,7 @@ export const fetchAllFav = () => (dispatch) => {
                 const _id = doc.id
                 fav.push({_id, ...data });
             });
-           console.log(fav);
+           //console.log(fav);
             return fav;
         })
         .then((fav) => dispatch(addAllFav(fav)))
@@ -924,7 +924,7 @@ console.log("loggin in")
         })
     
         .then(()=>{
-        console.log(JSON.stringify(user))
+        //console.log(JSON.stringify(user))
         localStorage.setItem('user', JSON.stringify(user));
         //Dispatch the success action
         dispatch(fetchFavorites());
