@@ -1,14 +1,13 @@
 import React from 'react';
-import { Media, Breadcrumb, BreadcrumbItem, Button, CardBody,CardText,Card } from 'reactstrap';
+import { Media, Breadcrumb, BreadcrumbItem, Button, CardBody,CardText,Card,Row,Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
 
 function RenderGardenItem({ plant, deleteFavorite }) {
-    let plantHash = '#'+plant._id
+  
     let plantHead = plant._id + 'head'
-    //console.log(plantHash)
-    //console.log(plantHead)
+
     return(
         <div className = "col-6">
    <div className="card h-100">
@@ -62,14 +61,20 @@ function RenderGardenItem({ plant, deleteFavorite }) {
 function RenderUploadItems({plant}){
     return(
         <Card>
-            <CardBody>
-            <Media tag="li">
-        <Media >
-        <Link to={`/garden/${plant._id}`} >
-            <Media heading  > {plant.name}</Media>
+            <CardBody >
+                <Row className="align-items-center">
+                    <Col>
+                   
+             <Link to={`/garden/${plant._id}`} >
+            <Media heading style={padding} > {plant.name}</Media>
             </Link>  
-        </Media>
-    </Media>
+            
+                    </Col>
+            
+                </Row>
+         
+               
+     
             </CardBody>
         </Card>
      
@@ -152,20 +157,20 @@ if(props.favorites.favorites){
         
                 return(
                     <div className="container">
-                        <div className="row">
+                        <div style={{marginBottom:"10px"}} className="row">
                             <Breadcrumb>
                                 <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
                                 <BreadcrumbItem active>My Garden</BreadcrumbItem>
                             </Breadcrumb>
                             <div className="col-12">
-                                <h3>My Garden</h3>
+                                <h3 >My Garden</h3>
                                 <hr />
                             </div>
                         </div>
                         <div className="row">
                        
-                            <div className="col-12 col-md-6">
-                            <h3>Favorites:</h3>
+                            <div style={{marginBottom:"20px"}} className="col-12 col-md-6">
+                            <h3 style={{color:"darkgreen"}}>Favorites:</h3>
                           <div className = "row">
                           {favorites}
                           </div>
@@ -175,9 +180,9 @@ if(props.favorites.favorites){
                             </div>
                       
                        
-                        <div className = "col-12 col-md-6">
-                                <h3>Uploaded Plants:</h3>
-                                <Media list>
+                        <div className = "col-12 col-md-6" style={alignItems}>
+                                <h3 style={{color:"darkgreen"}}>Uploaded Plants:</h3>
+                                <Media style={padding} list>
                                 {uploads}
                             </Media>
                             </div>
@@ -210,6 +215,14 @@ const stylez = {
 const align = {
     align: "center",
     marginBottom:"5px"
+}
+
+const padding = {
+   padding: "0px"
+}
+
+const alignItems = {
+    alignItems:"center"
 }
 
 const buttonAlign = {
