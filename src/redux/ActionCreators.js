@@ -268,9 +268,9 @@ export const deletePlant = (plantId,url) => (dispatch) => {
     }
 
     var user = auth.currentUser;
-    console.log(plantId)
-    console.log(user.email)
-    console.log(user.displayName)
+    //console.log(plantId)
+    //console.log(user.email)
+    //console.log(user.displayName)
 
 
     
@@ -375,9 +375,9 @@ export const updatePlant = (plantId, source,name, description, scoville, categor
     }
 
     var user = auth.currentUser;
-    console.log(plantId)
-    console.log(user.email)
-    console.log(user.displayName)
+    //console.log(plantId)
+    //console.log(user.email)
+    //console.log(user.displayName)
 
     
     var docRef = firestore.collection("plants").doc(plantId);
@@ -385,7 +385,7 @@ export const updatePlant = (plantId, source,name, description, scoville, categor
     docRef.get().then(function(doc) {
         if (doc.exists) {
             let data = doc.data()
-            console.log("Document data:", data.submittedBy);
+            //console.log("Document data:", data.submittedBy);
 
             if(data.submittedBy === user.displayName || data.submittedBy === user.email){
                return firestore.collection('plants').doc(plantId).update({
@@ -430,7 +430,7 @@ export const deleteUpdate = (plantId,imageURL) => (dispatch) => {
     .then(snapshot => {
         //console.log(snapshot);
         snapshot.forEach(doc => {
-            console.log(doc.id);
+            //console.log(doc.id);
             firestore.collection('updates').doc(doc.id).delete()
             .then(() => {
 
@@ -499,9 +499,9 @@ export const updateComment = (plantId,image,comment)=>(dispatch) =>{
     }
     return firestore.collection('updates').where('plant', '==', plantId).where('images','==',image).get()
     .then(snapshot => {
-        console.log(snapshot);
+        //console.log(snapshot);
         snapshot.forEach(doc => {
-            console.log(doc.id);
+            //console.log(doc.id);
             firestore.collection('updates').doc(doc.id).update(
                 {
                     comment: comment
@@ -631,9 +631,9 @@ export const deleteFavorite = (plantId) => (dispatch) => {
 
     return firestore.collection('favorites').where('user', '==', user.uid).where('plant', '==', plantId).get()
     .then(snapshot => {
-        console.log(snapshot);
+        //console.log(snapshot);
         snapshot.forEach(doc => {
-            console.log(doc.id);
+            //console.log(doc.id);
             firestore.collection('favorites').doc(doc.id).delete()
             .then(() => {
                
@@ -863,7 +863,7 @@ export const refreshUpdates = (user) =>(dispatch)=> {
 }
 
 export const loginUser = (creds) => (dispatch) => {
-console.log("loggin in")
+//console.log("loggin in")
     dispatch(requestLogin(creds)) 
     return firebase.auth().signInWithEmailAndPassword(creds.username, creds.password)
     .then(() => {
