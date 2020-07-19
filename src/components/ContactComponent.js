@@ -9,7 +9,7 @@ import { Redirect} from 'react-router-dom'
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const isNumber = (val) => !isNaN(Number(val));
+//const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 
@@ -297,12 +297,13 @@ class Contact extends Component {
     
 }
     }}
-
+/*
 const btnstyle = {
     margin:"10px 10px 10px 10px",
     background:"lightgray"
 
 }
+*/
 const align = {
     textAlgin:"center"
 }

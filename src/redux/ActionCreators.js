@@ -653,7 +653,7 @@ export const deleteFavorite = (plantId) => (dispatch) => {
 export const fetchFavorites = () => (dispatch) => {
 
     if (!auth.currentUser) {
-        console.log('No user logged in! FOR FAVS!');
+        //console.log('No user logged in as auth.currentUser at present');
         return;
     }
 

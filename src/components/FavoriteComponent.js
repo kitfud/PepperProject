@@ -1,5 +1,5 @@
 import React from 'react';
-import { Media, Breadcrumb, BreadcrumbItem, Button, CardBody,CardText,Card,Row,Col } from 'reactstrap';
+import { Media, Breadcrumb, BreadcrumbItem, Button, CardBody,Card,Row,Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
@@ -114,7 +114,12 @@ if(props.favorites.favorites){
                 <RenderGardenItem  key={plant._id} plant={plant} deleteFavorite={props.deleteFavorite} />
                     )
         
-                }})
+                }
+                else{
+                    return null;
+                }
+            })
+                
             }
         }
     else{

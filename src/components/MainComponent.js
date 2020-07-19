@@ -15,7 +15,7 @@ import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {resolveNotifications, receiveLogin,resetProps,fetchAllFav, updateComment,deleteUpdate, postUpdate, fetchUpdates, facebookLogin, updatePlant, deletePlant, postPlant, postFeedback,fetchLeaders,postComment, fetchPlants,fetchComments, fetchPromos,loginUser, logoutUser, fetchFavorites, googleLogin, postFavorite, deleteFavorite,deleteComment, updateMainPlantImage, toggleSeen, refreshUpdates} from '../redux/ActionCreators';
-import { auth } from 'firebase';
+
 
 const mapDispatchToProps = dispatch => ({
 
@@ -87,9 +87,9 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
+    //necessary for page relaoad and persisting login
     if(localStorage.getItem('user') != null){
       this.props.receiveLogin(JSON.parse(localStorage.getItem('user')))
-   //figure out how to fetch favorites or re-login
     }
 
   
@@ -103,7 +103,7 @@ class Main extends Component {
     this.props.fetchComments();
     this.props.fetchPromos();
     this.props.fetchLeaders();
-    this.props.fetchFavorites();
+    //this.props.fetchFavorites();
     this.props.fetchUpdates();   
     
    
@@ -111,19 +111,20 @@ class Main extends Component {
   }
 
   componentDidUpdate(prevProps) {
+
     //Typical usage, don't forget to compare the props
+    if(this.props.auth !== prevProps.auth){
+   
+        this.props.fetchFavorites()
+    
+
+    }
     if(this.props.auth.user){
       if (this.props.comments !== prevProps.comments) {
         this.props.refreshUpdates(this.props.auth.user.displayName ? this.props.auth.user.displayName : this.props.auth.user.email)
       }
 
     }
-
-   if(this.props.auth.currentUser !== prevProps.currentUser){
-     this.props.fetchFavorites();
-   }
-
-   
 
    }
 
