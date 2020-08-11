@@ -190,37 +190,11 @@ class Header extends Component {
                     <div> General Users login here via Google:</div>    
                     <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
                     <hr className="rounded"></hr>
-                    <div> General Users login here via Facebook:</div>    
-                    <Button color="primary" onClick={this.handleFacebookLogin}><span className="fa fa-facebook fa-lg"></span> Login with Facebook</Button>
                     <hr className="rounded"></hr>
                      <div>Don't have a Google account? Sign up here: 
                          <a target="_blank" rel="noopener noreferrer" href= "https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Fpc%3Dtopnav-about-n-en&flowName=GlifWebSignIn&flowEntry=SignUp">
                          HERE</a></div>
-                        <div>Want a Facebook account? Sign up here: 
-                         <a target="_blank" rel="noopener noreferrer" href= "https://www.facebook.com/r.php">
-                        HERE</a></div>
-                    <hr className="rounded"></hr>
-                    <div style={divStyle}>Admin login here:</div>
-                    <Form onSubmit={this.handleLogin}>
-                            <FormGroup>
-                                <Label htmlFor="username">Username</Label>
-                                <Input type="text" id="username" name="username"
-                                    innerRef={(input) => this.username = input} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="password">Password</Label>
-                                <Input type="password" id="password" name="password"
-                                    innerRef={(input) => this.password = input}  />
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" name="remember"
-                                    innerRef={(input) => this.remember = input}  />
-                                    Remember me
-                                </Label>
-                            </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Login</Button>
-                        </Form>
+                      
                         <p></p>
                         
                     </ModalBody>
