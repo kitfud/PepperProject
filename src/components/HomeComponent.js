@@ -40,9 +40,7 @@ function RenderCard({item , isLoading, errMess}) {
 function Home(props) {
     return(
         <div className="container">
-       
-
-            <div className="row align-items-start">
+       {props.auth ?  <div className="row align-items-start">
                 <div className="col-12 col-md m-1">
                     <a href = "/garden">
                     <RenderCard item={props.plant}
@@ -71,9 +69,14 @@ function Home(props) {
                     </a>
                     
                 </div>
-            </div>
+            </div>:<div style = {loginStyle}><em>Login First to Access Kit's Garden </em></div> }
+
+          
         </div>
     );
 }
 
+const loginStyle = {
+    fontSize: "20px"
+}
 export default Home;

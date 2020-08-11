@@ -79,7 +79,7 @@ class Garden extends Component  {
             <div className="container">
                 <div className="row"> 
                     <div className="col-12">
-                        <h4>{this.props.garden.errMess}</h4>
+                        <h4>Login to Access Kit's Garden</h4>
                     </div>
                 </div>
             </div>

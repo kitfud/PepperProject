@@ -44,7 +44,7 @@ function About(props) {
                 <div className="container">
                     <div className="row"> 
                         <div className="col-12">
-                            <h4>{props.leaders.errMess}</h4>
+                            <h4>Login to Access this Page and Kit's Garden</h4>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,9 @@ function About(props) {
         else
 
     return(
+      
         <div className="container">
+         
             <div className="row">
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>

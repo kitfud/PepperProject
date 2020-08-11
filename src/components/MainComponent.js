@@ -203,6 +203,8 @@ class Main extends Component {
                 leader={this.props.leaders.leaders.filter((leaders) => leaders.featured)[0]}
                 leaderLoading={this.props.leaders.isLoading}
                 leaderErrMess={this.props.leaders.errMess}
+
+               auth = {this.props.auth.user}
                 />
             );
           }
@@ -247,7 +249,7 @@ class Main extends Component {
               <Route exact path='/garden' component={() => <Garden   plantsLoading={this.props.garden.isLoading}
                 plantsErrMess={this.props.garden.errMess} garden={this.props.garden} deletePlant ={this.props.deletePlant} />} />
               <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
-              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders}  />} />
+              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} auth={this.props.auth.user} />} />
               <PrivateRoute exact path='/upload' component = {()=><Upload auth={this.props.auth} resetProps = {this.props.resetProps} postPlant = {this.props.postPlant} resetPlantForm={this.props.resetPlantForm} recent={this.props.recent} submitted = {this.props.submitted}/>} />
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} plants={this.props.garden} deleteFavorite={this.props.deleteFavorite} auth ={this.props.auth} />} />
               <Redirect to="/home" />

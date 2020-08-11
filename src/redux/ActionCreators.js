@@ -694,7 +694,7 @@ export const fetchAllFav = () => (dispatch) => {
         })
         .then((fav) => dispatch(addAllFav(fav)))
 
-        .catch(() => alert("error adding all fav"));
+        .catch(() => console.log("error adding all fav"));
   }
   export const addAllFav = (fav) => ({
     type: ActionTypes.ADD_ALLFAV,
@@ -929,6 +929,14 @@ export const loginUser = (creds) => (dispatch) => {
         //Dispatch the success action
         dispatch(fetchFavorites());
         dispatch(receiveLogin(user))
+
+        dispatch(fetchAllFav())
+        dispatch(fetchPlants())
+         dispatch(fetchComments())
+        dispatch(fetchPromos())
+         dispatch(fetchLeaders())
+         //this.props.fetchFavorites();
+         dispatch(fetchUpdates())   
         })
        
 
@@ -1016,6 +1024,14 @@ export const googleLogin = () => (dispatch) => {
      //Dispatch the success action
      dispatch(fetchFavorites());
      dispatch(receiveLogin(user));
+
+    dispatch(fetchAllFav())
+    dispatch(fetchPlants())
+     dispatch(fetchComments())
+    dispatch(fetchPromos())
+     dispatch(fetchLeaders())
+     //this.props.fetchFavorites();
+     dispatch(fetchUpdates())   
         
        
     }
@@ -1088,7 +1104,13 @@ localStorage.setItem('user', JSON.stringify(user));
 dispatch(fetchFavorites());
 dispatch(receiveLogin(user));
 
-
+  dispatch(fetchAllFav())
+    dispatch(fetchPlants())
+     dispatch(fetchComments())
+    dispatch(fetchPromos())
+     dispatch(fetchLeaders())
+     //this.props.fetchFavorites();
+     dispatch(fetchUpdates())   
 }
 )
 
