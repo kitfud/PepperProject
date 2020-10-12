@@ -1,72 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The react-redux state management was scaffolded out to handle uni-directional data flow and the sharing of props. There are a lot of feature to discover in this app and the key ones to highlight involve the plant detail pages and the "my garden tab." Users can keep tabs of how many other people "heart" their plants and also will be notified by a color changing button whenever someone makes a comment on a picture of a plant they have uploaded. Additionally- per uploaded plant clients can update the info on the plant as it grows and can also add updated images of a specific plant (idea is to do this as it grows), to the "Plant Diary." I've implemented the app to be used with authentication via Google or Facebook- the admin fields for login are specific for my use during testing. 
+This project was coded up with React JS and boostrapped with create-react-app. React Redux is implemented for state management and unidirectional data flow.
 
-Backend: has been setup using Firebase cloud server in a non-relational database style. Many of the functions to query the back end database resembles what you would use in other non-relational databases (mongoDB). 
+Deployed App: https://gardenserver-d4079.web.app/home
 
-With a backend implemented- if you want to use Firebase then you'll have to go about registering your app and connecting it to a clone/download of this repo. Afterwards, per succceful implementation of the tokens for Firebase, and also uploading some initial pictures of pepper plants into the database to match what must be rendered on the initial painting of the DOM--> these scripts will be available to you:
+![home](https://raw.githubusercontent.com/kitfud/PepperProject/master/KitsGardenPictures/home.png)
 
-## Available Scripts
+There are a lot of feature to discover in this app and the key ones to highlight involve the plant detail pages and the "my garden tab." Users can keep tabs of how many other people "heart" their plants and also will be notified by a color changing button whenever someone makes a comment on a picture of a plant they have uploaded. 
 
-In the project directory, you can run:
+Upload View~
+![upload](https://raw.githubusercontent.com/kitfud/PepperProject/master/KitsGardenPictures/upload.png)
 
-### `yarn start`
+Plant After Upload View~
+![plant](https://github.com/kitfud/PepperProject/blob/master/KitsGardenPictures/plant.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+A User's MyGarden View~
+![mygarden](https://raw.githubusercontent.com/kitfud/PepperProject/master/KitsGardenPictures/mygarden.png)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Additionally- per uploaded plant, a user can update the info on the plant (that they uploaded) as it grows and can also add updated images of a specific plant (idea is to do this as it grows!), to the "Plant Diary."
 
-### `yarn test`
+PlantDiary view at the bottom of each plant profile!~
+![plantdiary](https://raw.githubusercontent.com/kitfud/PepperProject/master/KitsGardenPictures/plantdiary.png)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Every "Heart" on a plant changes the overall number of "likes" recorded on the page view. Posting a comment on a plant changes the color of the bell symbol to yellow in the Navbar:
 
-### `yarn build`
+![hearts](https://raw.githubusercontent.com/kitfud/PepperProject/master/KitsGardenPictures/heartandnotification.png)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clicking the Bell Symbol When Authenticated in To View User Notifications~
+![notifications](https://raw.githubusercontent.com/kitfud/PepperProject/master/KitsGardenPictures/notification.png)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Backend Database: has been setup using Firebase cloud server in a non-relational database style for referencing documents about each plant + user upload. 
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
